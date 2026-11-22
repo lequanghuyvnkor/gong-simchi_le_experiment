@@ -1,0 +1,19 @@
+{
+  "SRDQN-A": {
+    "updates": 17485,
+    "max_abs_Q": 1.2525429725646973,
+    "last_TD": 0.05589338019490242
+  },
+  "Meta-HQL-P": {
+    "guards_total": 0,
+    "eliminated_actions": 2100,
+    "feedback_violations": 0,
+    "valid_arms_mean": 1.0
+  },
+  "Meta-HQL-T": {
+    "guards_total": 0,
+    "eliminated_actions": 0,
+    "feedback_violations": 0,
+    "valid_arms_mean": 7.0
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "scope": "Archived-metric reanalysis plus smoke and source-data preparation; no full benchmark retraining",
+  "checks": {
+    "snapshot": {
+      "scope": "Reanalysis of archived policy metrics; no full retraining",
+      "tables_checked": [
+        "comparison_primary.csv",
+        "comparison_sources.csv",
+        "secondary_break_even.csv",
+        "comparison_online.csv",
+        "comparison_long.csv",
+        "comparison_early.csv"
+      ],
+      "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+      "numpy": "2.3.5",
+      "pandas": "2.2.3"
+    },
+    "smoke": {
+      "scope": "700-period smoke run only, not the 18-condition result",
+      "diagnostics": {
+        "SRDQN-A": {
+          "updates": 160,
+          "max_abs_Q": 0.35122793912887573,
+          "last_TD": 0.04215526580810547
+        },
+        "Meta-HQL-P": {
+          "guards_total": 0,
+          "eliminated_actions": 0,
+          "feedback_violations": 0,
+          "valid_arms_mean": 1.0
+        },
+        "Meta-HQL-T": {
+          "guards_total": 0,
+          "eliminated_actions": 0,
+          "feedback_violations": 0,
+          "valid_arms_mean": 7.0
+        }
+      },
+      "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+      "numpy": "2.3.5",
+      "pandas": "2.2.3"
+    }
+  },
+  "date_client": "2026-11-23",
+  "clean_clone_checks": {
+    "snapshot": {
+      "scope": "Reanalysis of archived policy metrics; no full retraining",
+      "tables_checked": [
+        "comparison_primary.csv",
+        "comparison_sources.csv",
+        "secondary_break_even.csv",
+        "comparison_online.csv",
+        "comparison_long.csv",
+        "comparison_early.csv"
+      ],
+      "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+      "numpy": "2.3.5",
+      "pandas": "2.2.3"
+    },
+    "smoke": {
+      "scope": "700-period smoke run only, not the 18-condition result",
+      "diagnostics": {
+        "SRDQN-A": {
+          "updates": 160,
+          "max_abs_Q": 0.35122793912887573,
+          "last_TD": 0.04215526580810547
+        },
+        "Meta-HQL-P": {
+          "guards_total": 0,
+          "eliminated_actions": 0,
+          "feedback_violations": 0,
+          "valid_arms_mean": 1.0
+        },
+        "Meta-HQL-T": {
+          "guards_total": 0,
+          "eliminated_actions": 0,
+          "feedback_violations": 0,
+          "valid_arms_mean": 7.0
+        }
+      },
+      "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+      "numpy": "2.3.5",
+      "pandas": "2.2.3"
+    },
+    "prepare_data": {
+      "scope": "prepare-data",
+      "block": 0,
+      "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+      "numpy": "2.3.5",
+      "pandas": "2.2.3"
+    }
+  },
+  "embedded_pdf_zip_extraction": "Verified SHA-256 with pypdf; extracted into new directory",
+  "data_link": "Both original CSV SHA-256 checked; working copies created outside Git",
+  "input_integrity": {
+    "beer_rossmann_archive/bao_cao_tong_hop_du_lieu_va_thuat_toan.pdf": "ea59cbfd56a973d8ae5e7681ca7a7c978923576ba13af43c18cfeb13eb77cf6d",
+    "beer_rossmann_archive/README.md": "0c0116f2c0286a68c3e08af5a38b64ec6fbb4675421eac1b615cde3e01cbdbed",
+    "presentation/Gong_Simchi_2024_Script_Tieng_Viet_60_phut.docx": "48d42cd92fe13df3b2492a1e3ba23e348af2c8ca2caa51751b10954b042112ab",
+    "presentation/Gong_Simchi_2024_Blue_Yonder_Academic_60min_v4.pptx": "3f11b7a504ce467ce61cc104b9a88e614ff8c337a1a3967a36379c16f711d9ab"
+  }
+}

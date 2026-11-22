@@ -1,0 +1,34 @@
+{
+  "common_rows": 37680,
+  "beer_rows": 28260,
+  "rossmann_rows": 9420,
+  "series": 40,
+  "dates": 942,
+  "split_days": {
+    "train": 365,
+    "validation": 365,
+    "test": 212
+  },
+  "rossmann_stores": [
+    85,
+    262,
+    335,
+    423,
+    494,
+    562,
+    682,
+    733,
+    769,
+    1097
+  ],
+  "beer_items": [
+    5,
+    34,
+    46
+  ],
+  "duplicates": 0,
+  "missing_demand": 0,
+  "closed_days_after_selection": 0,
+  "train_normalized_mean": 1.0,
+  "beer_extension_rows": 26520
+}

@@ -1,0 +1,302 @@
+[
+  {
+    "series_id": "s01_i05",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 13.704109589041096,
+    "test_mean_normalized": 1.353503742141994,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s01_i34",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 19.410958904109588,
+    "test_mean_normalized": 1.3228878953724899,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s01_i46",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 43.74794520547945,
+    "test_mean_normalized": 1.3352512994525303,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s02_i05",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 19.364383561643837,
+    "test_mean_normalized": 1.3453556887673932,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s02_i34",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 27.7013698630137,
+    "test_mean_normalized": 1.3197725493262813,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s02_i46",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 63.175342465753424,
+    "test_mean_normalized": 1.3149080669707738,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s03_i05",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 17.17808219178082,
+    "test_mean_normalized": 1.3436139783609005,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s03_i34",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 24.24931506849315,
+    "test_mean_normalized": 1.3284254092027596,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s03_i46",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 55.69041095890411,
+    "test_mean_normalized": 1.3197840479164296,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s04_i05",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 16.115068493150684,
+    "test_mean_normalized": 1.338187267980265,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s04_i34",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 22.375342465753423,
+    "test_mean_normalized": 1.3347089158146537,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s04_i46",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 51.47397260273973,
+    "test_mean_normalized": 1.3161659492757696,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s05_i05",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 11.860273972602739,
+    "test_mean_normalized": 1.3173222680746621,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s05_i34",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 16.4,
+    "test_mean_normalized": 1.3226952720963598,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s05_i46",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 36.85205479452055,
+    "test_mean_normalized": 1.347718897826544,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s06_i05",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 11.520547945205479,
+    "test_mean_normalized": 1.3369319632838894,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s06_i34",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 16.2,
+    "test_mean_normalized": 1.3433314755704178,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s06_i46",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 37.47945205479452,
+    "test_mean_normalized": 1.3093175254597962,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s07_i05",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 10.4,
+    "test_mean_normalized": 1.3578606755761338,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s07_i34",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 14.605479452054794,
+    "test_mean_normalized": 1.3584842137244892,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s07_i46",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 33.85479452054795,
+    "test_mean_normalized": 1.3348227664287935,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s08_i05",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 18.71780821917808,
+    "test_mean_normalized": 1.3410347459609082,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s08_i34",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 26.457534246575342,
+    "test_mean_normalized": 1.314550080057887,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s08_i46",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 60.06575342465754,
+    "test_mean_normalized": 1.3218300329131027,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s09_i05",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 16.208219178082192,
+    "test_mean_normalized": 1.3075394788322423,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s09_i34",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 22.22739726027397,
+    "test_mean_normalized": 1.3465468857045397,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s09_i46",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 51.57260273972603,
+    "test_mean_normalized": 1.3329328830732718,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s10_i05",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 17.317808219178083,
+    "test_mean_normalized": 1.324478953290348,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s10_i34",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 23.627397260273973,
+    "test_mean_normalized": 1.3454435685479267,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  },
+  {
+    "series_id": "s10_i46",
+    "train_days": 365,
+    "test_days": 731,
+    "mean_scale": 56.01917808219178,
+    "test_mean_normalized": 1.3009761916916158,
+    "closed_test_days": 0,
+    "test_begin": "2016-01-01",
+    "test_end": "2017-12-31"
+  }
+]

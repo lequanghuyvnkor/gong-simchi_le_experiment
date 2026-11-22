@@ -13,10 +13,10 @@ Repo này tập hợp một ứng dụng mô phỏng để học mô hình tồn
 
 ## Tiến độ đợt 3–5 trong cloud
 
-- **Đợt 3: chuẩn bị một phần, chưa hoàn tất.** Có công cụ kiểm kê SHA-256 chỉ đọc
-  và [hướng dẫn tiếp nhận benchmark](benchmarks/beer_rossmann/README.md).
-  Chưa thấy `inputs/beer_rossmann_archive/` trong cloud ngày 2026-11-23; chưa có
-  mã/kết quả benchmark chính 18 điều kiện được nhập hoặc chạy lại.
+- **Đợt 3: đã đóng gói và kiểm tra phân tích kết quả lưu trữ.** ZIP nhúng trong
+  PDF đã cung cấp đủ mã/cấu hình. [Benchmark Beer–Rossmann](benchmarks/beer_rossmann/README.md)
+  có hai bản thích nghi, baseline, thiết kế 18 điều kiện, metric và bootstrap
+  tái tạo từ clone sạch; dữ liệu nguồn ở ngoài Git. Chưa huấn luyện lại toàn bộ.
 - **Đợt 4: chuẩn bị tài liệu, chưa hoàn tất.** [Hướng dẫn CFO](reports/cfo/README.md)
   nêu phạm vi giả định VND, cách tách học/sau học, TCO và hòa vốn. Chưa có
   mã, cấu hình, bảng hay báo cáo CFO từ archive để chạy và đối chiếu.
@@ -27,8 +27,9 @@ Repo này tập hợp một ứng dụng mô phỏng để học mô hình tồn
 Các thư mục đầu vào riêng và dữ liệu tải ngoài được bỏ qua bởi Git. Không đưa
 gói replication chính thức, dữ liệu hoặc tài liệu bên thứ ba lên repo khi chưa
 xác định quyền phân phối. Xem từng hướng dẫn để biết phần còn thiếu và cách chạy.
-Chủ dự án xác nhận các đầu vào còn trên Windows; [hướng dẫn chuyển đầu vào](docs/input_handoff.md)
-ghi tên ZIP, README, PPTX v4 và DOCX cần đưa vào cloud.
+Đã nhận PDF, README, PPTX v4 và DOCX. PDF chứa ZIP mã/dữ liệu/kết quả; bản gốc
+được giữ ngoài Git trong `/workspace/inputs/`. [Hướng dẫn đầu vào](docs/input_handoff.md)
+ghi lịch sử tiếp nhận và checksum trong tài liệu từng đợt.
 
 ## Cài đặt Python
 

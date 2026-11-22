@@ -85,9 +85,11 @@ def inspect(root: Path, required: list[str]) -> dict:
         if name in required and not group["files"]:
             report["errors"].append(f"No regular files in: {folder}")
         if name == "benchmark" and name in required:
+            layout = folder / "embedded_package" if (folder / "embedded_package").is_dir() else folder
+            group["layout_root"] = layout.relative_to(root).as_posix()
             for subdirectory in ("work", "outputs"):
-                if not (folder / subdirectory).is_dir():
-                    report["errors"].append(f"Missing directory: {folder / subdirectory}")
+                if not (layout / subdirectory).is_dir():
+                    report["errors"].append(f"Missing directory: {layout / subdirectory}")
     return report
 
 

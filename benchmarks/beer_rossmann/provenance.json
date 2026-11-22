@@ -1,0 +1,45 @@
+{
+  "source_pdf": {
+    "path": "beer_rossmann_archive/bao_cao_tong_hop_du_lieu_va_thuat_toan.pdf",
+    "bytes": 29733675,
+    "sha256": "ea59cbfd56a973d8ae5e7681ca7a7c978923576ba13af43c18cfeb13eb77cf6d"
+  },
+  "embedded_zip": {
+    "name": "ma_du_lieu_va_ket_qua.zip",
+    "sha256": "c47bb483fb54c63cc5401a39618656bc6befcd45e9773bd53c16ea0973df22b7"
+  },
+  "files": {
+    "benchmarks/beer_rossmann/research_run.py": {
+      "archive_path": "work/research_run.py",
+      "source_sha256": "df8e06559d5860341ea2f46ca2f454e9813ece3217b9c7ebe59b1eef5cc55256",
+      "changes": "Output root via GONG_RUN_DIR; sibling module import path. Algorithm and analysis formulas unchanged."
+    },
+    "benchmarks/beer_rossmann/condition_study.py": {
+      "archive_path": "work/condition_study.py",
+      "source_sha256": "16d1690e39d99087a02acf2c34ef677f6ec744d56a79f292c8355656b7282940",
+      "changes": "Output root via GONG_RUN_DIR; sibling module import path. Algorithm and analysis formulas unchanged."
+    },
+    "benchmarks/beer_rossmann/analyze_conditions.py": {
+      "archive_path": "work/analyze_conditions.py",
+      "source_sha256": "c66512a9d670737280cac491725b0eb49e1115c0095f83903528328533f4ec9f",
+      "changes": "Output root via GONG_RUN_DIR; sibling module import path. Algorithm and analysis formulas unchanged."
+    }
+  },
+  "scope": "Project-authored adapted implementations and policy cost metrics; source data and third-party screenshots excluded.",
+  "archive_manifest_checks": {
+    "condition_study": {
+      "checked": 58,
+      "mismatches": [
+        {
+          "path": "qa_report.json",
+          "expected": "30798ae34b24f1c43611077531b00cecc5af8988e450de2e91f846ad2889ffb2",
+          "actual": "93d20c9e768d8dc868d14e654534ca6d0696e3b8909e7d507db98fb56db31d08"
+        }
+      ]
+    },
+    "cfo_analysis": {
+      "checked": 9,
+      "mismatches": []
+    }
+  }
+}

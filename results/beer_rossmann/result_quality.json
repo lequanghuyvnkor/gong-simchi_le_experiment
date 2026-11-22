@@ -1,0 +1,26 @@
+{
+  "core": {
+    "rows": 21600,
+    "duplicates": 0,
+    "bounds_passed": true,
+    "max_cost_decomposition_error": 3.953756468888514e-07
+  },
+  "long": {
+    "rows": 1800,
+    "duplicates": 0,
+    "bounds_passed": true,
+    "max_cost_decomposition_error": 1.6091290122588475e-07
+  },
+  "Beer": {
+    "rows": 9000,
+    "duplicates": 0,
+    "bounds_passed": true,
+    "max_cost_decomposition_error": 5.040953665602643e-08
+  },
+  "Rossmann": {
+    "rows": 3000,
+    "duplicates": 0,
+    "bounds_passed": true,
+    "max_cost_decomposition_error": 7.260285017629542e-08
+  }
+}

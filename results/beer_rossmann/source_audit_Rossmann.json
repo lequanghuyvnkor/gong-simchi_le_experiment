@@ -1,0 +1,102 @@
+[
+  {
+    "series_id": "s0001",
+    "train_days": 365,
+    "test_days": 212,
+    "mean_scale": 204.26575342465753,
+    "test_mean_normalized": 0.9148113156933749,
+    "closed_test_days": 37,
+    "test_begin": "2015-01-01",
+    "test_end": "2015-07-31"
+  },
+  {
+    "series_id": "s0002",
+    "train_days": 365,
+    "test_days": 212,
+    "mean_scale": 203.85808219178082,
+    "test_mean_normalized": 1.0172425394076823,
+    "closed_test_days": 36,
+    "test_begin": "2015-01-01",
+    "test_end": "2015-07-31"
+  },
+  {
+    "series_id": "s0003",
+    "train_days": 365,
+    "test_days": 212,
+    "mean_scale": 291.5431506849315,
+    "test_mean_normalized": 0.9764623026046242,
+    "closed_test_days": 37,
+    "test_begin": "2015-01-01",
+    "test_end": "2015-07-31"
+  },
+  {
+    "series_id": "s0004",
+    "train_days": 365,
+    "test_days": 212,
+    "mean_scale": 390.77630136986295,
+    "test_mean_normalized": 1.0452410320085044,
+    "closed_test_days": 36,
+    "test_begin": "2015-01-01",
+    "test_end": "2015-07-31"
+  },
+  {
+    "series_id": "s0005",
+    "train_days": 365,
+    "test_days": 212,
+    "mean_scale": 194.55178082191784,
+    "test_mean_normalized": 0.9893628858475605,
+    "closed_test_days": 36,
+    "test_begin": "2015-01-01",
+    "test_end": "2015-07-31"
+  },
+  {
+    "series_id": "s0006",
+    "train_days": 365,
+    "test_days": 212,
+    "mean_scale": 261.19164383561645,
+    "test_mean_normalized": 0.7560703029508264,
+    "closed_test_days": 36,
+    "test_begin": "2015-01-01",
+    "test_end": "2015-07-31"
+  },
+  {
+    "series_id": "s0007",
+    "train_days": 365,
+    "test_days": 212,
+    "mean_scale": 358.0727397260274,
+    "test_mean_normalized": 1.0399541879896745,
+    "closed_test_days": 36,
+    "test_begin": "2015-01-01",
+    "test_end": "2015-07-31"
+  },
+  {
+    "series_id": "s0008",
+    "train_days": 365,
+    "test_days": 212,
+    "mean_scale": 211.26890410958902,
+    "test_mean_normalized": 1.2401413402082426,
+    "closed_test_days": 36,
+    "test_begin": "2015-01-01",
+    "test_end": "2015-07-31"
+  },
+  {
+    "series_id": "s0009",
+    "train_days": 365,
+    "test_days": 212,
+    "mean_scale": 238.08410958904108,
+    "test_mean_normalized": 1.3071644927366783,
+    "closed_test_days": 37,
+    "test_begin": "2015-01-01",
+    "test_end": "2015-07-31"
+  },
+  {
+    "series_id": "s0010",
+    "train_days": 365,
+    "test_days": 212,
+    "mean_scale": 222.936301369863,
+    "test_mean_normalized": 1.0841915780075497,
+    "closed_test_days": 36,
+    "test_begin": "2015-01-01",
+    "test_end": "2015-07-31"
+  }
+]

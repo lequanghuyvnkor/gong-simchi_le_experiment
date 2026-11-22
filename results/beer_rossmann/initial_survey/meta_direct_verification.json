@@ -1,0 +1,15 @@
+{
+  "T": 7000,
+  "action_trajectories_equal": true,
+  "all_Q_in_0_H": true,
+  "no_action_elimination_directly_verified": true,
+  "completed_episodes_per_arm": [
+    231,
+    127,
+    127,
+    127,
+    127,
+    127,
+    127
+  ]
+}

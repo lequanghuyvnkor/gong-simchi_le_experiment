@@ -1,0 +1,11 @@
+{
+  "normalization_train_only": true,
+  "split_counts_pass": true,
+  "conservation_pass": true,
+  "pseudo_cost_identity_pass": true,
+  "one_sided_feedback_pass": true,
+  "deterministic_sampling_pass": true,
+  "nested_horizon_sampling_pass": true,
+  "independent_seed_streams_distinct": true,
+  "future_observation_fields_excluded": true
+}

@@ -1,0 +1,15 @@
+{
+  "index": 12,
+  "score": 0.7906296781125773,
+  "frozen_cost": 0.8070799777667202,
+  "diagnostics": {
+    "guards_total": 0,
+    "eliminated_actions": 684,
+    "feedback_violations": 0,
+    "valid_arms_mean": 1.0
+  },
+  "config": {
+    "action_scale": 0.001,
+    "bandit_scale": 1e-05
+  }
+}

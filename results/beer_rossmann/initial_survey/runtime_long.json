@@ -1,0 +1,12 @@
+{
+  "models": 120,
+  "T": 21000,
+  "dqn_seconds": 100.56741070747375,
+  "dqn_gradient_updates_per_model": 2618,
+  "meta_seconds": 0.4859137535095215,
+  "meta_switch_blocks": 60,
+  "minimum_CB1_even_if_all_cycles_one_arm": 204.82658743721254,
+  "minimum_twice_CB2_C2_1": 209.07579037467212,
+  "Q_gap_upper_bound": 7,
+  "exact_meta_policy_reduction": "No action/arm elimination possible at this horizon with theoretical CB1 and C2>=1. All running maxima = M. Execute order-up-to M on active blocks, no new orders while aligning to next arm phase."
+}

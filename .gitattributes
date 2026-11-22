@@ -1,0 +1,2 @@
+# Preserve exact bytes for hash-locked source configurations.
+benchmarks/beer_rossmann/config/selected_*.json -text whitespace=cr-at-eol

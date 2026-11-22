@@ -1,0 +1,492 @@
+{
+  "date": "2026-11-10",
+  "cases": [
+    {
+      "case": "a0.0_v0.25_p1",
+      "a": 0.0,
+      "cv": 0.25,
+      "p": 1
+    },
+    {
+      "case": "a0.0_v0.25_p5",
+      "a": 0.0,
+      "cv": 0.25,
+      "p": 5
+    },
+    {
+      "case": "a0.0_v0.25_p10",
+      "a": 0.0,
+      "cv": 0.25,
+      "p": 10
+    },
+    {
+      "case": "a0.0_v0.75_p1",
+      "a": 0.0,
+      "cv": 0.75,
+      "p": 1
+    },
+    {
+      "case": "a0.0_v0.75_p5",
+      "a": 0.0,
+      "cv": 0.75,
+      "p": 5
+    },
+    {
+      "case": "a0.0_v0.75_p10",
+      "a": 0.0,
+      "cv": 0.75,
+      "p": 10
+    },
+    {
+      "case": "a0.4_v0.25_p1",
+      "a": 0.4,
+      "cv": 0.25,
+      "p": 1
+    },
+    {
+      "case": "a0.4_v0.25_p5",
+      "a": 0.4,
+      "cv": 0.25,
+      "p": 5
+    },
+    {
+      "case": "a0.4_v0.25_p10",
+      "a": 0.4,
+      "cv": 0.25,
+      "p": 10
+    },
+    {
+      "case": "a0.4_v0.75_p1",
+      "a": 0.4,
+      "cv": 0.75,
+      "p": 1
+    },
+    {
+      "case": "a0.4_v0.75_p5",
+      "a": 0.4,
+      "cv": 0.75,
+      "p": 5
+    },
+    {
+      "case": "a0.4_v0.75_p10",
+      "a": 0.4,
+      "cv": 0.75,
+      "p": 10
+    },
+    {
+      "case": "a0.8_v0.25_p1",
+      "a": 0.8,
+      "cv": 0.25,
+      "p": 1
+    },
+    {
+      "case": "a0.8_v0.25_p5",
+      "a": 0.8,
+      "cv": 0.25,
+      "p": 5
+    },
+    {
+      "case": "a0.8_v0.25_p10",
+      "a": 0.8,
+      "cv": 0.25,
+      "p": 10
+    },
+    {
+      "case": "a0.8_v0.75_p1",
+      "a": 0.8,
+      "cv": 0.75,
+      "p": 1
+    },
+    {
+      "case": "a0.8_v0.75_p5",
+      "a": 0.8,
+      "cv": 0.75,
+      "p": 5
+    },
+    {
+      "case": "a0.8_v0.75_p10",
+      "a": 0.8,
+      "cv": 0.75,
+      "p": 10
+    }
+  ],
+  "profiles": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "seeds": [
+    1000,
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007,
+    1008,
+    1009,
+    1010,
+    1011,
+    1012,
+    1013,
+    1014,
+    1015,
+    1016,
+    1017,
+    1018,
+    1019,
+    1020,
+    1021,
+    1022,
+    1023,
+    1024,
+    1025,
+    1026,
+    1027,
+    1028,
+    1029
+  ],
+  "train_T": 21000,
+  "checkpoints": [
+    7000,
+    21000
+  ],
+  "frozen_eval_T": 1400,
+  "long_cases": [
+    "a0.0_v0.75_p1",
+    "a0.0_v0.75_p5",
+    "a0.0_v0.75_p10",
+    "a0.8_v0.75_p1",
+    "a0.8_v0.75_p5",
+    "a0.8_v0.75_p10"
+  ],
+  "long_profiles": [
+    0
+  ],
+  "long_seeds": [
+    3000,
+    3001,
+    3002,
+    3003,
+    3004,
+    3005,
+    3006,
+    3007,
+    3008,
+    3009,
+    3010,
+    3011,
+    3012,
+    3013,
+    3014,
+    3015,
+    3016,
+    3017,
+    3018,
+    3019,
+    3020,
+    3021,
+    3022,
+    3023,
+    3024,
+    3025,
+    3026,
+    3027,
+    3028,
+    3029
+  ],
+  "long_T": 70000,
+  "DQN_configs": [
+    {
+      "lr": 0.002,
+      "gamma": 0.99,
+      "width": 12,
+      "target": 75,
+      "decay": 500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    {
+      "lr": 0.002,
+      "gamma": 0.97,
+      "width": 12,
+      "target": 75,
+      "decay": 1500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    {
+      "lr": 0.001,
+      "gamma": 0.9,
+      "width": 12,
+      "target": 75,
+      "decay": 500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    {
+      "lr": 0.001,
+      "gamma": 0.9,
+      "width": 24,
+      "target": 25,
+      "decay": 500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    {
+      "lr": 0.0005,
+      "gamma": 0.9,
+      "width": 24,
+      "target": 25,
+      "decay": 1500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    {
+      "lr": 0.001,
+      "gamma": 0.97,
+      "width": 24,
+      "target": 25,
+      "decay": 500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    {
+      "lr": 0.0005,
+      "gamma": 0.99,
+      "width": 12,
+      "target": 75,
+      "decay": 500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    {
+      "lr": 0.002,
+      "gamma": 0.99,
+      "width": 12,
+      "target": 25,
+      "decay": 1500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    {
+      "lr": 0.0005,
+      "gamma": 0.97,
+      "width": 24,
+      "target": 75,
+      "decay": 500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    {
+      "lr": 0.001,
+      "gamma": 0.97,
+      "width": 12,
+      "target": 75,
+      "decay": 1500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    {
+      "lr": 0.002,
+      "gamma": 0.9,
+      "width": 24,
+      "target": 25,
+      "decay": 500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    {
+      "lr": 0.002,
+      "gamma": 0.9,
+      "width": 24,
+      "target": 75,
+      "decay": 500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    {
+      "lr": 0.002,
+      "gamma": 0.9,
+      "width": 12,
+      "target": 25,
+      "decay": 1500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    {
+      "lr": 0.002,
+      "gamma": 0.99,
+      "width": 24,
+      "target": 75,
+      "decay": 500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    {
+      "lr": 0.0005,
+      "gamma": 0.99,
+      "width": 12,
+      "target": 75,
+      "decay": 1500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    {
+      "lr": 0.0005,
+      "gamma": 0.99,
+      "width": 24,
+      "target": 75,
+      "decay": 1500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    {
+      "lr": 0.001,
+      "gamma": 0.99,
+      "width": 12,
+      "target": 75,
+      "decay": 500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    {
+      "lr": 0.002,
+      "gamma": 0.99,
+      "width": 12,
+      "target": 25,
+      "decay": 500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    {
+      "lr": 0.0005,
+      "gamma": 0.99,
+      "width": 12,
+      "target": 25,
+      "decay": 1500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    {
+      "lr": 0.0005,
+      "gamma": 0.9,
+      "width": 24,
+      "target": 75,
+      "decay": 1500,
+      "buffer": 1024,
+      "freq": 4
+    }
+  ],
+  "Meta_configs": [
+    {
+      "action_scale": 3e-05,
+      "bandit_scale": 1e-05
+    },
+    {
+      "action_scale": 3e-05,
+      "bandit_scale": 3e-05
+    },
+    {
+      "action_scale": 3e-05,
+      "bandit_scale": 0.0001
+    },
+    {
+      "action_scale": 3e-05,
+      "bandit_scale": 0.0003
+    },
+    {
+      "action_scale": 0.0001,
+      "bandit_scale": 1e-05
+    },
+    {
+      "action_scale": 0.0001,
+      "bandit_scale": 3e-05
+    },
+    {
+      "action_scale": 0.0001,
+      "bandit_scale": 0.0001
+    },
+    {
+      "action_scale": 0.0001,
+      "bandit_scale": 0.0003
+    },
+    {
+      "action_scale": 0.0003,
+      "bandit_scale": 1e-05
+    },
+    {
+      "action_scale": 0.0003,
+      "bandit_scale": 3e-05
+    },
+    {
+      "action_scale": 0.0003,
+      "bandit_scale": 0.0001
+    },
+    {
+      "action_scale": 0.0003,
+      "bandit_scale": 0.0003
+    },
+    {
+      "action_scale": 0.001,
+      "bandit_scale": 1e-05
+    },
+    {
+      "action_scale": 0.001,
+      "bandit_scale": 3e-05
+    },
+    {
+      "action_scale": 0.001,
+      "bandit_scale": 0.0001
+    },
+    {
+      "action_scale": 0.001,
+      "bandit_scale": 0.0003
+    },
+    {
+      "action_scale": 0.003,
+      "bandit_scale": 1e-05
+    },
+    {
+      "action_scale": 0.003,
+      "bandit_scale": 3e-05
+    },
+    {
+      "action_scale": 0.003,
+      "bandit_scale": 0.0001
+    },
+    {
+      "action_scale": 0.003,
+      "bandit_scale": 0.0003
+    }
+  ],
+  "costs": {
+    "holding": 1,
+    "penalty": [
+      1,
+      5,
+      10
+    ]
+  },
+  "H": 7,
+  "M": 4,
+  "step": 0.2,
+  "primary": "Frozen policy after 21000 interactions; paired relative cost difference; 18 cells.",
+  "decision_threshold_percent": 5,
+  "familywise_alpha": 0.05,
+  "bootstrap": 20000,
+  "meta_practical_changes": [
+    "Scaled confidence bounds",
+    "Discard copies with empty trimmed action sets",
+    "Retain previous sets if trimming would empty final remaining copy; count every safeguard activation",
+    "Frozen deployment chooses copy maximizing estimated V1, then argmax-Q base stocks by phase"
+  ],
+  "DQN_changes": [
+    "Centered observable pseudo-reward",
+    "Zero-initialized output layer",
+    "Validation-selected network and update settings"
+  ],
+  "data_source_checks": "Beer held-out 2016-2017; new Rossmann stores 1-10 evaluation 2015; fit 2013 only."
+}

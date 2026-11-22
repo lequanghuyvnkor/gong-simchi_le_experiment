@@ -1,0 +1,284 @@
+{
+  "results_core_0.npz": {
+    "columns": [
+      "case",
+      "a",
+      "cv",
+      "p",
+      "profile",
+      "seed",
+      "algorithm",
+      "checkpoint",
+      "online_cost",
+      "online_fill",
+      "frozen_cost",
+      "frozen_fill",
+      "frozen_inventory"
+    ],
+    "rows": 3600,
+    "source_csv_sha256": "8d3020f4496c805fa4b1d6fccae70c2495b7cf7794d412c0f978a66052ae0c02",
+    "archive_path": "outputs/condition_study/results_core_0.csv"
+  },
+  "results_core_1.npz": {
+    "columns": [
+      "case",
+      "a",
+      "cv",
+      "p",
+      "profile",
+      "seed",
+      "algorithm",
+      "checkpoint",
+      "online_cost",
+      "online_fill",
+      "frozen_cost",
+      "frozen_fill",
+      "frozen_inventory"
+    ],
+    "rows": 3600,
+    "source_csv_sha256": "5ab7a7b8cfd28e568bde963c20be82c34c273a2176a124af4834a15811ae93ec",
+    "archive_path": "outputs/condition_study/results_core_1.csv"
+  },
+  "results_core_2.npz": {
+    "columns": [
+      "case",
+      "a",
+      "cv",
+      "p",
+      "profile",
+      "seed",
+      "algorithm",
+      "checkpoint",
+      "online_cost",
+      "online_fill",
+      "frozen_cost",
+      "frozen_fill",
+      "frozen_inventory"
+    ],
+    "rows": 3600,
+    "source_csv_sha256": "4be64d4686e196c8b2f47b42d8c8ffd2ab261cfdcc6afd1819d486815ae1806f",
+    "archive_path": "outputs/condition_study/results_core_2.csv"
+  },
+  "results_core_3.npz": {
+    "columns": [
+      "case",
+      "a",
+      "cv",
+      "p",
+      "profile",
+      "seed",
+      "algorithm",
+      "checkpoint",
+      "online_cost",
+      "online_fill",
+      "frozen_cost",
+      "frozen_fill",
+      "frozen_inventory"
+    ],
+    "rows": 3600,
+    "source_csv_sha256": "6151ba28e44e8cae06c7619d6011e24639fb780d86c9d9e6d2524237404e3229",
+    "archive_path": "outputs/condition_study/results_core_3.csv"
+  },
+  "results_core_4.npz": {
+    "columns": [
+      "case",
+      "a",
+      "cv",
+      "p",
+      "profile",
+      "seed",
+      "algorithm",
+      "checkpoint",
+      "online_cost",
+      "online_fill",
+      "frozen_cost",
+      "frozen_fill",
+      "frozen_inventory"
+    ],
+    "rows": 3600,
+    "source_csv_sha256": "d58fe7dd9fb7f753c3fee40e9e5e932c49dc58131ca4010b8507ab2b80adf214",
+    "archive_path": "outputs/condition_study/results_core_4.csv"
+  },
+  "results_core_5.npz": {
+    "columns": [
+      "case",
+      "a",
+      "cv",
+      "p",
+      "profile",
+      "seed",
+      "algorithm",
+      "checkpoint",
+      "online_cost",
+      "online_fill",
+      "frozen_cost",
+      "frozen_fill",
+      "frozen_inventory"
+    ],
+    "rows": 3600,
+    "source_csv_sha256": "da577b615e2cf7f684bf99a939dd9bc1040564d89f80806f21691a126d9beb00",
+    "archive_path": "outputs/condition_study/results_core_5.csv"
+  },
+  "results_long_0.npz": {
+    "columns": [
+      "case",
+      "a",
+      "cv",
+      "p",
+      "profile",
+      "seed",
+      "algorithm",
+      "checkpoint",
+      "online_cost",
+      "online_fill",
+      "frozen_cost",
+      "frozen_fill",
+      "frozen_inventory"
+    ],
+    "rows": 300,
+    "source_csv_sha256": "b7d3aa81dce868faab456f4603114d6d91464254cc12fa762b964853c04fae9d",
+    "archive_path": "outputs/condition_study/results_long_0.csv"
+  },
+  "results_long_1.npz": {
+    "columns": [
+      "case",
+      "a",
+      "cv",
+      "p",
+      "profile",
+      "seed",
+      "algorithm",
+      "checkpoint",
+      "online_cost",
+      "online_fill",
+      "frozen_cost",
+      "frozen_fill",
+      "frozen_inventory"
+    ],
+    "rows": 300,
+    "source_csv_sha256": "b3f3951f8fb8bac89d6edd9f860ef666ba1c61d1c18a904f1da943c3e4b52d14",
+    "archive_path": "outputs/condition_study/results_long_1.csv"
+  },
+  "results_long_2.npz": {
+    "columns": [
+      "case",
+      "a",
+      "cv",
+      "p",
+      "profile",
+      "seed",
+      "algorithm",
+      "checkpoint",
+      "online_cost",
+      "online_fill",
+      "frozen_cost",
+      "frozen_fill",
+      "frozen_inventory"
+    ],
+    "rows": 300,
+    "source_csv_sha256": "9ae50e119196d479c6d54a57cc0ee722dc04f5d812cac1c4e37f3d3a958b4304",
+    "archive_path": "outputs/condition_study/results_long_2.csv"
+  },
+  "results_long_3.npz": {
+    "columns": [
+      "case",
+      "a",
+      "cv",
+      "p",
+      "profile",
+      "seed",
+      "algorithm",
+      "checkpoint",
+      "online_cost",
+      "online_fill",
+      "frozen_cost",
+      "frozen_fill",
+      "frozen_inventory"
+    ],
+    "rows": 300,
+    "source_csv_sha256": "f4be24f286f382c0e705f7bd4eef1d1acd0f9eefc5b9bf13ce9179da2d7a611e",
+    "archive_path": "outputs/condition_study/results_long_3.csv"
+  },
+  "results_long_4.npz": {
+    "columns": [
+      "case",
+      "a",
+      "cv",
+      "p",
+      "profile",
+      "seed",
+      "algorithm",
+      "checkpoint",
+      "online_cost",
+      "online_fill",
+      "frozen_cost",
+      "frozen_fill",
+      "frozen_inventory"
+    ],
+    "rows": 300,
+    "source_csv_sha256": "6bacbab5a50d5fb2c0c513e1c1e96c8c67c82f05af85367a54870775fd9ce1ab",
+    "archive_path": "outputs/condition_study/results_long_4.csv"
+  },
+  "results_long_5.npz": {
+    "columns": [
+      "case",
+      "a",
+      "cv",
+      "p",
+      "profile",
+      "seed",
+      "algorithm",
+      "checkpoint",
+      "online_cost",
+      "online_fill",
+      "frozen_cost",
+      "frozen_fill",
+      "frozen_inventory"
+    ],
+    "rows": 300,
+    "source_csv_sha256": "2415bd1942570d38397f72117825dd232f177e7df58a0ffbe9ca6c72bffca52f",
+    "archive_path": "outputs/condition_study/results_long_5.csv"
+  },
+  "results_source_Beer.npz": {
+    "columns": [
+      "case",
+      "a",
+      "cv",
+      "p",
+      "profile",
+      "seed",
+      "series_id",
+      "algorithm",
+      "checkpoint",
+      "online_cost",
+      "online_fill",
+      "frozen_cost",
+      "frozen_fill",
+      "frozen_inventory"
+    ],
+    "rows": 9000,
+    "source_csv_sha256": "61a28686e2c5c6026bc5fffc06c5899011492f800238421eb719c2c17edcbb1e",
+    "archive_path": "outputs/condition_study/results_source_Beer.csv"
+  },
+  "results_source_Rossmann.npz": {
+    "columns": [
+      "case",
+      "a",
+      "cv",
+      "p",
+      "profile",
+      "seed",
+      "series_id",
+      "algorithm",
+      "checkpoint",
+      "online_cost",
+      "online_fill",
+      "frozen_cost",
+      "frozen_fill",
+      "frozen_inventory"
+    ],
+    "rows": 3000,
+    "source_csv_sha256": "3b12639af82114adb23813cacdd3f36018c4d1539f59e30c53648b07114fa7cb",
+    "archive_path": "outputs/condition_study/results_source_Rossmann.csv"
+  }
+}

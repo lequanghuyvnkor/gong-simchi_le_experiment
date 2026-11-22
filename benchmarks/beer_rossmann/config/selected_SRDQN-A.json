@@ -1,0 +1,19 @@
+{
+  "index": 11,
+  "score": 1.4134983907441847,
+  "frozen_cost": 1.4061214332872591,
+  "diagnostics": {
+    "updates": 860,
+    "max_abs_Q": 2.578795909881592,
+    "last_TD": 0.09835685789585114
+  },
+  "config": {
+    "lr": 0.002,
+    "gamma": 0.9,
+    "width": 24,
+    "target": 75,
+    "decay": 500,
+    "buffer": 1024,
+    "freq": 4
+  }
+}
