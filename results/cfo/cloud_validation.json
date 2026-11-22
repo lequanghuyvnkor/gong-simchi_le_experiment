@@ -1,0 +1,32 @@
+{
+  "pilot_retrained": true,
+  "pilot_rows_checked": 19440,
+  "pilot_design": "18 cases x 4 profiles x 30 seeds, 365-period horizon; checkpoints 30/90/365",
+  "default_calculation": {
+    "status": "HYPOTHETICAL_NOT_STORE_ACTUALS",
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "verified_default": true,
+    "scope": "Financial recalculation of saved policies and saved pilot metrics; no full benchmark retraining"
+  },
+  "custom_setup_and_opex_zero": "first_year_net equals gross_annual_saving",
+  "unsupported_p_584": "rejected",
+  "full_21000_period_benchmark_retrained": false,
+  "clean_clone_default": {
+    "status": "HYPOTHETICAL_NOT_STORE_ACTUALS",
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "verified_default": true,
+    "scope": "Financial recalculation of saved policies and saved pilot metrics; no full benchmark retraining"
+  },
+  "clean_clone_custom": {
+    "status": "HYPOTHETICAL_NOT_STORE_ACTUALS",
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "verified_default": false,
+    "scope": "Financial recalculation of saved policies and saved pilot metrics; no full benchmark retraining"
+  }
+}

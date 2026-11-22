@@ -17,9 +17,9 @@ Repo này tập hợp một ứng dụng mô phỏng để học mô hình tồn
   PDF đã cung cấp đủ mã/cấu hình. [Benchmark Beer–Rossmann](benchmarks/beer_rossmann/README.md)
   có hai bản thích nghi, baseline, thiết kế 18 điều kiện, metric và bootstrap
   tái tạo từ clone sạch; dữ liệu nguồn ở ngoài Git. Chưa huấn luyện lại toàn bộ.
-- **Đợt 4: chuẩn bị tài liệu, chưa hoàn tất.** [Hướng dẫn CFO](reports/cfo/README.md)
-  nêu phạm vi giả định VND, cách tách học/sau học, TCO và hòa vốn. Chưa có
-  mã, cấu hình, bảng hay báo cáo CFO từ archive để chạy và đối chiếu.
+- **Đợt 4: đã đóng gói và kiểm tra CFO.** [Hướng dẫn CFO](reports/cfo/README.md)
+  có mã/cấu hình chỉnh được, bảng tài chính tái tạo, báo cáo phần C và pilot
+  mô phỏng 365 kỳ. Mọi số VND là giả định mẫu, không phải chi phí doanh nghiệp.
 - **Đợt 5: có [tổng hợp định hướng D](docs/research_direction_d.md), chưa hoàn tất.**
   Có bảng audit dẫn tới JSON và công cụ đối chiếu số liệu; chưa có slide v4 và
   script ở `inputs/presentation/`. Xem [hướng dẫn trình bày](presentation/README.md).

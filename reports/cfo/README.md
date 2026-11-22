@@ -1,117 +1,103 @@
-# Đợt 4 — Phân tích CFO (chưa hoàn tất)
+# Đợt 4 — Phân tích CFO
 
-Chưa tìm thấy `inputs/beer_rossmann_archive/` trong phiên cloud ngày 2026-11-23.
-Vì vậy chưa đọc/đóng gói được mã CFO, cấu hình, bảng hay báo cáo từ archive;
-chưa có kết quả VND, TCO hoặc điểm hòa vốn được xác minh ở đây. Tài liệu này
-ghi quy ước cần đối chiếu khi nhận đầu vào, không thay thế phân tích CFO gốc.
+Đã lấy mã, cấu hình, bảng và phần C của báo cáo từ ZIP nhúng trong PDF chủ dự
+án cung cấp. Bản gốc vẫn ở `/workspace/inputs/beer_rossmann_archive/embedded_package/`.
+`provenance.json` ghi hash và đường dẫn nguồn của mã. [Báo cáo CFO lưu trữ](archive_report.md)
+được giữ như bản phân tích **hậu kiểm** với giả định gốc; không tự đổi số trong
+báo cáo này khi dùng cấu hình mới.
 
-Chủ dự án đã xác nhận ZIP chứa CFO còn trên Windows; xem tên tệp và đích
-cloud trong [hướng dẫn chuyển đầu vào](../../docs/input_handoff.md).
+**Toàn bộ giá trị VND, giá vốn, phạt thiếu hàng và phí hệ thống là giả định mẫu,
+không phải chi phí quan sát hay hóa đơn của doanh nghiệp thật.** Mọi CSV được
+phân phối hoặc xuất mới có cột `assumption_status=HYPOTHETICAL_NOT_STORE_ACTUALS`.
 
-## Phạm vi diễn giải
+## Chạy từ clone sạch và thay giả định
 
-**Mọi giá trị VND, giá vốn, phạt thiếu hàng và chi phí hệ thống trong phân tích
-CFO dự kiến đều là giả định mẫu**, trừ khi có nguồn doanh nghiệp riêng được
-xác minh và được phép sử dụng. Hiện không có nguồn đó trong repo. Không mô tả
-các giả định là chi phí quan sát của doanh nghiệp thật, hoặc suy ra lợi nhuận
-thực tế từ kết quả mô phỏng tồn kho.
-
-Các bảng notebook TN5 hiện có là thí nghiệm chi phí vốn với phân phối biết
-trước; chúng không phải bảng CFO Beer–Rossmann. Kết quả audit Rossmann cũng
-không phải hóa đơn VND hay bằng chứng triển khai thương mại.
-
-## Các khoản cần tách trong báo cáo
-
-| Khoản | Nội dung và đơn vị cần công bố | Điều cần đối chiếu trong archive |
-| --- | --- | --- |
-| Sau học | Chi phí vận hành của chính sách đóng băng trên kỳ đánh giá; VND/điểm tồn kho/ngày hoặc VND/kỳ | Không cập nhật tham số trên test; ghi số ngày và số điểm/SKU |
-| Trong lúc học | Chi phí vận hành phát sinh khi quyết định còn dùng để học | Tách chi phí vận hành khỏi tiền compute/nhân sự dùng huấn luyện |
-| Chi phí tăng thêm do học | Chi phí vận hành học trừ chi phí baseline trên cùng kỳ và đường cầu | Có thể âm; không tự chặn về 0; không cộng lại nếu đã nằm trong tổng vận hành |
-| Hệ thống | Compute train/inference, tích hợp ban đầu, hạ tầng, bảo trì và nhân sự | Nêu khoản một lần, định kỳ, phạm vi phân bổ; tất cả là giả định mẫu |
-| TCO | Tổng các khoản vận hành và hệ thống thuộc cùng kỳ phân tích | Ghi rõ có gồm giai đoạn học, vốn lưu động, chiết khấu và thuế không |
-| Hòa vốn | Kỳ đầu lợi ích lũy kế so với baseline bù chi phí tăng thêm | Có trường hợp không hòa vốn trong chân trời phân tích |
-
-## Quy ước tính cần kiểm tra trước khi dùng số VND
-
-Đây là các đồng nhất thức kế toán tham chiếu, chưa phải mô tả đã xác minh của
-mã CFO gốc. Khi nhận archive, cần ghi rõ mã nào thực hiện mỗi khoản và giải
-thích mọi khác biệt.
-
-Với tồn cuối `I`, thiếu hàng `L`, lượng mua `q`, chi phí vận hành mẫu có thể
-được định nghĩa là `h_VND * I + p_VND * L + c_VND * q` khi cả ba khoản đều
-thuộc phạm vi. Mô hình lost-sales trong [ứng dụng](../../lost_sales_lab/README.md)
-hiện đặt giá mua chuẩn hóa bằng 0 và dùng `h*I + p*L`. Chi phí quan sát thay thế
-`h*I - p*S` không phải tổng chi phí kế toán. Không thể tự chuyển mọi bảng sang
-VND bằng một hệ số nếu giá vốn, nhu cầu, lượng mua hoặc quy ước terminal thay đổi.
-Thay trọng số h/p còn có thể đổi chính sách tối ưu và đòi hỏi học/đánh giá lại.
-
-Trên cùng kỳ phân tích và cùng phạm vi chi phí:
-
-```text
-TCO_policy = operating_cost_during_learning
-           + operating_cost_after_learning
-           + system_cost_once + system_cost_recurring
-net_benefit = TCO_baseline - TCO_policy
-```
-
-Nếu học offline, không gán chi phí vận hành giả lập trong train thành khoản
-tiền đã chi thật: ghi nó như chỉ tiêu mô phỏng riêng; chi phí compute train
-vẫn có thể được giả định trong TCO. Nếu học khi vận hành, công bố cả kỳ học
-của policy lẫn baseline cùng kỳ. Tiền compute đã tính trong hệ thống không
-được cộng thêm lần nữa dưới nhãn “chi phí học”.
-
-Hòa vốn trong trường hợp dòng tiền không đều là kỳ đầu mà `TCO_baseline(t) -
-TCO_policy(t) >= 0`, xét từ khi bắt đầu dự án có khoản đầu tư. Nêu rõ cách xử
-lý trường hợp bằng 0 trước đầu tư, chênh lệch quay lại âm và chiết khấu nếu có.
-Công thức rút gọn `t = F / s` chỉ dùng khi F là toàn bộ chi phí tăng thêm ban
-đầu, s là tiết kiệm ròng cố định mỗi kỳ sau đó và `s > 0`; phải nêu quy tắc
-làm tròn kỳ và kỳ bắt đầu. Không biến khoảng tin cậy chi phí thành CI cho
-`F/s` bằng phép chia trực tiếp, nhất là khi s gần hoặc đi qua 0.
-
-Giữ bảng theo điều kiện và seed/đường cầu ghép cặp trước khi gộp. Chi phí VND,
-TCO và hòa vốn cần ánh xạ về đúng benchmark và ngân sách học; không gộp khảo
-sát ban đầu với benchmark chính. Phương pháp CI phải theo thiết kế và mã gốc
-được kiểm tra; chưa có dữ liệu để chọn hoặc khẳng định một phương pháp ở đây.
-
-## Đầu vào cần bổ sung và cách chạy từ clone sạch
-
-Cần nguyên `inputs/beer_rossmann_archive/`, gồm README, checksum, mã/cấu hình CFO
-trong `work/`, bảng và báo cáo tương ứng trong `outputs/`. Chưa biết tên tệp CFO
-cụ thể trước khi đọc archive. Giữ bản gốc ngoài Git và không chỉnh sửa nó.
-
-Python **3.10+**. Phần tiếp nhận hiện có chỉ dùng thư viện chuẩn:
+Python **3.10+**, NumPy và pandas; khi chạy lại benchmark cần cả Matplotlib.
+R không thay thế Python. Từ gốc repo đã clone:
 
 ```bash
-git clone https://github.com/lequanghuyvnkor/gong-simchi_le_experiment.git
-cd gong-simchi_le_experiment
 python --version
-python tools/inspect_inputs.py --inputs-dir /workspace/inputs --require benchmark
+python -m pip install -r benchmarks/beer_rossmann/requirements.txt
+python reports/cfo/calculate.py --output-dir local_checks/cfo --verify-default
 ```
 
-Thay đường dẫn theo nơi lưu thực tế. Mã thoát 2 khi chưa có archive là tình
-trạng bị chặn, không phải CFO đã tái tạo thành công. Công cụ không chạy mã CFO.
-Chưa xác định dependencies, tệp cấu hình hoặc lệnh chạy CFO thực tế; không
-giả định cài R là đủ, và không đưa lệnh pipeline phỏng đoán vào hướng dẫn.
+Lệnh tải metric nhỏ trong repo (không cần raw Beer/Rossmann), tính lại bootstrap,
+phép đổi VND, bảng 18 điều kiện, ba mức p, pilot đã lưu và portfolio/TCO. Bốn
+bảng lưu trữ cùng summary được so trong dung sai `rtol=1e-9, atol=1e-6`.
+Kết quả nguồn ở [results/cfo](../../results/cfo/); đầu ra mới và phiên bản phần
+mềm ở thư mục chỉ định. `report.md` mới ghi giả định hiệu lực, cách tính và giới
+hạn; `effective_assumptions.json` giữ toàn bộ cấu hình lần chạy.
 
-Khi có đầu vào, cần đóng gói các tệp được phép phân phối và hoàn tất quy trình:
+Để thay giả định, sao chép `reports/cfo/assumptions.json` sang tệp riêng rồi sửa
+các giá trị và chạy:
 
-1. Lập bảng ánh xạ từng bảng báo cáo tới mã, cấu hình, kết quả benchmark nguồn,
-   checksum và phiên bản Python/thư viện đã dùng.
-2. Tập trung giả định vào cấu hình chỉnh được: đơn vị VND, giá vốn, h/p,
-   số điểm/SKU/ngày, ngân sách học, chi phí hệ thống, kỳ phân tích/chiết khấu.
-   Nhãn **giả định mẫu** phải hiện trong bảng xuất, không chỉ trong README.
-3. Ghi rõ tham số nào chỉ cần tính lại kế toán và tham số nào buộc chạy lại
-   policy; lưu cấu hình đã thay cùng bảng kết quả mới.
-4. Từ clone sạch: cài dependencies Python, nối dữ liệu ngoài Git sau khi xác
-   minh checksum, chạy cấu hình gốc ra thư mục riêng và đối chiếu các bảng
-   trong archive với dung sai công bố. Sau đó chạy một cấu hình đổi giả định
-   để xác nhận bảng được tái tạo theo thay đổi đó.
-5. Kiểm tra TCO không đếm trùng, baseline cùng kỳ, hòa vốn có/không đạt, giới
-   hạn dữ liệu và cách ước lượng độ bất định trước khi đánh dấu hoàn tất.
+```bash
+python reports/cfo/calculate.py --assumptions /path/to/my_assumptions.json --output-dir local_checks/cfo_custom
+```
 
-## Kiểm tra phần tài liệu
+Có thể đổi nhu cầu mốc, giá vốn, lãi đóng góp, giữ hàng, số kỳ/năm, chi phí setup,
+vận hành hệ thống, chiết khấu và số SKU giả định. Phải giữ quan hệ:
+`lost_contribution = selling_price - purchase_cost - avoidable_fulfilment`;
+`p = lost_contribution / holding_cost` phải thuộc {1,5,10} đã chạy;
+sức chứa vật lý = 4 × nhu cầu mốc. Lãi mất từng hàng p được ghi riêng bằng p×h.
+Thay p ngoài miền, lead time, lưới/cap chuẩn hóa hoặc drift cần học/đánh giá lại,
+không nhân số cũ để gọi là kết quả chính sách mới. Công cụ từ chối tỷ số không
+khớp, giả định phi hữu hạn, quy mô không hợp lệ và dự báo drift không có dữ liệu.
 
-Ngày 2026-11-23: kiểm tra đường dẫn liên kết và chạy lệnh tiếp nhận trên clone
-sạch áp bản diff tài liệu, Python 3.12.14, thư viện chuẩn. Đầu vào cloud chưa
-có nên công cụ trả mã 2. Chưa chạy tính CFO, tái tạo bảng, thay cấu hình thực tế
-hoặc kiểm tra dependencies CFO; đợt 4 vẫn chưa hoàn tất.
+## Phân biệt các kết quả
+
+| Tệp | Ý nghĩa và giới hạn |
+| --- | --- |
+| `18_condition_financial_scenarios.csv` | Policy đóng băng sau 21,000 kỳ; nhân chi phí chuẩn hóa với m×h×số kỳ. CI ghép cặp theo seed, profile cố định, Bonferroni 18 ô |
+| `p_level_financial_scenarios.csv` | Gộp cân bằng sáu ô mỗi p; CI 95% hậu kiểm, không phải cơ cấu thị trường thực |
+| `pilot_financial_summary.csv` | Chi phí **trong học** tại 30/90/365 kỳ của lần học biết trước chân trời 365; không phải pilot cửa hàng hoặc lần học với chân trời 30/90 |
+| `illustrative_portfolio_tco.csv` | Lợi ích **tăng thêm** so với weekday, net năm đầu, NPV ba năm và payback đơn giản; không gồm tiền vận hành giả lập khi train offline |
+| `tco_components.csv` | Bảng mới tách vận hành Meta/baseline, setup, phí hệ thống, TCO năm đầu, tránh nhầm lợi ích tăng thêm với tổng chi phí |
+| `summary.json` | Ngưỡng quy mô, sample B ngoài miền p và số kỳ hòa vốn online/frozen; các đơn vị khác nhau cần đọc riêng |
+
+Sample gốc: m=100 đơn vị/ngày, h=100 VND/đơn vị/ngày, p=10, giá vốn 50,000,
+giá bán 55,000, phí phục vụ tránh được 4,000, lãi mất 1,000 VND. Setup 50 triệu,
+vận hành hệ thống 24 triệu/năm, chiết khấu 12%. Các giá trị được giữ tại
+`assumptions.json`, không lấy từ dữ liệu Beer/Rossmann. Lợi ích policy sau học
+so với weekday khoảng 60,893.87 VND/SKU/năm; với 100 SKU giống nhau độc lập,
+net năm đầu khoảng −67.91 triệu VND. Xem bảng/summary để đọc số chưa làm tròn.
+
+Học offline: chi phí tồn/thiếu trong simulator là chỉ tiêu mô hình; chỉ compute,
+nhân sự, tích hợp và kiểm chứng mới có thể là khoản tiền dự án giả định. Học
+khi vận hành: cần chi phí tăng thêm so với baseline trên đúng cùng kỳ; không
+cộng lại khoản đã nằm trong vận hành hoặc pilot. Chi phí thực compute/giờ lao
+động chưa được đo. Bảng pilot giả định VND còn chưa có phí công nghệ.
+
+Hòa vốn sau 21,000 kỳ dùng chi phí học của cả chân trời đó chia lợi ích frozen
+so với DQN; đây là chỉ tiêu mô hình, **không** phải hòa vốn đầu tư theo lịch.
+Payback đầu tư dùng setup/(tiết kiệm năm trừ OPEX), chỉ có khi mẫu số dương;
+ngưỡng SKU dùng giả định các SKU giống nhau độc lập. NPV ba năm dùng dòng tiền
+cuối năm, không thuế/working capital/drift. Giải phóng vốn từ tồn cuối kỳ chỉ
+là proxy một lần, không cộng như tiết kiệm lặp lại hàng năm.
+
+## Chạy lại pilot và báo cáo gốc
+
+`pilot_cost_study.py` giữ nguyên bộ sinh và cấu hình đã khóa: 18 ô × 4 profile ×
+30 seed 6000–6029, ba checkpoint 30/90/365; baseline có lịch sử riêng ưu đãi.
+Từ run-dir benchmark đã được khởi tạo bằng lệnh `snapshot`:
+
+```bash
+# Linux/macOS; PowerShell đặt $env:GONG_RUN_DIR trước khi gọi python.
+GONG_RUN_DIR=/tmp/gong-run python reports/cfo/pilot_cost_study.py
+GONG_RUN_DIR=/tmp/gong-run python reports/cfo/archive_analyze_cfo.py
+```
+
+Khởi tạo `/tmp/gong-run` trước bằng
+`python benchmarks/beer_rossmann/run.py snapshot --run-dir /tmp/gong-run`.
+`archive_analyze_cfo.py` luôn dùng giả định **gốc** và dựng
+`work/combined_report_build/cfo_addition.md`; muốn thay giả định dùng `calculate.py`.
+Không cần Pandoc/Chrome để tái tạo bảng hay Markdown CFO; xuất PDF gốc cần các
+công cụ trình bày đó và không nằm trong lệnh kiểm tra mặc định.
+
+## Đã kiểm tra và giới hạn
+
+Đã tái tạo bốn bảng và summary từ clone sạch với Python 3.12.14, NumPy 2.3.5,
+pandas 2.2.3. Đã thử cấu hình setup/OPEX bằng 0 và kiểm tra net theo phép tính,
+và xác nhận cấu hình p không khớp bị từ chối. Phạm vi chạy pilot mới và so sánh
+với archive được ghi tại `results/cfo/cloud_validation.json`. Không coi việc
+khớp bảng là xác minh chi phí doanh nghiệp, ROI thực hoặc kết luận định lý.

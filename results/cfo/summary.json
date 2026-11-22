@@ -1,0 +1,17 @@
+{
+  "scenario_count": 18,
+  "Meta_lower_than_weekday_point_estimate_cells": 16,
+  "annual_p10_saving_per_sku_vs_weekday": 60893.87472988472,
+  "npv_annuity_3yr_12pct": 2.401831268221574,
+  "first_year_n_break_even": 1215.2289590414784,
+  "recurring_n_break_even": 394.1283110404795,
+  "npv3_n_break_even": 735.992728772446,
+  "sample_B_h": 34.24657534246575,
+  "sample_B_p": 584.0,
+  "online_frozen_break_even_min": 15907.62427240911,
+  "online_frozen_break_even_max": 684368.1788015882,
+  "original_21000_training_unchanged": true,
+  "supplementary_pilot_training": true,
+  "no_store_invoice_costs": true,
+  "post_hoc_analysis": true
+}

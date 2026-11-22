@@ -1,0 +1,28 @@
+{
+  "status": "HYPOTHETICAL_NOT_STORE_ACTUALS",
+  "mean_units_per_day": 100.0,
+  "purchase_vnd_per_unit": 50000.0,
+  "selling_price_vnd": 55000.0,
+  "avoidable_fulfilment_vnd": 4000.0,
+  "holding_vnd_per_unit_day": 100.0,
+  "lost_contribution_vnd_per_unit": 1000.0,
+  "p": 10.0,
+  "periods_per_year": 365,
+  "meta_incremental_setup_vnd_vs_existing_baseline": 50000000.0,
+  "meta_incremental_annual_running_vnd_vs_existing_baseline": 24000000.0,
+  "discount_rate_assumed": 0.12,
+  "physical_inventory_cap": 400.0,
+  "policy_drift_assumed": false,
+  "holding_cost_basis": "Sample A assumes cash holding costs, excluding capital opportunity charge; working capital is separate.",
+  "note": "365-day and 3-year illustrations assume fixed policies and stable future distribution; no real-world trial.",
+  "portfolio_skus": [
+    1,
+    100,
+    1000
+  ],
+  "sample_B": {
+    "purchase_vnd_per_unit": 50000,
+    "holding_annual_fraction": 0.25,
+    "lost_contribution_vnd_per_unit": 20000
+  }
+}

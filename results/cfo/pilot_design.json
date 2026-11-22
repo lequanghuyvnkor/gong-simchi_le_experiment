@@ -1,0 +1,179 @@
+{
+  "status": "POST_HOC_SUPPLEMENTARY_SIMULATION",
+  "train_periods": 365,
+  "checkpoints": [
+    30,
+    90,
+    365
+  ],
+  "cases": [
+    {
+      "case": "a0.0_v0.25_p1",
+      "a": 0.0,
+      "cv": 0.25,
+      "p": 1
+    },
+    {
+      "case": "a0.0_v0.25_p5",
+      "a": 0.0,
+      "cv": 0.25,
+      "p": 5
+    },
+    {
+      "case": "a0.0_v0.25_p10",
+      "a": 0.0,
+      "cv": 0.25,
+      "p": 10
+    },
+    {
+      "case": "a0.0_v0.75_p1",
+      "a": 0.0,
+      "cv": 0.75,
+      "p": 1
+    },
+    {
+      "case": "a0.0_v0.75_p5",
+      "a": 0.0,
+      "cv": 0.75,
+      "p": 5
+    },
+    {
+      "case": "a0.0_v0.75_p10",
+      "a": 0.0,
+      "cv": 0.75,
+      "p": 10
+    },
+    {
+      "case": "a0.4_v0.25_p1",
+      "a": 0.4,
+      "cv": 0.25,
+      "p": 1
+    },
+    {
+      "case": "a0.4_v0.25_p5",
+      "a": 0.4,
+      "cv": 0.25,
+      "p": 5
+    },
+    {
+      "case": "a0.4_v0.25_p10",
+      "a": 0.4,
+      "cv": 0.25,
+      "p": 10
+    },
+    {
+      "case": "a0.4_v0.75_p1",
+      "a": 0.4,
+      "cv": 0.75,
+      "p": 1
+    },
+    {
+      "case": "a0.4_v0.75_p5",
+      "a": 0.4,
+      "cv": 0.75,
+      "p": 5
+    },
+    {
+      "case": "a0.4_v0.75_p10",
+      "a": 0.4,
+      "cv": 0.75,
+      "p": 10
+    },
+    {
+      "case": "a0.8_v0.25_p1",
+      "a": 0.8,
+      "cv": 0.25,
+      "p": 1
+    },
+    {
+      "case": "a0.8_v0.25_p5",
+      "a": 0.8,
+      "cv": 0.25,
+      "p": 5
+    },
+    {
+      "case": "a0.8_v0.25_p10",
+      "a": 0.8,
+      "cv": 0.25,
+      "p": 10
+    },
+    {
+      "case": "a0.8_v0.75_p1",
+      "a": 0.8,
+      "cv": 0.75,
+      "p": 1
+    },
+    {
+      "case": "a0.8_v0.75_p5",
+      "a": 0.8,
+      "cv": 0.75,
+      "p": 5
+    },
+    {
+      "case": "a0.8_v0.75_p10",
+      "a": 0.8,
+      "cv": 0.75,
+      "p": 10
+    }
+  ],
+  "profiles": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "seeds": [
+    6000,
+    6001,
+    6002,
+    6003,
+    6004,
+    6005,
+    6006,
+    6007,
+    6008,
+    6009,
+    6010,
+    6011,
+    6012,
+    6013,
+    6014,
+    6015,
+    6016,
+    6017,
+    6018,
+    6019,
+    6020,
+    6021,
+    6022,
+    6023,
+    6024,
+    6025,
+    6026,
+    6027,
+    6028,
+    6029
+  ],
+  "demand_split": 6601,
+  "config": {
+    "SRDQN-A": {
+      "lr": 0.002,
+      "gamma": 0.9,
+      "width": 24,
+      "target": 75,
+      "decay": 500,
+      "buffer": 1024,
+      "freq": 4
+    },
+    "Meta-HQL-P": {
+      "action_scale": 0.001,
+      "bandit_scale": 1e-05
+    }
+  },
+  "retuned_for_short_horizon": false,
+  "known_horizon_for_Meta": 365,
+  "baseline_prior_samples": 3500,
+  "baseline_information": "Weekday policy estimated from separate privileged synthetic history; cold-start learners not warm-started.",
+  "actual_store_trial": false,
+  "cost_unit": "normalized h=1; hypothetical VND uses mu=100 h=100"
+}

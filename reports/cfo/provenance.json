@@ -1,0 +1,12 @@
+{
+  "pilot_cost_study.py": {
+    "archive_path": "work/pilot_cost_study.py",
+    "source_sha256": "2049fe741729b22c65a19aa7d1252673d80a79be07a98fbb8b552c28a6c27a94",
+    "changes": "Only GONG_RUN_DIR and sibling benchmark module import path; original accounting defaults unchanged."
+  },
+  "archive_analyze_cfo.py": {
+    "archive_path": "work/analyze_cfo.py",
+    "source_sha256": "3a4560fda5810459462575aba7b38d4823d0e6781a399485440891ebbee7d4fc",
+    "changes": "Only GONG_RUN_DIR and sibling benchmark module import path; original accounting defaults unchanged."
+  }
+}
