@@ -1,0 +1,66 @@
+{
+  "client_date": "2026-11-23",
+  "python": "3.12.14",
+  "numpy": "2.3.5",
+  "core_tests": {
+    "passed": 69,
+    "scope": "existing HQL/Meta/FQL regression and declared Mimic physical/virtual construction"
+  },
+  "adapter_and_assets": "passed; full native runs of all four models, Q arithmetic, common demand, CSV privacy, retained model sessions, exact video trace replay and asset hashes",
+  "videos": {
+    "count": 4,
+    "seconds_each": 24,
+    "resolution": [
+      1280,
+      720
+    ],
+    "audio": false,
+    "subtitles": false,
+    "screenshots_or_paper_figures": false
+  },
+  "browser_preview": {
+    "status": "blocked_by_infrastructure",
+    "attempts": 2,
+    "error": "sites-preview: relay could not open browser port 4173: timed out waiting for relay readiness",
+    "browser_inventory": "Cloud Chrome available; no successful preview URL returned"
+  },
+  "production_browser_qa": {
+    "status": "blocked_at_authentication",
+    "site_published": true,
+    "private_access_gate_observed": true,
+    "outcome": "Continue with ChatGPT reached an unsigned-in OpenAI login form. No credentials requested; model UI/visual/mobile interactions remain unverified."
+  },
+  "stress_matrix_executed": false,
+  "published_algorithm_replication_claimed": false,
+  "clean_clone_check": "pending integration",
+  "fresh_venv": {
+    "python": "3.12.14",
+    "numpy": "2.5.5",
+    "matplotlib": "3.11.2",
+    "pytest": "9.2.0",
+    "core_tests_passed": 69,
+    "adapter_assets_passed": true
+  },
+  "webassembly": {
+    "status": "passed",
+    "runtime": "Pyodide 0.27.7 in Node 24.22.1",
+    "python": "3.12.7",
+    "numpy": "2.0.2",
+    "models_finished": {
+      "hql": 18,
+      "meta": 36,
+      "fql": 18,
+      "mimic": 18
+    },
+    "totals_match_native": true,
+    "q_trace_and_csv": true,
+    "package_download": "Official npm Pyodide; NumPy WASM wheel cached from official jsDelivr distribution and SHA-256 matched against pyodide-lock.json. Node direct fetch failed in this environment; browser CDN loading is unverified."
+  },
+  "deployment": {
+    "source_commit": "980e9ff4f87540b9588159fe998562c3543978ea",
+    "version": 1,
+    "status": "succeeded",
+    "audience": "owner only",
+    "note": "Initial publication; later source/asset updates require a new version."
+  }
+}

@@ -79,23 +79,30 @@ class StageUpdate:
 class FQLEpisode:
     episode: int
     observations: tuple[FQLObservation, ...]
-    # The actual execution order is day 3, then day 2, then day 1.
+    # Actual execution runs backward from the episode's last phase to its first.
     updates: tuple[StageUpdate, ...]
 
     def snapshot(self, count: int):
-        if not 0 <= count <= HORIZON:
-            raise ValueError("Bước phát lại phải từ 0 đến 3.")
+        horizon = len(self.updates)
+        if not 0 <= count <= horizon:
+            raise ValueError(f"Bước phát lại phải từ 0 đến {horizon}.")
         by_phase = {u.phase: u for u in self.updates}
         applied = {u.phase for u in self.updates[:count]}
-        return tuple(by_phase[h].q_after if h in applied else by_phase[h].q_before for h in range(1, HORIZON + 1))
+        return tuple(by_phase[h].q_after if h in applied else by_phase[h].q_before for h in range(1, horizon + 1))
 
 
 class FQL:
-    def __init__(self, spec: FQLSpec):
+    def __init__(self, spec: FQLSpec, horizon: int = HORIZON):
+        if isinstance(horizon, bool) or not isinstance(horizon, int) or horizon < 1:
+            raise ValueError("Chân trời episode phải là số nguyên dương.")
         self.spec = spec
+        self.horizon = horizon
+        self.cost_bound = spec.bound_for_horizon(horizon)
+        if self.cost_bound <= 0:
+            raise ValueError("Cần cận chi phí dương cho chân trời đã chọn.")
         self.actions = frozen(np.array(list(product(*(range(q + 1) for q in spec.max_order))), dtype=np.int64))
-        self.grids = tuple(StateGrid(spec, h) for h in range(1, HORIZON + 1))
-        self.q = [np.full((len(g.values), len(self.actions)), float(HORIZON)) for g in self.grids]
+        self.grids = tuple(StateGrid(spec, h) for h in range(1, horizon + 1))
+        self.q = [np.full((len(g.values), len(self.actions)), float(horizon)) for g in self.grids]
         self.state = spec.initial_state
         self.days_observed = 0
         self.pending: list[FQLObservation] = []
@@ -107,7 +114,7 @@ class FQL:
         return sum(q.size for q in self.q)
 
     def plan(self) -> FQLChoice:
-        phase = self.days_observed % HORIZON + 1
+        phase = self.days_observed % self.horizon + 1
         row = self.q[phase - 1][self.grids[phase - 1].index(self.state)]
         best = int(np.argmax(row))  # actions are lexicographically increasing.
         return FQLChoice(
@@ -122,7 +129,7 @@ class FQL:
         self.pending.append(FQLObservation(choice, demand))
         self.days_observed += 1
         self.state = result.closing
-        if choice.phase != HORIZON:
+        if choice.phase != self.horizon:
             return None
         trace = self._update()
         self.traces.append(trace)
@@ -132,17 +139,17 @@ class FQL:
 
     def _update(self) -> FQLEpisode:
         episode = len(self.traces) + 1
-        alpha = (HORIZON + 1) / (HORIZON + episode)
+        alpha = (self.horizon + 1) / (self.horizon + episode)
         updates = []
-        for offset in reversed(range(HORIZON)):
+        for offset in reversed(range(self.horizon)):
             demand = self.pending[offset].demand
             states = self.grids[offset].values
             net = states[:, :2] + states[:, 2:] - np.array(demand)
             stock_cost = np.maximum(net, 0) @ np.array(self.spec.holding)
             backlog_cost = np.maximum(-net, 0) @ np.array(self.spec.backlog_rate)
             cost = (stock_cost + backlog_cost)[:, None] + self._action_cost[None, :]
-            reward = 1.0 - cost / self.spec.cost_bound
-            if offset == HORIZON - 1:
+            reward = 1.0 - cost / self.cost_bound
+            if offset == self.horizon - 1:
                 bootstrap = np.zeros_like(reward)
             else:
                 indices = self.grids[offset + 1].next_indices(net, self.actions)

@@ -1,10 +1,15 @@
 # Gong & Simchi-Levi: học thuật toán tồn kho theo nhu cầu chu kỳ
 
-Repo này tập hợp một ứng dụng mô phỏng để học mô hình tồn kho, một notebook năm thí nghiệm và một thí nghiệm độ nhạy về tốc độ học alpha. Tài liệu, giao diện và hướng dẫn hiện viết bằng tiếng Việt.
+Repo này tập hợp ứng dụng học mô hình tồn kho, website bốn mô hình, notebook thí nghiệm và hồ sơ thực nghiệm. Tài liệu, giao diện và hướng dẫn hiện viết bằng tiếng Việt.
+
+**Mở [Inventory Lab trên cloud](https://gong-simchi-inventory-lab.snu-chatgpt-5678.chatgpt.site)** — Site riêng tư, có HQL, Meta-HQL, FQL và bản học Mimic-QL; bốn video sơ đồ hệ thống, chạy từng ngày, phát lại Q và xuất CSV. [Cách dùng, dựng lại và giới hạn](inventory_site/README.md).
+
+Người chuẩn bị thuyết trình xem [playbook experimental tiếng Việt](reports/experimental_presenter/README.md) ([PDF](reports/experimental_presenter/experimental_presenter_playbook_vi.pdf), [DOCX](reports/experimental_presenter/experimental_presenter_playbook_vi.docx)): lộ trình 60/40 phút, lập luận từ bằng chứng, demo và phản biện. [Kế hoạch stress test](docs/stress_test_plan.md) có 32 test ID và thiết kế seed/split; đây là kế hoạch, chưa phải kết quả chạy ma trận.
 
 ## Nội dung
 
-- [`lost_sales_lab/`](lost_sales_lab/README.md): ứng dụng Streamlit mô phỏng vận hành tồn kho và giải thích từng bước HQL, Meta-HQL và FQL. Mimic-QL chưa được cài đặt.
+- [`lost_sales_lab/`](lost_sales_lab/README.md): ứng dụng Streamlit giải thích HQL, Meta-HQL và FQL; các lõi Python dùng chung với website. Mimic chỉ có trên website/lõi mới, dưới dạng [teaching adaptation](docs/mimic_teaching_scope.md), chưa phải replication công bố.
+- [`inventory_site/`](inventory_site/README.md): mã nguồn Site bốn mô hình, video diagram không lời/phụ đề và trace xác định.
 - [`notebooks/gong_simchi_5_experiments.ipynb`](notebooks/gong_simchi_5_experiments.ipynb): năm thí nghiệm minh họa cho bài trình bày 45 phút, gồm lợi ích nhu cầu chu kỳ, chuyển giao tồn kho, biến động, rủi ro và chi phí vốn.
 - [`experiments/alpha_sensitivity/run_alpha_demo.py`](experiments/alpha_sensitivity/run_alpha_demo.py): so sánh năm công thức alpha trên năm kịch bản nhu cầu.
 - [`replication_audit/`](replication_audit/README.md): công cụ chạy kiểm tra chỉ đọc trên gói bổ sung chính thức, kèm checksum và kết quả kiểm tra đã lưu.
@@ -104,6 +109,8 @@ Notebook đang ở chế độ **quick**. TN1–TN3 dùng một biến thể Met
 Thí nghiệm alpha dùng HQL rời rạc với lost-sales và episode độc lập. Ngưỡng tin cậy gốc có thể quá rộng để loại ứng viên trong chân trời mô phỏng. Kết quả dùng ngưỡng nhỏ hơn chỉ nhằm minh họa độ nhạy, không có bảo đảm lý thuyết của bài. Kịch bản đổi mức nhu cầu là stress test ngoài giả định phân phối lặp lại.
 
 Ứng dụng là công cụ học tập. So sánh người dùng với thuật toán trên cùng một đường nhu cầu mang tính minh họa; riêng phép so sánh đó không ước lượng regret kỳ vọng và không chứng minh tối ưu.
+
+Website chạy chính các lõi Python qua Pyodide trong trình duyệt. Bản học Mimic dùng FQL ảo J=6, chu kỳ nhu cầu H=3 và lệnh thực có hạn mức; kho thực giữ tồn/nợ/pipeline, chỉ hệ ảo reset. Cách giải nghĩa công thức ghép và hạn mức là điều chỉnh công khai theo nguồn luận án MIT sớm hơn bài báo cuối. Không áp dụng bảo đảm regret cho bản học. [Phạm vi và nguồn](docs/mimic_teaching_scope.md) ghi rõ phần cần tiếp tục đối chiếu.
 
 ## Nguồn và phạm vi
 

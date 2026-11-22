@@ -1,0 +1,106 @@
+{
+  "scope": "Documentation source-anchor checks, Office export and PDF render review only; no new stress experiments.",
+  "date_utc": "2026-11-22",
+  "status": "DOCUMENTATION_CHECKS_PASSED_READY_FOR_INTEGRATION",
+  "source_evidence_baseline_commit": "5a91349",
+  "environment": {
+    "python": "3.12.14",
+    "python_docx": "1.2.0",
+    "pdf_export": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5",
+    "pdf_inspection_pymupdf": "1.26.6"
+  },
+  "checks": {
+    "source_json_values": 62,
+    "derived_values": 4,
+    "local_markdown_links": 60,
+    "planned_test_ids_unique": 32,
+    "seed_splits_disjoint": true,
+    "all_plan_test_statuses_planned": true,
+    "subtitles_voice_screen_recording_all_false": true,
+    "fresh_venv_dependency_installation": true,
+    "rebuild_to_external_output_directory": true,
+    "rebuilt_docx_all_zip_member_bytes_equal": true,
+    "pdf_outputs": {
+      "experimental_presenter_playbook_vi.pdf": {
+        "pages": 9,
+        "blank_pages": 0,
+        "all_text_inside_page": true
+      },
+      "stress_test_plan_vi.pdf": {
+        "pages": 8,
+        "blank_pages": 0,
+        "all_text_inside_page": true
+      }
+    },
+    "visual_review": "All pages reviewed as rendered contact sheets; no blank pages or text beyond page bounds."
+  },
+  "commands": [
+    "python -m venv /tmp/gong-presenter-venv",
+    "/tmp/gong-presenter-venv/bin/python -m pip install -r reports/experimental_presenter/requirements.txt",
+    "/tmp/gong-presenter-venv/bin/python reports/experimental_presenter/check_documents.py",
+    "/tmp/gong-presenter-venv/bin/python reports/experimental_presenter/build_documents.py --output-dir /tmp/gong-presenter-rebuild",
+    "soffice --headless --convert-to pdf --outdir reports/experimental_presenter reports/experimental_presenter/experimental_presenter_playbook_vi.docx reports/experimental_presenter/stress_test_plan_vi.docx"
+  ],
+  "stress_matrix_executed": false,
+  "new_performance_results_generated": false,
+  "original_inputs_modified": false,
+  "clean_clone_integrated_commit_check": "Pending parent integration; current check used a fresh Python venv and current worktree, not a post-commit clone.",
+  "limits": [
+    "The 32 planned tests are a design, not an executable runner or passed stress results.",
+    "Prior source validations are cited; the original INFORMS package and full adapted benchmark were not rerun by this documentation task.",
+    "Mimic is an explicitly bounded teaching adaptation; the source thesis predates the final published paper and does not close the published replication gate.",
+    "Timing, resource and sample-size suggestions are prospective; PDF pagination can vary across fonts and LibreOffice versions."
+  ],
+  "files": {
+    "docs/stress_test_plan.md": {
+      "bytes": 28958,
+      "sha256": "dc43c149ff32e8ee3fcc05a3896cb54bd405e30dc7e66b9a278a6d2ceab15558"
+    },
+    "experiments/stress_tests/plan.json": {
+      "bytes": 22810,
+      "sha256": "79c48b75117a3cb33ee78f018ff17a308979558061d5a9741756a2c3cd19d788"
+    },
+    "reports/experimental_presenter/README.md": {
+      "bytes": 3294,
+      "sha256": "98da28557ec6440b6867f970c5da47f0addb9e57f63e662df35c99108080c2bd"
+    },
+    "reports/experimental_presenter/build_documents.py": {
+      "bytes": 8148,
+      "sha256": "9279c5520c848003c07a16c4a3cd0581f4d57edb0a3afaa8e51cd0fc5649287e"
+    },
+    "reports/experimental_presenter/check_documents.py": {
+      "bytes": 3825,
+      "sha256": "35dfd5e3e5b3c6750c616878b760329a5c0dd72a9092cb6c652a4be32787e945"
+    },
+    "reports/experimental_presenter/experimental_presenter_playbook_vi.docx": {
+      "bytes": 53510,
+      "sha256": "af851ed26d4d85cf2b0374e880ad8a99307bae3c90cf7ad21d1e7b226c5f55dd"
+    },
+    "reports/experimental_presenter/experimental_presenter_playbook_vi.pdf": {
+      "bytes": 325619,
+      "sha256": "9fe113dab05609fb5f6be811fead7270da6450f63e8fd78b61fff266c50d7676"
+    },
+    "reports/experimental_presenter/playbook_vi.md": {
+      "bytes": 35311,
+      "sha256": "5a2cf9501c189fb715f59f66487687224e44bb1e6629e6fe311f8eec9860cabe"
+    },
+    "reports/experimental_presenter/requirements.txt": {
+      "bytes": 18,
+      "sha256": "adddf3bcd72bc359ceb149833ad5828943e3f8c1e39ef482b78b38c802e12bb4"
+    },
+    "reports/experimental_presenter/source_refs.json": {
+      "bytes": 14593,
+      "sha256": "8cb6018232d80575f16b5b96586032af907150155da934246b29bdf29845fc81"
+    },
+    "reports/experimental_presenter/stress_test_plan_vi.docx": {
+      "bytes": 51850,
+      "sha256": "03e7b33f08525394ac67ea4e56a4c6f3cda2b1d8e05462a4bda313357c3ed332"
+    },
+    "reports/experimental_presenter/stress_test_plan_vi.pdf": {
+      "bytes": 279619,
+      "sha256": "a843f1557f8cdabb16e9f275269ce0ddb2ecc8e6bfad496556664d71c83e7ddf"
+    }
+  },
+  "client_date": "2026-11-23",
+  "date_correction": "Visible issue date uses Asia/Seoul; export timestamp remains UTC."
+}

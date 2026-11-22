@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#071b36">
+  <meta name="description" content="Thử quyết định tồn kho và xem HQL, Meta-HQL, FQL, Mimic-QL vận hành qua sơ đồ động.">
+  <title>Inventory Lab · Gong & Simchi-Levi</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Đến nội dung</a>
+<aside class="rail">
+  <a class="brand" href="./" aria-label="Inventory Lab"><span class="brand-mark">▥</span><span>Inventory<br><b>Lab</b></span></a>
+  <p class="rail-caption">GONG & SIMCHI-LEVI</p>
+  <nav aria-label="Điều hướng">
+    <button class="nav active" data-view="lab"><span>◫</span> Phòng mô phỏng</button>
+    <button class="nav" data-view="films"><span>▷</span> Sơ đồ chuyển động</button>
+    <button class="nav" data-view="learn"><span>☷</span> Hướng dẫn & nguồn</button>
+  </nav>
+  <div class="rail-bottom"><span class="tiny-label">MỤC ĐÍCH</span><p>Hiểu một quyết định.<br>Theo dõi cả hệ thống.</p><small>Bản học hữu hạn<br>Không phải công cụ đặt hàng thực tế.</small></div>
+</aside>
+<main id="main">
+  <header class="topbar"><div><span class="eyebrow">THỬ NGHIỆM TƯƠNG TÁC</span><h1>Một ngày trong hệ thống tồn kho</h1></div><a class="source-link" href="https://doi.org/10.1287/mnsc.2023.4947" target="_blank" rel="noreferrer">Bài nghiên cứu gốc</a></header>
+  <section id="lab-view">
+    <p class="intro">Bạn đặt hàng cho một cửa hàng. Thuật toán điều khiển một cửa hàng khác trên cùng đường nhu cầu. Chọn mô hình và chạy từng ngày để nhìn rõ sự khác biệt.</p>
+    <div class="models" role="group" aria-label="Chọn mô hình">
+      <button class="model active" data-model="hql"><span class="model-icon">▤</span><strong>HQL</strong><span>Mất bán · tập độc lập</span></button>
+      <button class="model" data-model="meta"><span class="model-icon">◈</span><strong>Meta-HQL</strong><span>Mất bán · giữ tồn</span></button>
+      <button class="model" data-model="fql"><span class="model-icon">▦</span><strong>FQL</strong><span>Hai sản phẩm · nợ đơn</span></button>
+      <button class="model" data-model="mimic"><span class="model-icon">▱</span><strong>Mimic-QL <small>bản học</small></strong><span>Kho thực · hệ FQL ảo</span></button>
+    </div>
+    <div class="model-context"><div><span id="model-badge" class="pill">HQL</span><span id="context-text">Một sản phẩm, hàng đến ngay, nhu cầu không được đáp ứng sẽ mất.</span></div><button id="scope-open" class="text-button">Hiểu quy ước mô hình</button></div>
+    <div id="loading" class="loading" role="status" aria-live="polite"><span class="spinner"></span><div><strong id="loading-title">Đang chuẩn bị bộ mô phỏng Python</strong><p id="loading-detail">Lần đầu cần tải bộ tính toán và NumPy. Video sơ đồ vẫn có thể xem ngay.</p></div><button id="retry" hidden>Thử lại</button></div>
+    <div id="error" class="error" role="alert" hidden></div>
+    <div class="workspace">
+      <section class="panel flow-panel" aria-labelledby="flow-title">
+        <div class="panel-head"><div><span class="eyebrow">DÒNG HÀNG & THÔNG TIN</span><h2 id="flow-title">Xem quyết định đi qua hệ thống</h2></div><span id="day-badge" class="day-badge">Chưa bắt đầu</span></div>
+        <div class="flow-legend"><span><i class="legend-line"></i> Hàng và đơn</span><span><i class="legend-line feedback"></i> Thông tin được phép học</span><span id="status-note">Sẵn sàng quan sát</span></div>
+        <div id="diagram" class="diagram" aria-live="polite"></div><p class="diagram-hint">Có thể cuộn ngang sơ đồ để xem rõ nhãn.</p>
+        <div id="step-summary" class="step-summary">Sau khi chạy một ngày, sơ đồ sẽ hiển thị lượng đặt, lượng bán và tồn cuối ngày.</div>
+        <div class="replay"><label for="replay">Xem lại ngày <b id="replay-day">0</b></label><input id="replay" type="range" min="0" max="0" value="0" aria-label="Ngày xem lại"><button id="live" class="text-button" disabled>Ngày hiện tại</button></div>
+      </section>
+      <aside class="panel decision">
+        <span class="eyebrow">CỬA HÀNG CỦA BẠN</span><h2>Quyết định hôm nay</h2><p id="decision-description">Chọn tổng hàng sẵn bán sau bổ sung.</p>
+        <div id="lost-controls"><label for="target">Mức hàng sau bổ sung <b id="target-value">10</b></label><input id="target" type="range" min="3" max="20" value="10"><div class="range-labels"><span id="target-min">Tồn hiện có: 3</span><span id="target-max">Sức chứa: 20</span></div><p class="muted">Đặt thêm <b id="order-preview">7</b> đơn vị. Hàng đến ngay.</p></div>
+        <div id="full-controls" class="orders" hidden><label>Sản phẩm A<input id="order-a" type="number" min="0" max="3" value="2" inputmode="numeric"></label><label>Sản phẩm B<input id="order-b" type="number" min="0" max="3" value="2" inputmode="numeric"></label><p class="muted">Đây là lượng đặt thêm. Đơn mới đến sau một ngày.</p></div>
+        <button id="step" class="primary" disabled>Chạy một ngày</button>
+        <button id="auto" class="secondary" disabled>Tự chạy theo quyết định này</button>
+        <div class="tempo"><label for="tempo">Nhịp chạy</label><select id="tempo"><option value="1600">Chậm</option><option value="800">Vừa</option><option value="250">Nhanh</option></select></div>
+        <details id="settings"><summary>Cấu hình lượt chạy</summary><label>Seed<input id="seed" type="number" min="0" max="2147483647" value="42"></label><label>Số chu kỳ 3 ngày<input id="cycles" type="number" min="1" max="20" value="6"></label><div id="bound-setting"><label>Cận tin cậy<select id="bounds"><option value="practical">Minh họa thu hẹp nhanh</option><option value="paper">Theo công thức cận</option></select></label><p class="muted">Cận minh họa thay hệ số để quan sát cơ chế; không có bảo đảm lý thuyết của bài.</p></div><label class="check"><input id="researcher" type="checkbox" checked>Xem nhu cầu thật sau mỗi ngày</label><p class="muted">HQL vẫn chỉ nhận doanh số riêng. Nhìn lại không tạo mẫu học mới.</p><button id="reset" class="secondary">Áp dụng và bắt đầu lại</button></details>
+        <small class="session-note">Lượt chạy lưu trong tab hiện tại. Tải CSV để giữ kết quả.</small>
+      </aside>
+    </div>
+    <div class="scores" aria-label="So sánh chi phí trên lượt chạy"><div><span>CỬA HÀNG CỦA BẠN</span><strong id="human-cost">0.00</strong></div><div><span id="algorithm-cost-label">HQL</span><strong id="algorithm-cost">0.00</strong></div><div><span>CHÊNH LỆCH BẠN − THUẬT TOÁN</span><strong id="difference">0.00</strong><small id="cost-label">Đơn vị chi phí mô hình</small></div></div>
+    <div class="details-grid">
+      <section class="panel"><div class="panel-head"><div><span class="eyebrow">CÙNG ĐƯỜNG NHU CẦU</span><h2>Chi phí tích lũy</h2></div><button id="export" class="text-button" disabled>Tải CSV</button></div><div id="cost-chart" class="cost-chart"><p class="empty">Chạy ngày đầu tiên để có điểm dữ liệu.</p></div><p class="footnote">So sánh mô tả trong lượt chạy này. Các mô hình có thông tin và chi phí khác nhau; không dùng để xếp hạng cả bốn thuật toán.</p></section>
+      <section class="panel"><div class="panel-head"><div><span class="eyebrow">BÊN TRONG BỘ HỌC</span><h2>Một cập nhật Q</h2></div></div><div class="q-controls"><label>Pha<select id="q-phase"><option>1</option><option>2</option><option>3</option></select></label><label id="q-action-label">Ứng viên / chỉ số lệnh<input id="q-action" type="number" value="0" min="0" max="20"></label><button id="q-show" class="secondary" disabled>Xem cập nhật</button></div><div id="q-detail" class="q-detail">Chưa có episode hoàn tất. Q sẽ được cập nhật sau khi đủ dữ liệu.</div></section>
+    </div>
+  </section>
+  <section id="films-view" hidden><div class="section-intro"><span class="eyebrow">SƠ ĐỒ HỆ THỐNG CHUYỂN ĐỘNG</span><h2>Theo dõi luồng, từng cơ chế một</h2><p>Các video chỉ dùng sơ đồ, đối tượng chuyển động và nhãn thành phần. Các số hiển thị lấy từ một lượt mô phỏng xác định, không phải benchmark hiệu năng.</p></div><div class="film-grid" id="film-grid"></div></section>
+  <section id="learn-view" hidden><div class="section-intro"><span class="eyebrow">HỌC CÁCH ĐỌC THÍ NGHIỆM</span><h2>Từ mô hình đến bằng chứng</h2><p>Bắt đầu với một luồng tồn kho, rồi mới đọc giá trị Q và các phép so sánh.</p></div><div class="learn-grid"><article class="panel"><h3>Cách thử trong vài phút</h3><ol><li>Chạy HQL ba ngày; quan sát doanh số và bước reset.</li><li>Mở Meta-HQL và chạy qua ngày chờ chuyển bản sao.</li><li>Thử FQL: tách hàng đến hôm nay khỏi đơn đặt cho ngày mai.</li><li>Ở Mimic, so kho thực với FQL ảo qua ranh giới khối dài.</li></ol><p>Chuyển mô hình giữ các lượt trong phiên. Xem lại ngày không chạy lại thuật toán.</p></article><article class="panel"><h3>Bốn mô hình, hai hệ thống vật lý</h3><p><b>Lost-sales:</b> không giao được thì mất bán; bộ học chỉ thấy doanh số.</p><p><b>Backlogging:</b> nhu cầu chưa phục vụ thành nợ; bộ học biết nhu cầu.</p><p>HQL/FQL dùng episode độc lập. Meta-HQL và bản học Mimic giữ kho thực liên tục.</p></article><article class="panel"><h3>Giới hạn của bản học Mimic</h3><p>Hệ FQL ảo dùng khối J=6, nhu cầu lặp H=3; kho thực giữ tồn, nợ và hàng đang về. Cả hai cùng tiến thời gian.</p><p>Yêu cầu ghép vị thế tồn được giới hạn bởi hạn mức lệnh. Đây là bản học có điều chỉnh dựa trên mô tả của tác giả, không phải tái lập nguyên văn hoặc xác minh định lý.</p><a href="https://dspace.mit.edu/entities/publication/35957b3a-1578-49a3-829e-db9aabe08995" target="_blank" rel="noreferrer">Nguồn luận án MIT, mục 3.3.2</a></article><article class="panel"><h3>Tài liệu thực nghiệm</h3><p><a href="./resources/presenter_playbook.pdf">Báo cáo hướng dẫn trình bày</a></p><p><a href="./resources/stress_test_plan.md">Kế hoạch stress test</a></p><p><a href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment" target="_blank" rel="noreferrer">Mã nguồn, cấu hình và kết quả đã lưu</a></p><p>Chi phí ở đây là đơn vị mô hình. Các số VND trong báo cáo CFO là giả định mẫu.</p></article></div></section>
+  <footer>Gong & Simchi-Levi · Bản học độc lập trên lưới hữu hạn. Dữ liệu mô phỏng; không có nhu cầu tương lai trong phản hồi của learner.</footer>
+</main>
+<dialog id="scope"><form method="dialog"><button class="dialog-close" aria-label="Đóng">×</button></form><span class="eyebrow">TRƯỚC KHI SO SÁNH</span><h2 id="scope-title">Quy ước mô hình</h2><div id="scope-body"></div><button id="scope-close" class="primary">Đã hiểu</button></dialog>
+<script src="./app.js" defer></script>
+</body></html>

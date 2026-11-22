@@ -1,0 +1,34 @@
+{
+  "model.py": {
+    "source": "lost_sales_lab/model.py",
+    "sha256": "527ccd5ece5f222ff402133c8d356b0feaf376655088e92412388dcd72c7f6ed"
+  },
+  "hql.py": {
+    "source": "lost_sales_lab/hql.py",
+    "sha256": "83b3a4797737ff5faefc8c3a863b36098e5258803346f373f95faf33032aa3c7"
+  },
+  "meta_hql.py": {
+    "source": "lost_sales_lab/meta_hql.py",
+    "sha256": "cb3aa42f8d4226d20cb2b3db3f48c3f18aa9deae7b2d227fb95faeafe0020765"
+  },
+  "experiment.py": {
+    "source": "lost_sales_lab/experiment.py",
+    "sha256": "e365f26abe5d6ae9f6ecd2b33c2fad932d2e6fee2145c23427a28d120db659a3"
+  },
+  "fql_model.py": {
+    "source": "lost_sales_lab/fql_model.py",
+    "sha256": "869414e2da99ba2cb52202568e6e7b3f81d032eb60937422dcfb79b4edafe3fb"
+  },
+  "fql.py": {
+    "source": "lost_sales_lab/fql.py",
+    "sha256": "79ff25aaec769a9a8bf9366538e0808448c96b41ba9fd35e870573530da22f11"
+  },
+  "fql_experiment.py": {
+    "source": "lost_sales_lab/fql_experiment.py",
+    "sha256": "cdd67fccef2f07a6d9e36031533523606fffc8ee37d40cf245a38d052e5be856"
+  },
+  "mimic_ql.py": {
+    "source": "lost_sales_lab/mimic_ql.py",
+    "sha256": "b14200fa94c80fcc3f5c5290a400f8aba3aef1efe08e220514fca5fb126dfade"
+  }
+}

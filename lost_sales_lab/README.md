@@ -1,5 +1,7 @@
 # Mô phỏng tồn kho: HQL, Meta-HQL và FQL
 
+Website bốn mô hình và bốn video diagram nằm ở [Inventory Lab](../inventory_site/README.md). Streamlit trong thư mục này vẫn có ba lựa chọn ở tiêu đề. Lõi mới [mimic_ql.py](mimic_ql.py) phục vụ website là một [teaching adaptation có công khai giới hạn](../docs/mimic_teaching_scope.md), chưa phải replication Mimic-QL công bố. FQL mặc định giữ H=3; horizon J mở rộng chỉ dùng bởi hệ ảo của bản học Mimic.
+
 Bạn đóng vai người quản lý cửa hàng: chọn tổng hàng sẵn bán sau bổ sung, chạy
 một ngày và đọc giải thích về lượng bán, tồn dư, thông tin bị che khuất và chi phí.
 Giao diện và giải thích dùng tiếng Việt. Bạn tự đặt hàng ở một cửa hàng; HQL

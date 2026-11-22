@@ -1,0 +1,514 @@
+{
+  "schema_version": 1,
+  "purpose": "Source anchors for empirical quantities in the experimental presenter playbook; proposed schedules and prospective stress factors are design choices, not measured results.",
+  "baseline_commit": "5a91349",
+  "source_values": [
+    {
+      "id": "audit_rossmann_T",
+      "path": "results/replication_audit/audit_results.json",
+      "pointer": "/runs/rossmann/T",
+      "expected": 938
+    },
+    {
+      "id": "audit_rossmann_total",
+      "path": "results/replication_audit/audit_results.json",
+      "pointer": "/runs/rossmann/learner/total",
+      "expected": 59801.0
+    },
+    {
+      "id": "audit_advice_total",
+      "path": "results/replication_audit/audit_results.json",
+      "pointer": "/runs/rossmann/expert_advice/total",
+      "expected": 56470.0
+    },
+    {
+      "id": "audit_rossmann_mean",
+      "path": "results/replication_audit/audit_results.json",
+      "pointer": "/runs/rossmann/learner/mean",
+      "expected": 63.75373134328358
+    },
+    {
+      "id": "audit_advice_mean",
+      "path": "results/replication_audit/audit_results.json",
+      "pointer": "/runs/rossmann/expert_advice/mean",
+      "expected": 60.20255863539445
+    },
+    {
+      "id": "audit_near_opt_mean",
+      "path": "results/replication_audit/audit_results.json",
+      "pointer": "/runs/rossmann/near_OPT_vector/mean",
+      "expected": 47.07995735607676
+    },
+    {
+      "id": "audit_iid_mean",
+      "path": "results/replication_audit/audit_results.json",
+      "pointer": "/runs/rossmann/best_iid/mean",
+      "expected": 92.16737739872069
+    },
+    {
+      "id": "audit_synthetic_seed",
+      "path": "results/replication_audit/audit_results.json",
+      "pointer": "/runs/synthetic/seed",
+      "expected": 0
+    },
+    {
+      "id": "audit_synthetic_T",
+      "path": "results/replication_audit/audit_results.json",
+      "pointer": "/runs/synthetic/T",
+      "expected": 5000
+    },
+    {
+      "id": "audit_synthetic_H",
+      "path": "results/replication_audit/audit_results.json",
+      "pointer": "/runs/synthetic/H",
+      "expected": 5
+    },
+    {
+      "id": "audit_dp_mean",
+      "path": "results/replication_audit/audit_results.json",
+      "pointer": "/runs/synthetic/author_DP_policy_realized_cost/mean",
+      "expected": 0.6446799999999999
+    },
+    {
+      "id": "audit_candidate_mean",
+      "path": "results/replication_audit/audit_results.json",
+      "pointer": "/runs/synthetic/candidate_feasible_policy/mean",
+      "expected": 0.4866799999999983
+    },
+    {
+      "id": "audit_candidate_targets",
+      "path": "results/replication_audit/audit_results.json",
+      "pointer": "/runs/synthetic/candidate_feasible_policy/targets",
+      "expected": [
+        9,
+        4,
+        1,
+        0,
+        6
+      ]
+    },
+    {
+      "id": "audit_episode_sensitivity_mean",
+      "path": "results/replication_audit/audit_results.json",
+      "pointer": "/runs/rossmann_episode_start_sensitivity/learner/mean",
+      "expected": 63.766524520255864
+    },
+    {
+      "id": "benchmark_primary_counts",
+      "path": "results/beer_rossmann/analysis_summary.json",
+      "pointer": "/primary_counts",
+      "expected": {
+        "Meta-HQL-P": 18
+      }
+    },
+    {
+      "id": "benchmark_online_counts",
+      "path": "results/beer_rossmann/analysis_summary.json",
+      "pointer": "/online_counts",
+      "expected": {
+        "SRDQN-A": 18
+      }
+    },
+    {
+      "id": "benchmark_long_counts",
+      "path": "results/beer_rossmann/analysis_summary.json",
+      "pointer": "/long_counts",
+      "expected": {
+        "Meta-HQL-P": 4,
+        "Chưa rõ": 2
+      }
+    },
+    {
+      "id": "benchmark_meta_online",
+      "path": "results/beer_rossmann/analysis_summary.json",
+      "pointer": "/core_means/Meta-HQL-P/online_cost",
+      "expected": 2.569863
+    },
+    {
+      "id": "benchmark_meta_frozen",
+      "path": "results/beer_rossmann/analysis_summary.json",
+      "pointer": "/core_means/Meta-HQL-P/frozen_cost",
+      "expected": 0.806871
+    },
+    {
+      "id": "benchmark_dqn_online",
+      "path": "results/beer_rossmann/analysis_summary.json",
+      "pointer": "/core_means/SRDQN-A/online_cost",
+      "expected": 1.327365
+    },
+    {
+      "id": "benchmark_dqn_frozen",
+      "path": "results/beer_rossmann/analysis_summary.json",
+      "pointer": "/core_means/SRDQN-A/frozen_cost",
+      "expected": 1.208841
+    },
+    {
+      "id": "benchmark_weekday_frozen",
+      "path": "results/beer_rossmann/analysis_summary.json",
+      "pointer": "/core_means/Prior weekday/frozen_cost",
+      "expected": 0.815723
+    },
+    {
+      "id": "benchmark_training_interactions",
+      "path": "results/beer_rossmann/analysis_summary.json",
+      "pointer": "/training_interactions_per_algorithm",
+      "expected": 83160000
+    },
+    {
+      "id": "benchmark_safeguards",
+      "path": "results/beer_rossmann/analysis_summary.json",
+      "pointer": "/total_safeguards",
+      "expected": 0
+    },
+    {
+      "id": "benchmark_feedback_violations",
+      "path": "results/beer_rossmann/analysis_summary.json",
+      "pointer": "/feedback_violations",
+      "expected": 0
+    },
+    {
+      "id": "design_train_T",
+      "path": "benchmarks/beer_rossmann/config/preregistered_design.json",
+      "pointer": "/train_T",
+      "expected": 21000
+    },
+    {
+      "id": "design_frozen_eval_T",
+      "path": "benchmarks/beer_rossmann/config/preregistered_design.json",
+      "pointer": "/frozen_eval_T",
+      "expected": 1400
+    },
+    {
+      "id": "design_profiles",
+      "path": "benchmarks/beer_rossmann/config/preregistered_design.json",
+      "pointer": "/profiles",
+      "expected": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "design_seeds",
+      "path": "benchmarks/beer_rossmann/config/preregistered_design.json",
+      "pointer": "/seeds",
+      "expected": [
+        1000,
+        1001,
+        1002,
+        1003,
+        1004,
+        1005,
+        1006,
+        1007,
+        1008,
+        1009,
+        1010,
+        1011,
+        1012,
+        1013,
+        1014,
+        1015,
+        1016,
+        1017,
+        1018,
+        1019,
+        1020,
+        1021,
+        1022,
+        1023,
+        1024,
+        1025,
+        1026,
+        1027,
+        1028,
+        1029
+      ]
+    },
+    {
+      "id": "design_long_T",
+      "path": "benchmarks/beer_rossmann/config/preregistered_design.json",
+      "pointer": "/long_T",
+      "expected": 70000
+    },
+    {
+      "id": "design_long_seeds",
+      "path": "benchmarks/beer_rossmann/config/preregistered_design.json",
+      "pointer": "/long_seeds",
+      "expected": [
+        3000,
+        3001,
+        3002,
+        3003,
+        3004,
+        3005,
+        3006,
+        3007,
+        3008,
+        3009,
+        3010,
+        3011,
+        3012,
+        3013,
+        3014,
+        3015,
+        3016,
+        3017,
+        3018,
+        3019,
+        3020,
+        3021,
+        3022,
+        3023,
+        3024,
+        3025,
+        3026,
+        3027,
+        3028,
+        3029
+      ]
+    },
+    {
+      "id": "design_H",
+      "path": "benchmarks/beer_rossmann/config/preregistered_design.json",
+      "pointer": "/H",
+      "expected": 7
+    },
+    {
+      "id": "design_M",
+      "path": "benchmarks/beer_rossmann/config/preregistered_design.json",
+      "pointer": "/M",
+      "expected": 4
+    },
+    {
+      "id": "design_step",
+      "path": "benchmarks/beer_rossmann/config/preregistered_design.json",
+      "pointer": "/step",
+      "expected": 0.2
+    },
+    {
+      "id": "design_bootstrap",
+      "path": "benchmarks/beer_rossmann/config/preregistered_design.json",
+      "pointer": "/bootstrap",
+      "expected": 20000
+    },
+    {
+      "id": "design_decision_threshold_percent",
+      "path": "benchmarks/beer_rossmann/config/preregistered_design.json",
+      "pointer": "/decision_threshold_percent",
+      "expected": 5
+    },
+    {
+      "id": "design_familywise_alpha",
+      "path": "benchmarks/beer_rossmann/config/preregistered_design.json",
+      "pointer": "/familywise_alpha",
+      "expected": 0.05
+    },
+    {
+      "id": "quick_H",
+      "path": "results/five_experiments/configuration.json",
+      "pointer": "/H",
+      "expected": 7
+    },
+    {
+      "id": "quick_cap",
+      "path": "results/five_experiments/configuration.json",
+      "pointer": "/cap",
+      "expected": 32
+    },
+    {
+      "id": "quick_seeds",
+      "path": "results/five_experiments/configuration.json",
+      "pointer": "/seeds",
+      "expected": 6
+    },
+    {
+      "id": "quick_cycles",
+      "path": "results/five_experiments/configuration.json",
+      "pointer": "/cycles",
+      "expected": 500
+    },
+    {
+      "id": "quick_cb_scale",
+      "path": "results/five_experiments/configuration.json",
+      "pointer": "/cb_scale",
+      "expected": 0.05
+    },
+    {
+      "id": "quick_meta_cb_scale",
+      "path": "results/five_experiments/configuration.json",
+      "pointer": "/meta_cb_scale",
+      "expected": 0.05
+    },
+    {
+      "id": "quick_eval_paths",
+      "path": "results/five_experiments/configuration.json",
+      "pointer": "/eval_paths",
+      "expected": 5000
+    },
+    {
+      "id": "quick_eval_horizon",
+      "path": "results/five_experiments/configuration.json",
+      "pointer": "/eval_horizon",
+      "expected": 28
+    },
+    {
+      "id": "cfo_scenario_count",
+      "path": "results/cfo/summary.json",
+      "pointer": "/scenario_count",
+      "expected": 18
+    },
+    {
+      "id": "cfo_Meta_lower_than_weekday_point_estimate_cells",
+      "path": "results/cfo/summary.json",
+      "pointer": "/Meta_lower_than_weekday_point_estimate_cells",
+      "expected": 16
+    },
+    {
+      "id": "cfo_annual_p10_saving_per_sku_vs_weekday",
+      "path": "results/cfo/summary.json",
+      "pointer": "/annual_p10_saving_per_sku_vs_weekday",
+      "expected": 60893.87472988472
+    },
+    {
+      "id": "cfo_recurring_n_break_even",
+      "path": "results/cfo/summary.json",
+      "pointer": "/recurring_n_break_even",
+      "expected": 394.1283110404795
+    },
+    {
+      "id": "cfo_first_year_n_break_even",
+      "path": "results/cfo/summary.json",
+      "pointer": "/first_year_n_break_even",
+      "expected": 1215.2289590414784
+    },
+    {
+      "id": "cfo_npv3_n_break_even",
+      "path": "results/cfo/summary.json",
+      "pointer": "/npv3_n_break_even",
+      "expected": 735.992728772446
+    },
+    {
+      "id": "cfo_sample_B_p",
+      "path": "results/cfo/summary.json",
+      "pointer": "/sample_B_p",
+      "expected": 584.0
+    },
+    {
+      "id": "cfo_online_frozen_break_even_min",
+      "path": "results/cfo/summary.json",
+      "pointer": "/online_frozen_break_even_min",
+      "expected": 15907.62427240911
+    },
+    {
+      "id": "cfo_online_frozen_break_even_max",
+      "path": "results/cfo/summary.json",
+      "pointer": "/online_frozen_break_even_max",
+      "expected": 684368.1788015882
+    },
+    {
+      "id": "cfo_assumed_meta_incremental_setup_vnd_vs_existing_baseline",
+      "path": "reports/cfo/assumptions.json",
+      "pointer": "/meta_incremental_setup_vnd_vs_existing_baseline",
+      "expected": 50000000.0
+    },
+    {
+      "id": "cfo_assumed_meta_incremental_annual_running_vnd_vs_existing_baseline",
+      "path": "reports/cfo/assumptions.json",
+      "pointer": "/meta_incremental_annual_running_vnd_vs_existing_baseline",
+      "expected": 24000000.0
+    },
+    {
+      "id": "cfo_assumed_discount_rate_assumed",
+      "path": "reports/cfo/assumptions.json",
+      "pointer": "/discount_rate_assumed",
+      "expected": 0.12
+    },
+    {
+      "id": "cfo_assumed_periods_per_year",
+      "path": "reports/cfo/assumptions.json",
+      "pointer": "/periods_per_year",
+      "expected": 365
+    },
+    {
+      "id": "slides_slide_count",
+      "path": "presentation/cloud_validation.json",
+      "pointer": "/slide_count",
+      "expected": 38
+    },
+    {
+      "id": "slides_script_main_slide_sections",
+      "path": "presentation/cloud_validation.json",
+      "pointer": "/script_main_slide_sections",
+      "expected": 31
+    },
+    {
+      "id": "slides_numeric_chart_points",
+      "path": "presentation/cloud_validation.json",
+      "pointer": "/numeric_chart_points",
+      "expected": 204
+    },
+    {
+      "id": "slides_third_party_image_blobs_in_release",
+      "path": "presentation/cloud_validation.json",
+      "pointer": "/third_party_image_blobs_in_release",
+      "expected": 0
+    }
+  ],
+  "derived_quantities": [
+    {
+      "id": "advice_mean_improvement_percent",
+      "formula": "100*(audit_rossmann_mean-audit_advice_mean)/audit_rossmann_mean",
+      "display": "about 5.6%",
+      "interpretation": "point comparison over the full saved Rossmann path, not an early-learning estimate or CI",
+      "expected": 5.570140967542354
+    },
+    {
+      "id": "episode_mean_change",
+      "formula": "audit_episode_sensitivity_mean-audit_rossmann_mean",
+      "display": "about +0.012794",
+      "interpretation": "same saved path code sensitivity, no statistical-significance claim",
+      "expected": 0.012793176972280662
+    },
+    {
+      "id": "meta_vs_weekday_point_improvement_percent",
+      "formula": "100*(benchmark_weekday_frozen-benchmark_meta_frozen)/benchmark_weekday_frozen",
+      "display": "about 1.1%",
+      "interpretation": "ratio of rounded aggregate means; no equivalence claim",
+      "expected": 1.0851722950070026
+    },
+    {
+      "id": "cfo_first_year_100_skus",
+      "path": "results/cfo/illustrative_portfolio_tco.csv",
+      "row_filter": {
+        "n_identical_independent_skus": "100"
+      },
+      "field": "first_year_net",
+      "expected": -67910612.52701153,
+      "display": "about -67.91 million VND",
+      "interpretation": "hypothetical identical independent SKU portfolio, not observed costs"
+    }
+  ],
+  "mimic_primary_source": {
+    "url": "https://hdl.handle.net/1721.1/151589",
+    "title": "Data-Driven Decision Making in Operations Management",
+    "author": "Xiaoyue Gong",
+    "version": "MIT PhD thesis, June 2023; earlier than the final published article",
+    "pages": [
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      170,
+      171
+    ],
+    "download_sha256": "fed01bc73d58e6545f070c99c2f2acb653d09c5ea62c1655777ff1cbfd1c25b8",
+    "distribution": "Do not include PDF or page images in this public report package.",
+    "scope": "Supports source crosswalk and an explicitly bounded teaching adaptation; final-published replication and matching-feasibility issues remain open."
+  }
+}

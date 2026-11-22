@@ -60,11 +60,17 @@ class FQLSpec:
 
     @property
     def cost_bound(self) -> float:
+        return self.bound_for_horizon(HORIZON)
+
+    def bound_for_horizon(self, horizon: int) -> float:
+        if isinstance(horizon, bool) or not isinstance(horizon, Integral) or horizon < 1:
+            raise ValueError("Chân trời episode phải là số nguyên dương.")
         # Conservative daily bound over ALL reachable states and demand support.
-        # Before day 3: n in [initial-2*Dmax, initial+qmax], arrivals <=qmax.
+        # On day h, net+arrival is bounded by initial-h*Dmax and
+        # initial+(h-1)*qmax, uniformly over the requested horizon.
         bound = self.fixed_fee + sum(c * q for c, q in zip(self.purchase, self.max_order))
         for initial, q, hold, back in zip(self.initial_stock, self.max_order, self.holding, self.backlog_rate):
-            bound += max(hold * (initial + 2 * q), back * max(3 * self.demand_cap - initial, 0))
+            bound += max(hold * (initial + (horizon - 1) * q), back * max(horizon * self.demand_cap - initial, 0))
         return float(bound)
 
 

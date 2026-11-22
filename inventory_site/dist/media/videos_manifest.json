@@ -1,0 +1,118 @@
+{
+  "hql": {
+    "seed": 42,
+    "days": 24,
+    "fps": 12,
+    "seconds": 24,
+    "resolution": [
+      1280,
+      720
+    ],
+    "audio": false,
+    "subtitles": false,
+    "sha256": "b62a2b1c9a0f90e30b624a7ad0e6aed1f960eec9e3f68a463d37bdb4aac77a7c",
+    "trace_sha256": "713db11ed8cbb61d338e9bd63419c1a8690b6b6a91d16696dee02a79b14fea42",
+    "scope": "finite teaching model",
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "matplotlib": "3.10.8",
+    "source_sha256": {
+      "experiment.py": "e365f26abe5d6ae9f6ecd2b33c2fad932d2e6fee2145c23427a28d120db659a3",
+      "fql.py": "79ff25aaec769a9a8bf9366538e0808448c96b41ba9fd35e870573530da22f11",
+      "fql_experiment.py": "cdd67fccef2f07a6d9e36031533523606fffc8ee37d40cf245a38d052e5be856",
+      "fql_model.py": "869414e2da99ba2cb52202568e6e7b3f81d032eb60937422dcfb79b4edafe3fb",
+      "hql.py": "83b3a4797737ff5faefc8c3a863b36098e5258803346f373f95faf33032aa3c7",
+      "lab_api.py": "3a78880faa05c00d9234679ec1307506c26ad0cdc31042b031b8009315de1c3a",
+      "meta_hql.py": "cb3aa42f8d4226d20cb2b3db3f48c3f18aa9deae7b2d227fb95faeafe0020765",
+      "mimic_ql.py": "b14200fa94c80fcc3f5c5290a400f8aba3aef1efe08e220514fca5fb126dfade",
+      "model.py": "527ccd5ece5f222ff402133c8d356b0feaf376655088e92412388dcd72c7f6ed"
+    }
+  },
+  "meta": {
+    "seed": 42,
+    "days": 24,
+    "fps": 12,
+    "seconds": 24,
+    "resolution": [
+      1280,
+      720
+    ],
+    "audio": false,
+    "subtitles": false,
+    "sha256": "ace4295ae49b15491d2cab17f55c2be2feb0f8aa68ab1061e4ff753f82cb2911",
+    "trace_sha256": "813ae20539d6f1d750ddfee922099873c6741c09d33a6e4e8fb7216abe663da1",
+    "scope": "finite teaching model",
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "matplotlib": "3.10.8",
+    "source_sha256": {
+      "experiment.py": "e365f26abe5d6ae9f6ecd2b33c2fad932d2e6fee2145c23427a28d120db659a3",
+      "fql.py": "79ff25aaec769a9a8bf9366538e0808448c96b41ba9fd35e870573530da22f11",
+      "fql_experiment.py": "cdd67fccef2f07a6d9e36031533523606fffc8ee37d40cf245a38d052e5be856",
+      "fql_model.py": "869414e2da99ba2cb52202568e6e7b3f81d032eb60937422dcfb79b4edafe3fb",
+      "hql.py": "83b3a4797737ff5faefc8c3a863b36098e5258803346f373f95faf33032aa3c7",
+      "lab_api.py": "3a78880faa05c00d9234679ec1307506c26ad0cdc31042b031b8009315de1c3a",
+      "meta_hql.py": "cb3aa42f8d4226d20cb2b3db3f48c3f18aa9deae7b2d227fb95faeafe0020765",
+      "mimic_ql.py": "b14200fa94c80fcc3f5c5290a400f8aba3aef1efe08e220514fca5fb126dfade",
+      "model.py": "527ccd5ece5f222ff402133c8d356b0feaf376655088e92412388dcd72c7f6ed"
+    }
+  },
+  "fql": {
+    "seed": 42,
+    "days": 24,
+    "fps": 12,
+    "seconds": 24,
+    "resolution": [
+      1280,
+      720
+    ],
+    "audio": false,
+    "subtitles": false,
+    "sha256": "c5bf7bb77a82f5674643f6474c061396ac42c505626b3354b8a1d9e1d94f56dc",
+    "trace_sha256": "9d49e9e0f81f4d01d860ceb0287b67774fb4ae2950bd8b14e7f6ebe44bb69020",
+    "scope": "finite teaching model",
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "matplotlib": "3.10.8",
+    "source_sha256": {
+      "experiment.py": "e365f26abe5d6ae9f6ecd2b33c2fad932d2e6fee2145c23427a28d120db659a3",
+      "fql.py": "79ff25aaec769a9a8bf9366538e0808448c96b41ba9fd35e870573530da22f11",
+      "fql_experiment.py": "cdd67fccef2f07a6d9e36031533523606fffc8ee37d40cf245a38d052e5be856",
+      "fql_model.py": "869414e2da99ba2cb52202568e6e7b3f81d032eb60937422dcfb79b4edafe3fb",
+      "hql.py": "83b3a4797737ff5faefc8c3a863b36098e5258803346f373f95faf33032aa3c7",
+      "lab_api.py": "3a78880faa05c00d9234679ec1307506c26ad0cdc31042b031b8009315de1c3a",
+      "meta_hql.py": "cb3aa42f8d4226d20cb2b3db3f48c3f18aa9deae7b2d227fb95faeafe0020765",
+      "mimic_ql.py": "b14200fa94c80fcc3f5c5290a400f8aba3aef1efe08e220514fca5fb126dfade",
+      "model.py": "527ccd5ece5f222ff402133c8d356b0feaf376655088e92412388dcd72c7f6ed"
+    }
+  },
+  "mimic": {
+    "seed": 42,
+    "days": 24,
+    "fps": 12,
+    "seconds": 24,
+    "resolution": [
+      1280,
+      720
+    ],
+    "audio": false,
+    "subtitles": false,
+    "sha256": "df3f8f9b89e911d3bec60fd4f75a28d845380d8f1a53f5d3a5cb71a7bc74cd99",
+    "trace_sha256": "3aa4be49cc04f6bf97b6b024372d0fd9cbd2fde3beb3d1fb88eae313620eab33",
+    "scope": "declared teaching adaptation",
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "matplotlib": "3.10.8",
+    "source_sha256": {
+      "experiment.py": "e365f26abe5d6ae9f6ecd2b33c2fad932d2e6fee2145c23427a28d120db659a3",
+      "fql.py": "79ff25aaec769a9a8bf9366538e0808448c96b41ba9fd35e870573530da22f11",
+      "fql_experiment.py": "cdd67fccef2f07a6d9e36031533523606fffc8ee37d40cf245a38d052e5be856",
+      "fql_model.py": "869414e2da99ba2cb52202568e6e7b3f81d032eb60937422dcfb79b4edafe3fb",
+      "hql.py": "83b3a4797737ff5faefc8c3a863b36098e5258803346f373f95faf33032aa3c7",
+      "lab_api.py": "3a78880faa05c00d9234679ec1307506c26ad0cdc31042b031b8009315de1c3a",
+      "meta_hql.py": "cb3aa42f8d4226d20cb2b3db3f48c3f18aa9deae7b2d227fb95faeafe0020765",
+      "mimic_ql.py": "b14200fa94c80fcc3f5c5290a400f8aba3aef1efe08e220514fca5fb126dfade",
+      "model.py": "527ccd5ece5f222ff402133c8d356b0feaf376655088e92412388dcd72c7f6ed"
+    }
+  }
+}
