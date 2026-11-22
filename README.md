@@ -7,6 +7,7 @@ Repo này tập hợp một ứng dụng mô phỏng để học mô hình tồn
 - [`lost_sales_lab/`](lost_sales_lab/README.md): ứng dụng Streamlit mô phỏng vận hành tồn kho và giải thích từng bước HQL, Meta-HQL và FQL. Mimic-QL chưa được cài đặt.
 - [`notebooks/gong_simchi_5_experiments.ipynb`](notebooks/gong_simchi_5_experiments.ipynb): năm thí nghiệm minh họa cho bài trình bày 45 phút, gồm lợi ích nhu cầu chu kỳ, chuyển giao tồn kho, biến động, rủi ro và chi phí vốn.
 - [`experiments/alpha_sensitivity/run_alpha_demo.py`](experiments/alpha_sensitivity/run_alpha_demo.py): so sánh năm công thức alpha trên năm kịch bản nhu cầu.
+- [`replication_audit/`](replication_audit/README.md): công cụ chạy kiểm tra chỉ đọc trên gói bổ sung chính thức, kèm checksum và kết quả kiểm tra đã lưu.
 - [`results/five_experiments/`](results/five_experiments/): cấu hình, bảng CSV và hình của lần chạy notebook chế độ nhanh.
 - [`results/alpha_sensitivity/`](results/alpha_sensitivity/): cấu hình, báo cáo, bảng kết quả, hình và dấu vết mô phỏng alpha đã lưu.
 
@@ -50,6 +51,17 @@ python experiments/alpha_sensitivity/run_alpha_demo.py
 ```
 
 Kết quả được ghi vào `results/alpha_sensitivity/`. Lần chạy mặc định dùng 1.000 chu kỳ, 30 seed, năm kịch bản nhu cầu và năm công thức alpha. Script kiểm tra phép tính theo mã HQL trong ứng dụng trước khi chạy lô.
+
+## Chạy kiểm tra gói tái lập chính thức
+
+Tải gói replication từ [trang Supplemental Material của INFORMS](https://pubsonline.informs.org/doi/suppl/10.1287/mnsc.2023.4947) và giải nén. Cần có `final_synthetic.ipynb`, `final_rossman.ipynb`, `rossman.csv` và `readme.pdf`. Repo không chứa bản sao các tệp này.
+
+```powershell
+python -m pip install numpy pandas matplotlib
+python replication_audit/run_audit.py --package-dir "C:\path\to\extracted\package"
+```
+
+Công cụ xác minh SHA-256, chạy notebook trong namespace tách biệt, rồi lưu báo cáo vào `results/replication_audit/audit_results.json`. Xem [hướng dẫn audit](replication_audit/README.md) để hiểu kết quả benchmark và độ nhạy chỉ số episode.
 
 ## Cách đọc kết quả
 

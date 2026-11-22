@@ -1,0 +1,148 @@
+{
+  "title": "Read-only replication audit of the publisher's supplementary package",
+  "scope": "Executes the supplied notebook cells in fresh namespaces. No source notebook or dataset is edited. Plot display and file writes are disabled. Synthetic demand is seeded to 0.",
+  "environment": {
+    "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "numpy": "2.1.3",
+    "pandas": "2.2.3"
+  },
+  "inputs": {
+    "final_synthetic.ipynb": {
+      "bytes": 163759,
+      "sha256": "a34719ac8173f546dd55755233b151eb47020ee6104c8fc85bcad69b077e83b4",
+      "sha256_after": "a34719ac8173f546dd55755233b151eb47020ee6104c8fc85bcad69b077e83b4",
+      "unchanged": true
+    },
+    "final_rossman.ipynb": {
+      "bytes": 259445,
+      "sha256": "95fff51814034324257db4e808a6e78516ccb4618467d4a002c6e160939230dd",
+      "sha256_after": "95fff51814034324257db4e808a6e78516ccb4618467d4a002c6e160939230dd",
+      "unchanged": true
+    },
+    "rossman.csv": {
+      "bytes": 38057952,
+      "sha256": "f6e4597c142d7d909a13d53b68a8e85c00b9a4c7b5ff40adbb37d6829cc1f4cc",
+      "sha256_after": "f6e4597c142d7d909a13d53b68a8e85c00b9a4c7b5ff40adbb37d6829cc1f4cc",
+      "unchanged": true
+    },
+    "readme.pdf": {
+      "bytes": 32342,
+      "sha256": "42c7b0b3cb705959e7c284cbf56f13e111ff83f7a57deeadfd77f073e9443dd2",
+      "sha256_after": "42c7b0b3cb705959e7c284cbf56f13e111ff83f7a57deeadfd77f073e9443dd2",
+      "unchanged": true
+    }
+  },
+  "runs": {
+    "synthetic": {
+      "status": "completed",
+      "seed": 0,
+      "T": 5000,
+      "H": 5,
+      "learner": {
+        "n": 5000,
+        "total": 4210.700000000001,
+        "mean": 0.8421400000000001
+      },
+      "author_DP_policy_indices": [
+        87,
+        32,
+        7,
+        0,
+        50
+      ],
+      "author_DP_policy_targets": [
+        8.700000000000001,
+        3.2,
+        0.7000000000000001,
+        0.0,
+        5.0
+      ],
+      "author_DP_policy_realized_cost": {
+        "n": 5000,
+        "total": 3223.3999999999996,
+        "mean": 0.6446799999999999
+      },
+      "candidate_feasible_policy": {
+        "targets": [
+          9,
+          4,
+          1,
+          0,
+          6
+        ],
+        "total": 2433.3999999999915,
+        "mean": 0.4866799999999983
+      },
+      "stdout": "cost_list 5000 -4210.699999999948\nopt_policy [87, 32, 7, 0, 50]\nopt cost 5000 -3223.3999999999783\nopt iid base stock level is 37\n",
+      "warnings": [
+        "RuntimeWarning: Mean of empty slice.",
+        "RuntimeWarning: invalid value encountered in scalar divide",
+        "RuntimeWarning: Mean of empty slice.",
+        "RuntimeWarning: invalid value encountered in scalar divide",
+        "RuntimeWarning: Mean of empty slice.",
+        "RuntimeWarning: invalid value encountered in scalar divide"
+      ]
+    },
+    "rossmann": {
+      "status": "completed",
+      "T": 938,
+      "H": 7,
+      "learner": {
+        "n": 938,
+        "total": 59801.0,
+        "mean": 63.75373134328358
+      },
+      "expert_advice": {
+        "n": 938,
+        "total": 56470.0,
+        "mean": 60.20255863539445
+      },
+      "near_OPT_vector": {
+        "n": 938,
+        "total": 44161.0,
+        "mean": 47.07995735607676
+      },
+      "best_iid": {
+        "n": 938,
+        "mean": 92.16737739872069
+      },
+      "stdout": "cost_list 938 -59801.0\nexpert_cost_list 938 -56470.0\n",
+      "warnings": [
+        "DtypeWarning: Columns (7) have mixed types. Specify dtype option on import or set low_memory=False."
+      ]
+    },
+    "rossmann_episode_start_sensitivity": {
+      "status": "completed",
+      "replacement_count": 1,
+      "learner": {
+        "n": 938,
+        "total": 59813.0,
+        "mean": 63.766524520255864
+      },
+      "stdout": "cost_list 938 -59813.0\nexpert_cost_list 938 -56482.0\n",
+      "warnings": [
+        "DtypeWarning: Columns (7) have mixed types. Specify dtype option on import or set low_memory=False."
+      ]
+    }
+  },
+  "findings": {
+    "synthetic_DP_benchmark": {
+      "status": "confirmed_in_supplied_code",
+      "evidence": "Inside DP, Q_list is assigned a single sample value inside the k loop; np.mean(Q_list) therefore does not average a collection of K samples.",
+      "implication": "The notebook's object labeled opt_policy needs independent benchmark validation before it is treated as a certified lower bound on cost.",
+      "independent_same_demand_comparison": {
+        "author_DP_policy_mean_cost": 0.6446799999999999,
+        "candidate_feasible_policy_mean_cost": 0.4866799999999983
+      }
+    },
+    "episode_start_indexing": {
+      "status": "completed",
+      "change": "Pass each episode's actual start index (t-H) to the HQL update instead of reusing the containing block start.",
+      "learner_mean_cost": 63.766524520255864,
+      "original_learner_mean_cost": 63.75373134328358,
+      "interpretation": "A code-path sensitivity check. Its small change alone is not evidence of a material research finding."
+    }
+  },
+  "elapsed_seconds": 61.18866590000016
+}
