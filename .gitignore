@@ -6,3 +6,8 @@ __pycache__/
 venv/
 .env
 .streamlit/secrets.toml
+
+# Private source archives and downloaded third-party data stay outside Git.
+/inputs/
+/external_data/
+/local_checks/

@@ -11,7 +11,20 @@ Repo này tập hợp một ứng dụng mô phỏng để học mô hình tồn
 - [`results/five_experiments/`](results/five_experiments/): cấu hình, bảng CSV và hình của lần chạy notebook chế độ nhanh.
 - [`results/alpha_sensitivity/`](results/alpha_sensitivity/): cấu hình, báo cáo, bảng kết quả, hình và dấu vết mô phỏng alpha đã lưu.
 
-## Cài đặt
+## Tiến độ đợt 3–5 trong cloud
+
+- **Đợt 3: chuẩn bị một phần, chưa hoàn tất.** Có công cụ kiểm kê SHA-256 chỉ đọc
+  và [hướng dẫn tiếp nhận benchmark](benchmarks/beer_rossmann/README.md).
+  Chưa thấy `inputs/beer_rossmann_archive/` trong cloud ngày 2026-11-23; chưa có
+  mã/kết quả benchmark chính 18 điều kiện được nhập hoặc chạy lại.
+- **Đợt 4: chờ đầu vào CFO** trong cùng archive.
+- **Đợt 5: chờ slide v4 và script** ở `inputs/presentation/`.
+
+Các thư mục đầu vào riêng và dữ liệu tải ngoài được bỏ qua bởi Git. Không đưa
+gói replication chính thức, dữ liệu hoặc tài liệu bên thứ ba lên repo khi chưa
+xác định quyền phân phối. Xem từng hướng dẫn để biết phần còn thiếu và cách chạy.
+
+## Cài đặt Python
 
 Khuyến nghị Python 3.10 trở lên. Từ thư mục gốc của repo, cài các gói cần thiết:
 
