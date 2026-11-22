@@ -6,6 +6,9 @@ chia sẻ. Vì vậy chưa đọc được mã/kết quả gốc của benchmark
 hay Meta-HQL-P, chưa xác minh kết quả chính và chưa chạy lại 18 điều kiện.
 Thư mục này hiện chỉ có hướng dẫn tiếp nhận; không có benchmark thay thế.
 
+Chủ dự án đã xác nhận archive còn trên máy Windows, chưa tải lên cloud.
+Tên ZIP và README nguồn đã được ghi trong [hướng dẫn chuyển đầu vào](../../docs/input_handoff.md).
+
 ## Phần đã có và cách kiểm tra từ clone sạch
 
 Python **3.10+**; công cụ kiểm kê chỉ dùng thư viện chuẩn, không cần R hay pip:

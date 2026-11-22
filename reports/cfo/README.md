@@ -5,6 +5,9 @@ Vì vậy chưa đọc/đóng gói được mã CFO, cấu hình, bảng hay bá
 chưa có kết quả VND, TCO hoặc điểm hòa vốn được xác minh ở đây. Tài liệu này
 ghi quy ước cần đối chiếu khi nhận đầu vào, không thay thế phân tích CFO gốc.
 
+Chủ dự án đã xác nhận ZIP chứa CFO còn trên Windows; xem tên tệp và đích
+cloud trong [hướng dẫn chuyển đầu vào](../../docs/input_handoff.md).
+
 ## Phạm vi diễn giải
 
 **Mọi giá trị VND, giá vốn, phạt thiếu hàng và chi phí hệ thống trong phân tích

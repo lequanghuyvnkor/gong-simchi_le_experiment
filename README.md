@@ -20,11 +20,15 @@ Repo này tập hợp một ứng dụng mô phỏng để học mô hình tồn
 - **Đợt 4: chuẩn bị tài liệu, chưa hoàn tất.** [Hướng dẫn CFO](reports/cfo/README.md)
   nêu phạm vi giả định VND, cách tách học/sau học, TCO và hòa vốn. Chưa có
   mã, cấu hình, bảng hay báo cáo CFO từ archive để chạy và đối chiếu.
-- **Đợt 5: chờ slide v4 và script** ở `inputs/presentation/`.
+- **Đợt 5: có [tổng hợp định hướng D](docs/research_direction_d.md), chưa hoàn tất.**
+  Có bảng audit dẫn tới JSON và công cụ đối chiếu số liệu; chưa có slide v4 và
+  script ở `inputs/presentation/`. Xem [hướng dẫn trình bày](presentation/README.md).
 
 Các thư mục đầu vào riêng và dữ liệu tải ngoài được bỏ qua bởi Git. Không đưa
 gói replication chính thức, dữ liệu hoặc tài liệu bên thứ ba lên repo khi chưa
 xác định quyền phân phối. Xem từng hướng dẫn để biết phần còn thiếu và cách chạy.
+Chủ dự án xác nhận các đầu vào còn trên Windows; [hướng dẫn chuyển đầu vào](docs/input_handoff.md)
+ghi tên ZIP, README, PPTX v4 và DOCX cần đưa vào cloud.
 
 ## Cài đặt Python
 
@@ -78,6 +82,17 @@ python replication_audit/run_audit.py --package-dir "C:\path\to\extracted\packag
 
 Công cụ xác minh SHA-256, chạy notebook trong namespace tách biệt, rồi lưu báo cáo vào `results/replication_audit/audit_results.json`. Xem [hướng dẫn audit](replication_audit/README.md) để hiểu kết quả benchmark và độ nhạy chỉ số episode.
 
+## Đối chiếu tài liệu nghiên cứu
+
+Python 3.10+, chỉ thư viện chuẩn:
+
+```bash
+python tools/check_research_brief.py
+```
+
+Lệnh kiểm tra bảng trong tài liệu định hướng D với snapshot JSON đã lưu, không
+chạy lại gói bổ sung hoặc xác minh các định lý. Đợt 3–5 vẫn chờ đầu vào riêng.
+
 ## Cách đọc kết quả
 
 Notebook đang ở chế độ **quick**. TN1–TN3 dùng một biến thể Meta-HQL thực hành trên lưới hữu hạn; TN4–TN5 dùng quy hoạch động khi biết phân phối nhu cầu. Đây là các nhánh thí nghiệm khác nhau, không phải một lần tái lập đầy đủ các kết quả trong bài báo.
@@ -88,7 +103,7 @@ Thí nghiệm alpha dùng HQL rời rạc với lost-sales và episode độc l�
 
 ## Nguồn và phạm vi
 
-Các mã trong repo là cài đặt độc lập phục vụ học và thử nghiệm, lấy cảm hứng từ bài *Bandits atop Reinforcement Learning: Tackling Online Inventory Models with Cyclic Demands* của Gong và Simchi-Levi, đăng trên *Manufacturing & Service Operations Management* năm 2024: [DOI 10.1287/mnsc.2023.4947](https://doi.org/10.1287/mnsc.2023.4947). Repo không chứa gói tái lập của tác giả và không tuyên bố tái lập đầy đủ các kết quả đã công bố.
+Các mã trong repo là cài đặt độc lập phục vụ học và thử nghiệm, lấy cảm hứng từ bài *Bandits atop Reinforcement Learning: Tackling Online Inventory Models with Cyclic Demands* của Gong và Simchi-Levi, đăng trên *Management Science* năm 2024: [DOI 10.1287/mnsc.2023.4947](https://doi.org/10.1287/mnsc.2023.4947). Repo không chứa gói tái lập của tác giả và không tuyên bố tái lập đầy đủ các kết quả đã công bố.
 
 Kết quả đã lưu kèm cấu hình và phiên bản thư viện khi có. Chạy lại trên phiên bản Python hoặc thư viện khác có thể tạo sai khác số nhỏ.
 
