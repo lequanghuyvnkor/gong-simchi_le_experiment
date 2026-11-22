@@ -1,6 +1,6 @@
 """Reproducible alpha ablation of the workspace's discrete, censored-sales HQL.
 
-Run: python .work/run_alpha_demo.py
+Run: python experiments/alpha_sensitivity/run_alpha_demo.py
 The vectorized implementation is checked against lost_sales_lab/hql.py before
 experiments. Existing app/source files are not modified.
 """
@@ -18,8 +18,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "outputs" / "alpha_schedule_demo_2026-11-22"
+ROOT = Path(__file__).resolve().parents[2]
+OUT = ROOT / "results" / "alpha_sensitivity"
 sys.path.insert(0, str(ROOT / "lost_sales_lab"))
 import hql as reference
 

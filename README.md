@@ -1,62 +1,70 @@
-# Gong & Simchi-Levi — Inventory Learning Experiments
+# Gong & Simchi-Levi: học thuật toán tồn kho theo nhu cầu chu kỳ
 
-A small, reproducible research workspace for learning and studying cyclic-demand inventory algorithms. It contains a Vietnamese interactive simulator, a five-experiment teaching notebook, and a focused ablation of HQL learning-rate schedules.
+Repo này tập hợp một ứng dụng mô phỏng để học mô hình tồn kho, một notebook năm thí nghiệm và một thí nghiệm độ nhạy về tốc độ học alpha. Tài liệu, giao diện và hướng dẫn hiện viết bằng tiếng Việt.
 
-## Contents
+## Nội dung
 
-- **`lost_sales_lab/`** — Streamlit simulator for inventory operations and step-by-step HQL, Meta-HQL, and FQL learning. Mimic-QL is not implemented yet. See its [README](lost_sales_lab/README.md) for model assumptions and controls.
-- **`notebooks/gong_simchi_5_experiments.ipynb`** — notebook for a 45-minute presentation: cyclic demand, inventory handoffs, volatility, risk-sensitive policies, and capital cost / order-wait decisions.
-- **`.work/run_alpha_demo.py`** — script that runs the alpha-schedule experiment. The leading-dot folder keeps the script path consistent with the workspace layout it was developed for.
-- **`results/five_experiments/`** — saved configuration, manifest, CSV summaries and plots from the quick notebook run.
-- **`results/alpha_sensitivity/`** — saved configuration, report, summary, plots and per-run NPZ traces for the alpha experiment.
+- [`lost_sales_lab/`](lost_sales_lab/README.md): ứng dụng Streamlit mô phỏng vận hành tồn kho và giải thích từng bước HQL, Meta-HQL và FQL. Mimic-QL chưa được cài đặt.
+- [`notebooks/gong_simchi_5_experiments.ipynb`](notebooks/gong_simchi_5_experiments.ipynb): năm thí nghiệm minh họa cho bài trình bày 45 phút, gồm lợi ích nhu cầu chu kỳ, chuyển giao tồn kho, biến động, rủi ro và chi phí vốn.
+- [`experiments/alpha_sensitivity/run_alpha_demo.py`](experiments/alpha_sensitivity/run_alpha_demo.py): so sánh năm công thức alpha trên năm kịch bản nhu cầu.
+- [`results/five_experiments/`](results/five_experiments/): cấu hình, bảng CSV và hình của lần chạy notebook chế độ nhanh.
+- [`results/alpha_sensitivity/`](results/alpha_sensitivity/): cấu hình, báo cáo, bảng kết quả, hình và dấu vết mô phỏng alpha đã lưu.
 
-## Run the simulator
+## Cài đặt
 
-Python 3.10 or newer is recommended. From the repository root:
+Khuyến nghị Python 3.10 trở lên. Từ thư mục gốc của repo, cài các gói cần thiết:
 
 ```powershell
 python -m pip install -r lost_sales_lab/requirements.txt
+python -m pip install numpy pandas matplotlib scipy ipython ipykernel jupyter
+```
+
+Nếu chỉ chạy ứng dụng, lệnh cài thứ hai không cần thiết. Có thể tạo môi trường ảo trước để tách các thư viện khỏi Python của máy.
+
+## Chạy ứng dụng mô phỏng
+
+Từ thư mục gốc repo:
+
+```powershell
 python -m streamlit run lost_sales_lab/app.py
 ```
 
-Open <http://127.0.0.1:8501>. To open a particular model in a fresh session, use `?model=hql`, `?model=meta`, or `?model=fql`. The simulator README explains the inventory rules, censored sales feedback, costs, and the limits of each comparison.
+Mở <http://127.0.0.1:8501>. Để mở một mô hình trong phiên mới, thêm `?model=hql`, `?model=meta` hoặc `?model=fql` vào địa chỉ. README riêng của ứng dụng giải thích luật tồn kho, doanh số bị kiểm duyệt, chi phí và giới hạn phép so sánh.
 
-## Run the notebook
+## Chạy notebook năm thí nghiệm
 
-Install Jupyter and the notebook dependencies if they are not already available:
+Từ thư mục gốc repo, mở notebook:
 
 ```powershell
-python -m pip install numpy pandas matplotlib scipy ipython ipykernel jupyter
 jupyter notebook notebooks/gong_simchi_5_experiments.ipynb
 ```
 
-Run all cells from top to bottom. The notebook uses synthetic demand and does not download external datasets. Its saved results are in `results/five_experiments/`.
+Chọn **Run All** để chạy từ đầu. Mặc định notebook chạy chế độ `quick` và lưu kết quả vào `results/five_experiments/`. Notebook dùng nhu cầu tổng hợp, không tải dữ liệu ngoài. Máy cần các gói NumPy, pandas, Matplotlib, SciPy và IPython.
 
-## Run the alpha-schedule experiment
+## Chạy thí nghiệm alpha
 
-From the repository root:
+Từ thư mục gốc repo:
 
 ```powershell
-python -m pip install numpy pandas matplotlib
-python .work/run_alpha_demo.py
+python experiments/alpha_sensitivity/run_alpha_demo.py
 ```
 
-The script writes refreshed outputs to `results/alpha_sensitivity/`. It compares five learning-rate schedules over five demand scenarios and paired seeds. The result is a teaching and sensitivity experiment on the app's discrete HQL implementation, not a general ranking of learning-rate formulas.
+Kết quả được ghi vào `results/alpha_sensitivity/`. Lần chạy mặc định dùng 1.000 chu kỳ, 30 seed, năm kịch bản nhu cầu và năm công thức alpha. Script kiểm tra phép tính theo mã HQL trong ứng dụng trước khi chạy lô.
 
-## Reading the results
+## Cách đọc kết quả
 
-The five-experiment notebook is configured in **quick** mode. TN1–TN3 use a practical finite-grid Meta-HQL variant. TN4–TN5 use known-distribution dynamic programming extensions. They are distinct experiments and should not be described as a single theoretical replication of the paper.
+Notebook đang ở chế độ **quick**. TN1–TN3 dùng một biến thể Meta-HQL thực hành trên lưới hữu hạn; TN4–TN5 dùng quy hoạch động khi biết phân phối nhu cầu. Đây là các nhánh thí nghiệm khác nhau, không phải một lần tái lập đầy đủ các kết quả trong bài báo.
 
-The alpha experiment uses a discrete inventory grid from the simulator, lost sales, and episodic episodes. The original confidence threshold is so conservative that the candidate set may not shrink over the simulated horizon. Runs with a smaller illustrative threshold are labeled as an illustration and do not inherit the paper's theoretical guarantee. The level-shift demand scenario is a stress test outside the repeated-distribution assumption.
+Thí nghiệm alpha dùng HQL rời rạc với lost-sales và episode độc lập. Ngưỡng tin cậy gốc có thể quá rộng để loại ứng viên trong chân trời mô phỏng. Kết quả dùng ngưỡng nhỏ hơn chỉ nhằm minh họa độ nhạy, không có bảo đảm lý thuyết của bài. Kịch bản đổi mức nhu cầu là stress test ngoài giả định phân phối lặp lại.
 
-The simulator is an educational implementation. Its manual-vs-learner comparison uses a shared demand path and is descriptive; it is not, by itself, an estimate of expected regret or a proof of optimality.
+Ứng dụng là công cụ học tập. So sánh người dùng với thuật toán trên cùng một đường nhu cầu mang tính minh họa; riêng phép so sánh đó không ước lượng regret kỳ vọng và không chứng minh tối ưu.
 
-## Scope and attribution
+## Nguồn và phạm vi
 
-This repository contains independent educational and experimental implementations inspired by Gong and Simchi-Levi's *Bandits atop Reinforcement Learning: Tackling Online Inventory Models with Cyclic Demands* (Manufacturing & Service Operations Management, 2024). It does not include the authors' replication package or claim to reproduce all published results. See the original article and supplementary materials before interpreting algorithm details or theoretical claims.
+Các mã trong repo là cài đặt độc lập phục vụ học và thử nghiệm, lấy cảm hứng từ bài *Bandits atop Reinforcement Learning: Tackling Online Inventory Models with Cyclic Demands* của Gong và Simchi-Levi, đăng trên *Manufacturing & Service Operations Management* năm 2024: [DOI 10.1287/mnsc.2023.4947](https://doi.org/10.1287/mnsc.2023.4947). Repo không chứa gói tái lập của tác giả và không tuyên bố tái lập đầy đủ các kết quả đã công bố.
 
-The saved alpha results and notebook outputs are provided for transparency. Re-running scripts can produce small numeric differences across Python and library versions. The package records configurations and software versions where available.
+Kết quả đã lưu kèm cấu hình và phiên bản thư viện khi có. Chạy lại trên phiên bản Python hoặc thư viện khác có thể tạo sai khác số nhỏ.
 
-## License
+## Giấy phép
 
-No license has been selected for this repository yet. Until a license is added, assume that reuse, redistribution, and derivative works require the copyright holder's permission. The research paper and any third-party data or materials remain subject to their own terms.
+Repo chưa chọn giấy phép. Cho đến khi có tệp LICENSE, việc sử dụng lại, phân phối hoặc tạo tác phẩm phái sinh cần sự cho phép của chủ sở hữu bản quyền. Bài báo, dữ liệu và tài liệu của bên thứ ba tuân theo điều khoản riêng.
