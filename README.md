@@ -17,7 +17,9 @@ Repo này tập hợp một ứng dụng mô phỏng để học mô hình tồn
   và [hướng dẫn tiếp nhận benchmark](benchmarks/beer_rossmann/README.md).
   Chưa thấy `inputs/beer_rossmann_archive/` trong cloud ngày 2026-11-23; chưa có
   mã/kết quả benchmark chính 18 điều kiện được nhập hoặc chạy lại.
-- **Đợt 4: chờ đầu vào CFO** trong cùng archive.
+- **Đợt 4: chuẩn bị tài liệu, chưa hoàn tất.** [Hướng dẫn CFO](reports/cfo/README.md)
+  nêu phạm vi giả định VND, cách tách học/sau học, TCO và hòa vốn. Chưa có
+  mã, cấu hình, bảng hay báo cáo CFO từ archive để chạy và đối chiếu.
 - **Đợt 5: chờ slide v4 và script** ở `inputs/presentation/`.
 
 Các thư mục đầu vào riêng và dữ liệu tải ngoài được bỏ qua bởi Git. Không đưa
