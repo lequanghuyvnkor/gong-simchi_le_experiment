@@ -4,6 +4,8 @@ Repo này tập hợp ứng dụng học mô hình tồn kho, website bốn mô 
 
 **Mở [Inventory Lab trên cloud](https://gong-simchi-inventory-lab.snu-chatgpt-5678.chatgpt.site)** — Site riêng tư, có HQL, Meta-HQL, FQL và bản học Mimic-QL; bốn video sơ đồ hệ thống, chạy từng ngày, phát lại Q và xuất CSV. [Cách dùng, dựng lại và giới hạn](inventory_site/README.md).
 
+[Hồ sơ xuất bản và kiểm tra](docs/inventory_site_release.json) ghi source commit, Site version và phạm vi kiểm tra. Lõi qua 69 test và bốn lượt native/WASM khớp từ clone sạch; kiểm thử layout/mobile và thao tác UI sau đăng nhập chưa hoàn tất vì relay preview lỗi và browser cloud chưa đăng nhập ChatGPT.
+
 Người chuẩn bị thuyết trình xem [playbook experimental tiếng Việt](reports/experimental_presenter/README.md) ([PDF](reports/experimental_presenter/experimental_presenter_playbook_vi.pdf), [DOCX](reports/experimental_presenter/experimental_presenter_playbook_vi.docx)): lộ trình 60/40 phút, lập luận từ bằng chứng, demo và phản biện. [Kế hoạch stress test](docs/stress_test_plan.md) có 32 test ID và thiết kế seed/split; đây là kế hoạch, chưa phải kết quả chạy ma trận.
 
 ## Nội dung

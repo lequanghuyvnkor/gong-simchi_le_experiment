@@ -32,7 +32,16 @@
   },
   "stress_matrix_executed": false,
   "published_algorithm_replication_claimed": false,
-  "clean_clone_check": "pending integration",
+  "clean_clone_check": {
+    "status": "passed",
+    "commit": "b04a6fc86c7085aa73ccea378af62e31c38a4e55",
+    "clone": "git clone --no-hardlinks /workspace/gong-simchi_le_experiment /tmp/gong-inventory-clean",
+    "fresh_venv": "/tmp/gong-inventory-venv",
+    "core_tests_passed": 69,
+    "adapter_assets_and_exact_video_trace_replay": true,
+    "pyodide_four_complete_runs": true,
+    "worktree_clean_after_checks": true
+  },
   "fresh_venv": {
     "python": "3.12.14",
     "numpy": "2.5.5",
@@ -57,10 +66,8 @@
     "package_download": "Official npm Pyodide; NumPy WASM wheel cached from official jsDelivr distribution and SHA-256 matched against pyodide-lock.json. Node direct fetch failed in this environment; browser CDN loading is unverified."
   },
   "deployment": {
-    "source_commit": "980e9ff4f87540b9588159fe998562c3543978ea",
-    "version": 1,
-    "status": "succeeded",
     "audience": "owner only",
-    "note": "Initial publication; later source/asset updates require a new version."
+    "url": "https://gong-simchi-inventory-lab.snu-chatgpt-5678.chatgpt.site",
+    "receipt": "Latest source/version/deployment receipt is docs/inventory_site_release.json in the GitHub monorepo."
   }
 }

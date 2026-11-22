@@ -1,0 +1,43 @@
+{
+  "client_date": "2026-11-23",
+  "url": "https://gong-simchi-inventory-lab.snu-chatgpt-5678.chatgpt.site",
+  "project_id": "appgprj_6b033ef3dab081c28a21ab18bac941c1",
+  "version_number": 2,
+  "version_id": "appgprj_6b033ef3dab081c28a21ab18bac941c1~appgver_f03be95c390881c28a274f6c54a77db8",
+  "site_source_commit": "416d27cd416475b739c5b7db6bb08c10bb7ef78a",
+  "deployment_id": "appgdep_6b0346902c8c81c2892c83938e36a1e3",
+  "status": "succeeded",
+  "audience": {
+    "access_mode": "custom",
+    "owner_only": true,
+    "external_visitors": 0
+  },
+  "implementation_github_commit": "b04a6fc86c7085aa73ccea378af62e31c38a4e55",
+  "checks": {
+    "clean_clone": "passed",
+    "python_core_tests": 69,
+    "native_and_wasm_complete_runs_match": true,
+    "documentation_source_values": 62,
+    "derived_quantities": 4,
+    "document_links": 60,
+    "docx_rebuild_members_match": true,
+    "video_count": 4,
+    "video_seconds_each": 24
+  },
+  "limits": [
+    "Managed preview relay failed twice; private production Site reached ChatGPT login gate. Browser layout/mobile/model UI and CDN loading remain unverified.",
+    "Mimic is a declared bounded teaching adaptation based on the earlier MIT thesis; no published replication or theorem guarantee claimed.",
+    "The 32-case research stress plan remains planned and was not executed."
+  ],
+  "backend_archive": {
+    "archive_format": "tar",
+    "content_hash": "sha256:7fa1ca99b296ca9eecc4f35ad7989312cfa67794c9141addfdaaf96683bd0306",
+    "size_bytes": 4771840,
+    "file_count": 30
+  },
+  "local_archive": {
+    "sha256": "6ff32bca9b2ebd5f7d207f92bcee7ac6832d72efd8743eb8d5d30c9769d1212f",
+    "bytes": 4782080,
+    "note": "Input Git tar metadata; backend archive metadata is recorded separately. No byte-identity claim between the two tar containers."
+  }
+}

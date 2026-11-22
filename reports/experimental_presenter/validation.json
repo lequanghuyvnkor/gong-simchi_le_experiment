@@ -1,7 +1,7 @@
 {
   "scope": "Documentation source-anchor checks, Office export and PDF render review only; no new stress experiments.",
   "date_utc": "2026-11-22",
-  "status": "DOCUMENTATION_CHECKS_PASSED_READY_FOR_INTEGRATION",
+  "status": "DOCUMENTATION_CHECKS_PASSED_FROM_CLEAN_CLONE",
   "source_evidence_baseline_commit": "5a91349",
   "environment": {
     "python": "3.12.14",
@@ -44,7 +44,17 @@
   "stress_matrix_executed": false,
   "new_performance_results_generated": false,
   "original_inputs_modified": false,
-  "clean_clone_integrated_commit_check": "Pending parent integration; current check used a fresh Python venv and current worktree, not a post-commit clone.",
+  "clean_clone_integrated_commit_check": {
+    "status": "passed",
+    "commit": "b04a6fc86c7085aa73ccea378af62e31c38a4e55",
+    "clone": "/tmp/gong-inventory-clean",
+    "fresh_python_venv": "/tmp/gong-inventory-venv",
+    "source_values": 62,
+    "derived_values": 4,
+    "links": 60,
+    "rebuilt_docx_zip_members_identical": true,
+    "worktree_clean_after_checks": true
+  },
   "limits": [
     "The 32 planned tests are a design, not an executable runner or passed stress results.",
     "Prior source validations are cited; the original INFORMS package and full adapted benchmark were not rerun by this documentation task.",
