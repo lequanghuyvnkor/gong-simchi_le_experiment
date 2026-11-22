@@ -1,55 +1,67 @@
-# Đợt 5 — Slide v4 và script tiếng Việt (chưa hoàn tất)
+# Đợt 5 — Slide v4, script tiếng Việt và hướng D
 
-Chưa tìm thấy `inputs/presentation/` trong cloud ngày 2026-11-23. Chưa nhập được
-slide v4 hay script tiếng Việt; chưa đối chiếu nội dung, con số và quyền sử
-dụng hình/bảng trong các tệp đó. Không có slide cũ dạng PPT/PPTX/PDF được Git
-theo dõi ở snapshot nền `c6ab1d8`, nên chưa có tệp slide trùng nào để loại bỏ.
+Đã nhận PPTX v4 và DOCX chủ dự án cung cấp. Bản gốc nằm nguyên trạng tại
+`/workspace/inputs/presentation/`; checksum trong `source_manifest.json`.
+Không có bản slide cũ được Git theo dõi để loại bỏ. Repo chỉ có một phiên bản
+slide phân phối:
 
-Chủ dự án đã xác nhận PPTX v4 và DOCX script còn trên Windows. Tên tệp cụ thể,
-đường dẫn nguồn và đích cloud ở [hướng dẫn chuyển đầu vào](../docs/input_handoff.md).
+- `Gong_Simchi_2024_Academic_60min_v4_repo.pptx`: 38 slide, giữ biểu đồ/bảng của dự án.
+- `Gong_Simchi_2024_Script_Tieng_Viet_60_phut_repo.docx`: lời thoại 31 slide chính,
+  phụ lục nguồn và ghi chú cho bản phân phối; 7 slide phụ lục dùng khi hỏi đáp.
+- [Định hướng D](../docs/research_direction_d.md): *Revisiting Meta-HQL:
+  A Computational Replication and Sensitivity Study*, ba câu hỏi về tái lập,
+  độ phù hợp benchmark/cài đặt và độ nhạy confidence bound.
+- [Bảng dẫn nguồn](evidence_map.md): đủ 38 slide, liên kết kết quả/cấu hình,
+  công thức suy ra, trang bài báo, ví dụ và thiết kế đề xuất.
 
-Phần độc lập đã có: [bản tổng hợp định hướng D](../docs/research_direction_d.md),
-“Revisiting Meta-HQL: A Computational Replication and Sensitivity Study”, gồm
-mô hình, ba câu hỏi nghiên cứu, bảng dẫn nguồn audit và công việc còn phải làm.
-Các số được đối chiếu snapshot trong repo, không gắn nhãn là lần tái chạy mới.
+## Quyền phân phối và khác biệt với bản gốc
+
+PPTX gốc chứa 22 ảnh chụp công thức/thuật toán/bảng của bài báo. Chưa xác định
+quyền phân phối, nên **không đưa nguyên bản PPTX hoặc các ảnh đó lên Git**.
+Bản repo thay chúng bằng diễn giải/công thức tự soạn có dẫn nguồn; không giữ
+blob ảnh nguồn trong gói PPTX. Biểu đồ native và bảng kết quả dự án được giữ.
+`release_manifest.json` ghi từng ảnh bị thay, SHA-256 nguồn và tệp xuất.
+
+Slide 2 và lời thoại tương ứng được chỉnh theo ba câu hỏi hướng D; appendix
+nguồn trỏ đường dẫn repo hiện tại. Kịch bản có ghi chú về bản thay ảnh. Các kết
+quả audit không được diễn giải thành kết luận về tính đúng của định lý. Sweep
+confidence bound trên slide 36 là **đề xuất**, chưa phải kết quả thực nghiệm.
+Tất cả số VND trên slide 22 là **giả định mẫu**, không phải tài chính doanh nghiệp.
+Lịch 60 phút là mục tiêu luyện tập, chưa phải thời lượng được đo.
 
 ## Kiểm tra từ clone sạch
 
-Python **3.10+**, chỉ thư viện chuẩn; không cần R hoặc cài dependency để đối chiếu
-tài liệu hiện có:
+Python **3.10+**; NumPy, pandas, python-pptx, python-docx:
 
 ```bash
 git clone https://github.com/lequanghuyvnkor/gong-simchi_le_experiment.git
 cd gong-simchi_le_experiment
 python --version
+python -m pip install -r presentation/requirements.txt
 python tools/check_research_brief.py
-python tools/inspect_inputs.py --inputs-dir /workspace/inputs --require presentation
+python presentation/check_evidence.py
 ```
 
-Thay đường dẫn đầu vào bằng nơi lưu thực tế. Lệnh đối chiếu brief trả 0 khi
-bảng khớp snapshot. Lệnh kiểm kê trả 2 khi thiếu slide/script; không coi đây
-là xác minh slide thành công. `check_research_brief.py --print-table` chỉ in
-bảng hiện tại từ JSON để hỗ trợ cập nhật có chủ đích, không tự sửa tài liệu.
+Công cụ so toàn bộ **204 giá trị của 15 biểu đồ** với CSV/JSON trong repo;
+kiểm tra hash artifact, 38 slide, 31 mục script và không còn ảnh nguồn.
+Dung sai 0.00000051 do chart lưu sáu chữ số thập phân. Bảng/đoạn diễn giải
+được dẫn nguồn từng slide trong `evidence_map.md`. Các cài đặt chỉ có trong
+notebook INFORMS được dẫn tới nguồn đó, chưa được chạy lại trong phiên này.
+Không coi việc khớp chart là xác minh mọi số của bài báo hay mọi định lý.
 
-Ngày 2026-11-23: đã chạy phần đối chiếu trên clone sạch áp diff, Python 3.12.14;
-bảng audit và phép tính trong snapshot khớp. Thử sửa một số trong bản brief tạm
-thì công cụ báo lỗi; khôi phục xong kiểm tra lại đạt. Các liên kết nội bộ trong
-tài liệu mới tồn tại. Không chạy lại thí nghiệm hoặc gói replication gốc.
+Đã xuất thử bằng LibreOffice, kiểm tra bố cục toàn bộ 38 slide và script 20
+trang, không có trang trống. Đây là render trong môi trường cloud; font hoặc
+bố cục có thể khác nhẹ ở PowerPoint. Chi tiết tại `cloud_validation.json`.
 
-## Đầu vào và việc còn thiếu
+## Tạo lại bản phân phối từ nguyên bản riêng
 
-Cần `inputs/presentation/` chứa đúng PPTX v4 và DOCX script với các tên trong
-[bảng chuyển đầu vào](../docs/input_handoff.md); giữ nguyên các bản gốc ở đây. Khi tiếp nhận:
+Có thể tạo lại nếu có đúng hai tệp gốc với SHA-256 đã ghi:
 
-1. Kiểm kê SHA-256, xác định bản v4 và script tương ứng. Chỉ sao chép bản được
-   phép phân phối sang `presentation/`; kiểm tra riêng hình/bảng bên thứ ba,
-   nếu quyền chưa rõ thì ghi nguồn/lệnh tải thay vì công bố tệp đó.
-2. Gắn từng con số với đường dẫn kết quả/cấu hình trong repo hoặc trang/bảng
-   bài báo; với số suy ra, ghi công thức và nguồn. Các số Beer–Rossmann/CFO
-   phải chờ kiểm tra đợt tương ứng. Lưu bảng ánh xạ theo trang slide và mục script.
-3. Đối chiếu nội dung slide với script, ghi rõ thuật toán thích nghi, chi phí
-   học/sau học và giả định CFO. Tách kết quả đã chạy khỏi giả thuyết hướng D;
-   giữ giới hạn của audit, không biến nhận định mã nguồn thành kết luận định lý.
-4. Kiểm tra hiển thị toàn bộ slide v4 và dấu tiếng Việt; loại bản slide cũ
-   trùng nếu có trong bản phân phối, giữ lịch sử Git và nguyên bản `inputs/`.
-   Chỉ đánh dấu đợt 5 hoàn tất khi slide và script đều được kiểm tra.
+```bash
+python presentation/build_release.py --slides /path/to/Gong_Simchi_2024_Blue_Yonder_Academic_60min_v4.pptx --script /path/to/Gong_Simchi_2024_Script_Tieng_Viet_60_phut.docx --output-dir /tmp/gong-presentation
+python presentation/check_evidence.py --directory /tmp/gong-presentation
+```
+
+Cần tệp gốc riêng cho bước dựng lại; clone sạch đã có sẵn bản phân phối để
+đọc và kiểm tra. Việc công bố nguyên bản có ảnh bên thứ ba vẫn chờ bằng chứng
+quyền phân phối. PDF báo cáo có ZIP dữ liệu nhúng được giữ ngoài Git.

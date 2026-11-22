@@ -89,7 +89,9 @@ def main():
     pilot.groupby(['horizon','p','algorithm'])[['mean_cost','fill','total_cost_vnd_sample']].mean().reset_index().to_csv(O/'pilot_financial_summary.csv',index=False)
     current=ps[ps.p==assume['p']].iloc[0]
     pd.DataFrame([dict(n_skus=n,baseline_operating_annual=n*current.weekday_annual,meta_operating_annual=n*current.Meta_annual,setup_once=F,system_annual=run,meta_first_year_TCO=n*current.Meta_annual+F+run,baseline_first_year_TCO=n*current.weekday_annual) for n in assume['portfolio_skus']]).to_csv(O/'tco_components.csv',index=False)
-    for path in O.glob('*.csv'):
+    for name in ['18_condition_financial_scenarios.csv','p_level_financial_scenarios.csv',
+                 'illustrative_portfolio_tco.csv','pilot_financial_summary.csv','tco_components.csv']:
+        path=O/name
         frame=pd.read_csv(path);frame['assumption_status']=STATUS;frame.to_csv(path,index=False)
     if args.verify_default:
         default=json.loads((HERE/'assumptions.json').read_text())

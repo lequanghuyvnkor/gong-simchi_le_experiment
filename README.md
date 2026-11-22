@@ -20,9 +20,10 @@ Repo này tập hợp một ứng dụng mô phỏng để học mô hình tồn
 - **Đợt 4: đã đóng gói và kiểm tra CFO.** [Hướng dẫn CFO](reports/cfo/README.md)
   có mã/cấu hình chỉnh được, bảng tài chính tái tạo, báo cáo phần C và pilot
   mô phỏng 365 kỳ. Mọi số VND là giả định mẫu, không phải chi phí doanh nghiệp.
-- **Đợt 5: có [tổng hợp định hướng D](docs/research_direction_d.md), chưa hoàn tất.**
-  Có bảng audit dẫn tới JSON và công cụ đối chiếu số liệu; chưa có slide v4 và
-  script ở `inputs/presentation/`. Xem [hướng dẫn trình bày](presentation/README.md).
+- **Đợt 5: có [slide v4 và script bản phân phối](presentation/README.md), bản
+  [định hướng D](docs/research_direction_d.md) và bảng dẫn nguồn từng slide.**
+  Nguyên bản giữ ngoài Git: quyền phân phối ảnh chụp bài báo chưa xác định;
+  bản repo thay 22 ảnh nguồn bằng diễn giải tự soạn có dẫn nguồn.
 
 Các thư mục đầu vào riêng và dữ liệu tải ngoài được bỏ qua bởi Git. Không đưa
 gói replication chính thức, dữ liệu hoặc tài liệu bên thứ ba lên repo khi chưa
@@ -91,8 +92,10 @@ Python 3.10+, chỉ thư viện chuẩn:
 python tools/check_research_brief.py
 ```
 
-Lệnh kiểm tra bảng trong tài liệu định hướng D với snapshot JSON đã lưu, không
-chạy lại gói bổ sung hoặc xác minh các định lý. Đợt 3–5 vẫn chờ đầu vào riêng.
+Lệnh kiểm tra bảng audit trong tài liệu định hướng D với snapshot JSON đã lưu,
+không chạy lại gói bổ sung hoặc xác minh các định lý. Kiểm tra số liệu biểu đồ
+slide bằng `python presentation/check_evidence.py` (cài dependencies trong
+`presentation/requirements.txt`).
 
 ## Cách đọc kết quả
 

@@ -2,8 +2,10 @@
 
 **Định hướng nghiên cứu D — bản tổng hợp ngày 2026-11-23.** Nền kết quả là
 snapshot repo `c6ab1d8`. Các số dưới đây được đối chiếu với JSON đã lưu; phiên
-cloud này chưa chạy lại gói bổ sung chính thức vì chưa có đầu vào. Benchmark
-Beer–Rossmann, phân tích CFO và slide v4 vẫn chờ các archive riêng.
+cloud này chưa chạy lại gói bổ sung chính thức vì chưa có đầu vào INFORMS.
+ZIP nhúng trong báo cáo đã cung cấp benchmark Beer–Rossmann và CFO; phần
+phân tích kết quả đã được tái tạo, pilot CFO đã được mô phỏng lại. Slide v4
+có bản phân phối thay ảnh bên thứ ba bằng diễn giải có dẫn nguồn.
 
 ## Mô hình và phạm vi cài đặt
 
@@ -75,12 +77,23 @@ và [kết quả riêng](../results/alpha_sensitivity/summary.csv). Các hệ s�
 minh họa thực nghiệm, không kế thừa bảo đảm lý thuyết. Đây chưa phải sweep đầy
 đủ hệ số confidence bound của Meta-HQL trên benchmark Beer–Rossmann.
 
+Benchmark thích nghi đã được đối chiếu từ metric lưu trữ, không huấn luyện lại
+toàn bộ. Trong [core_means](../results/beer_rossmann/analysis_summary.json),
+chi phí bình quân **trong học** của SRDQN-A/Meta-HQL-P là 1.327365/2.569863;
+chi phí **sau học** là 1.208841/0.806871. Thiết kế ghép cặp và CI cho kết quả
+nghiêng rõ tương ứng ở 18/18 ô theo quy tắc đã nêu trong
+[README benchmark](../benchmarks/beer_rossmann/README.md), không phải thắng
+phổ quát. Baseline weekday sau học là 0.815723: lợi ích tăng thêm nhỏ hơn
+nhiều so với phép so DQN. [CFO](../reports/cfo/README.md) chỉ quy đổi theo
+giả định mẫu; pilot mô phỏng lại khớp archive, chưa có chi phí doanh nghiệp thật.
+
 ## Giả thuyết và công việc tiếp theo
 
 **Giả thuyết cần kiểm tra:** cận lớn có thể duy trì khám phá lâu trong ngân
 sách hữu hạn; cận nhỏ có thể giảm chi phí sớm nhưng tăng rủi ro loại hành động
 tốt. Tác động còn phụ thuộc lưới, chân trời, alpha và lịch chuyển bản sao.
-Đây là giả thuyết nghiên cứu, chưa phải kết luận từ benchmark bị thiếu.
+Đây là giả thuyết nghiên cứu; benchmark với cấu hình đã chọn chưa cô lập được
+quan hệ nhân quả của từng hệ số cận.
 
 Trước tiên chạy lại gói chính thức với checksum đã lưu; tách nhánh giữ nguyên
 mã tác giả khỏi từng sửa đổi. Xây benchmark DP độc lập trên các trường hợp
@@ -89,11 +102,11 @@ nhỏ giải chính xác được, kiểm tra giá trị policy và quy ước t
 công bố chi phí học và chính sách đóng băng sau học, CI theo đơn vị lặp độc lập.
 Chọn tham số trên train/validation rồi đánh giá test riêng.
 
-Khi nhận archive, kiểm tra **SRDQN-A thích nghi** và **Meta-HQL-P thích nghi cho
-một điểm tồn kho/một sản phẩm**, phân biệt khảo sát ban đầu với benchmark chính
-theo [hướng dẫn đợt 3](../benchmarks/beer_rossmann/README.md). Chưa có bằng chứng
-để nêu thuật toán nào thắng benchmark này. [CFO](../reports/cfo/README.md) cần
-giả định mẫu và dữ liệu riêng, không suy từ chi phí audit sang doanh nghiệp.
+Tiếp tục kiểm tra ablation của **SRDQN-A thích nghi** và **Meta-HQL-P thích nghi
+cho một điểm tồn kho/một sản phẩm**, giữ khảo sát ban đầu tách benchmark chính
+theo [hướng dẫn đợt 3](../benchmarks/beer_rossmann/README.md). Các kết luận đã
+chạy phải đi cùng ngân sách học, hàm mục tiêu và baseline. CFO cần giả định
+mẫu và dữ liệu riêng, không suy từ chi phí audit sang doanh nghiệp.
 
 ## Đối chiếu và nguồn
 

@@ -1,0 +1,137 @@
+{
+  "source": {
+    ".docx": {
+      "filename": "Gong_Simchi_2024_Script_Tieng_Viet_60_phut.docx",
+      "bytes": 61341,
+      "sha256": "48d42cd92fe13df3b2492a1e3ba23e348af2c8ca2caa51751b10954b042112ab"
+    },
+    ".pptx": {
+      "filename": "Gong_Simchi_2024_Blue_Yonder_Academic_60min_v4.pptx",
+      "bytes": 2196983,
+      "sha256": "3f11b7a504ce467ce61cc104b9a88e614ff8c337a1a3967a36379c16f711d9ab"
+    }
+  },
+  "removed_images": [
+    {
+      "slide": 3,
+      "shape_id": 8,
+      "source_image_sha256": "59f54084477f1dfb3433f65e12f10e3a1e5318d31c889a1902cb2d9e4214533a"
+    },
+    {
+      "slide": 3,
+      "shape_id": 10,
+      "source_image_sha256": "ba781c2eae4443c5ba5b367cc6519a0e67b2ba1747ff02699b61720684e1c00a"
+    },
+    {
+      "slide": 4,
+      "shape_id": 7,
+      "source_image_sha256": "a9859bc9ec43ef0f7ee81f803d49c733545ce92b2edb15b8802bd260f223a100"
+    },
+    {
+      "slide": 4,
+      "shape_id": 9,
+      "source_image_sha256": "4666a5ecfbba6875aaba109d8b3acf0323a43c894a064e64c0e3cdc43d572034"
+    },
+    {
+      "slide": 5,
+      "shape_id": 8,
+      "source_image_sha256": "7792b26ae78453ad11bf9e32549aed75772095570528acb0b64f7f53bc60fde9"
+    },
+    {
+      "slide": 5,
+      "shape_id": 10,
+      "source_image_sha256": "eef9b63f6ca6b3458c3498ad7dcda0cf7d6fff203535df7340d7b64470ef9771"
+    },
+    {
+      "slide": 5,
+      "shape_id": 13,
+      "source_image_sha256": "76f4f9b73733d9b1d469d4a8bb162c6dca26cfdd3c4d7c430cd9199546481896"
+    },
+    {
+      "slide": 6,
+      "shape_id": 7,
+      "source_image_sha256": "63a72eb9ed280d566581b740210b5ccfc348b53b3da9e4215735224eaf9eec9e"
+    },
+    {
+      "slide": 6,
+      "shape_id": 9,
+      "source_image_sha256": "5ec6a53059a8dd8405fa448ba05807b98aa3e4e37187c6dcc2bd30728e1d90b0"
+    },
+    {
+      "slide": 7,
+      "shape_id": 8,
+      "source_image_sha256": "a7a01953ac52302bc289d8a6fba40440981456eb1f927584e5048fbcb4687ba1"
+    },
+    {
+      "slide": 8,
+      "shape_id": 8,
+      "source_image_sha256": "5ab267e5dab59a1b696974270cfae59125b7d1d852afc9ff45ecb1138fa47d72"
+    },
+    {
+      "slide": 12,
+      "shape_id": 10,
+      "source_image_sha256": "5ab267e5dab59a1b696974270cfae59125b7d1d852afc9ff45ecb1138fa47d72"
+    },
+    {
+      "slide": 13,
+      "shape_id": 8,
+      "source_image_sha256": "eef9b63f6ca6b3458c3498ad7dcda0cf7d6fff203535df7340d7b64470ef9771"
+    },
+    {
+      "slide": 13,
+      "shape_id": 10,
+      "source_image_sha256": "f05e9b6ec6993884463149cd405a74a0b863a0fc32175861284fa14f401b1314"
+    },
+    {
+      "slide": 14,
+      "shape_id": 11,
+      "source_image_sha256": "63a72eb9ed280d566581b740210b5ccfc348b53b3da9e4215735224eaf9eec9e"
+    },
+    {
+      "slide": 16,
+      "shape_id": 11,
+      "source_image_sha256": "f05e9b6ec6993884463149cd405a74a0b863a0fc32175861284fa14f401b1314"
+    },
+    {
+      "slide": 17,
+      "shape_id": 11,
+      "source_image_sha256": "e5a1ee5f96bce5c540b2c633bc441227868314074b22437a5469acedb6ffcff4"
+    },
+    {
+      "slide": 23,
+      "shape_id": 8,
+      "source_image_sha256": "a9859bc9ec43ef0f7ee81f803d49c733545ce92b2edb15b8802bd260f223a100"
+    },
+    {
+      "slide": 25,
+      "shape_id": 8,
+      "source_image_sha256": "59f54084477f1dfb3433f65e12f10e3a1e5318d31c889a1902cb2d9e4214533a"
+    },
+    {
+      "slide": 33,
+      "shape_id": 7,
+      "source_image_sha256": "c6c1fd5c8308d0af46ac455dedec5eb051263ef27313ca1b76527c26caa1f2d3"
+    },
+    {
+      "slide": 33,
+      "shape_id": 9,
+      "source_image_sha256": "76f4f9b73733d9b1d469d4a8bb162c6dca26cfdd3c4d7c430cd9199546481896"
+    },
+    {
+      "slide": 37,
+      "shape_id": 7,
+      "source_image_sha256": "8559d681b996454f5ff81335559fe200a0ffa0347ddcb4a93873c33a58c10d4e"
+    }
+  ],
+  "reason": "Third-party screenshot redistribution rights not established",
+  "outputs": {
+    "Gong_Simchi_2024_Academic_60min_v4_repo.pptx": {
+      "bytes": 260189,
+      "sha256": "6772cf5d760d23a19af21310188b06cb68aedf467d5a20192a828e2cb152b155"
+    },
+    "Gong_Simchi_2024_Script_Tieng_Viet_60_phut_repo.docx": {
+      "bytes": 61676,
+      "sha256": "aa52fa82baaa1f54153fb9c784c038698fc81887743cf72c2cef2fb7cc7311e1"
+    }
+  }
+}
