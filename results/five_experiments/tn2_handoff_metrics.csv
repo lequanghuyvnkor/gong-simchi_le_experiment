@@ -1,0 +1,7 @@
+﻿seed,switches,waiting_days,inventory_wait_days,phase_wait_days,cost_during_wait,active_no_order_days
+0,37,53,1,53,1223.0,82
+1,37,53,2,53,1280.0,93
+2,37,53,1,53,1417.0,86
+3,39,53,1,53,1183.0,88
+4,29,46,1,46,1003.0,85
+5,36,53,0,53,1081.0,101

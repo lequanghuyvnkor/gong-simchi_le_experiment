@@ -1,0 +1,50 @@
+{
+  "configuration": {
+    "mode": "quick",
+    "confidence_mode": "practical",
+    "H": 7,
+    "cap": 32,
+    "holding": 1.0,
+    "penalty": 4.0,
+    "seeds": 6,
+    "cycles": 500,
+    "eval_paths": 5000,
+    "eval_horizon": 28,
+    "seed": 20261116,
+    "cb_scale": 0.05,
+    "meta_cb_scale": 0.05,
+    "python": "3.13.5",
+    "numpy": "2.1.3",
+    "pandas": "2.2.3",
+    "scipy": "1.15.3"
+  },
+  "figures": [
+    "tn1_learning_and_demand",
+    "tn1_cyclic_advantage",
+    "tn2_handoff_trajectory",
+    "tn2_running_sets",
+    "tn3_volatility_sensitivity",
+    "tn3_tail_distribution",
+    "tn4_risk_tradeoff",
+    "tn5_capital_sensitivity",
+    "tn5_order_wait_map",
+    "tn5_value_of_waiting"
+  ],
+  "tables": [
+    "tn1_independent_runs",
+    "tn1_learning_curves",
+    "tn1_empirical_regret_curve",
+    "tn1_cyclic_advantage",
+    "tn2_trace_seed0",
+    "tn2_handoff_metrics",
+    "tn3_online_runs",
+    "tn3_fixed_policy_tail",
+    "tn4_entropic_policies",
+    "tn4_paired_tail_differences",
+    "tn5_capital_policy_metrics",
+    "tn5_action_value_gaps",
+    "summary_tn1_base"
+  ],
+  "elapsed_seconds": 61.72164050000174,
+  "implementation": "finite-grid practical Meta-HQL variant; known-distribution exact DP extensions"
+}
