@@ -1,0 +1,1471 @@
+{
+  "status": "passed",
+  "scope": "Interactive teaching-model software smoke; not the research matrix or an efficacy benchmark",
+  "created_utc": "2026-11-23T07:58:53.215376+00:00",
+  "configurations": 28,
+  "total_steps": 504,
+  "research_matrix_executed": false,
+  "metadata": {
+    "variant": "inventory_hub_stress_v1",
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "cost_scope": "during_learning_only",
+    "ci": "95% paired Student t across completed independent seeds; descriptive small sample",
+    "source_sha256": {
+      "experiment.py": "e365f26abe5d6ae9f6ecd2b33c2fad932d2e6fee2145c23427a28d120db659a3",
+      "fql.py": "79ff25aaec769a9a8bf9366538e0808448c96b41ba9fd35e870573530da22f11",
+      "fql_experiment.py": "cdd67fccef2f07a6d9e36031533523606fffc8ee37d40cf245a38d052e5be856",
+      "fql_model.py": "869414e2da99ba2cb52202568e6e7b3f81d032eb60937422dcfb79b4edafe3fb",
+      "hql.py": "83b3a4797737ff5faefc8c3a863b36098e5258803346f373f95faf33032aa3c7",
+      "lab_api.py": "3a78880faa05c00d9234679ec1307506c26ad0cdc31042b031b8009315de1c3a",
+      "meta_hql.py": "cb3aa42f8d4226d20cb2b3db3f48c3f18aa9deae7b2d227fb95faeafe0020765",
+      "mimic_ql.py": "b14200fa94c80fcc3f5c5290a400f8aba3aef1efe08e220514fca5fb126dfade",
+      "model.py": "527ccd5ece5f222ff402133c8d356b0feaf376655088e92412388dcd72c7f6ed",
+      "stress_api.py": "3ef88d7aa6f8385e782ca86597ef10858995931b89e2b22662a21c2d17b853d4"
+    }
+  },
+  "runs": [
+    {
+      "config": {
+        "kind": "hql",
+        "scenario": "native",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "bounds": "practical",
+        "confidence": 1.0,
+        "reference": "phase",
+        "capacity": 20,
+        "holding": 1.0,
+        "penalty": 4.0
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "lost_sales_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "learner_inventory": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 38.0,
+          "learner_cost": 121.0,
+          "difference": -83.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 36.0,
+          "learner_cost": 115.0,
+          "difference": -79.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "hql",
+        "scenario": "zero",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "bounds": "practical",
+        "confidence": 1.0,
+        "reference": "phase",
+        "capacity": 20,
+        "holding": 1.0,
+        "penalty": 4.0
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "lost_sales_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "learner_inventory": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 102.0,
+          "learner_cost": 138.0,
+          "difference": -36.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 102.0,
+          "learner_cost": 138.0,
+          "difference": -36.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "hql",
+        "scenario": "steady",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "bounds": "practical",
+        "confidence": 1.0,
+        "reference": "phase",
+        "capacity": 20,
+        "holding": 1.0,
+        "penalty": 4.0
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "lost_sales_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "learner_inventory": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 41.0,
+          "learner_cost": 108.0,
+          "difference": -67.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 78.0,
+          "learner_cost": 101.0,
+          "difference": -23.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "hql",
+        "scenario": "peak",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "bounds": "practical",
+        "confidence": 1.0,
+        "reference": "phase",
+        "capacity": 20,
+        "holding": 1.0,
+        "penalty": 4.0
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "lost_sales_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "learner_inventory": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 110.0,
+          "learner_cost": 109.0,
+          "difference": 1.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 67.0,
+          "learner_cost": 103.0,
+          "difference": -36.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "hql",
+        "scenario": "alternating",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "bounds": "practical",
+        "confidence": 1.0,
+        "reference": "phase",
+        "capacity": 20,
+        "holding": 1.0,
+        "penalty": 4.0
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "lost_sales_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "learner_inventory": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 190.0,
+          "learner_cost": 94.0,
+          "difference": 96.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 199.0,
+          "learner_cost": 109.0,
+          "difference": 90.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "hql",
+        "scenario": "burst",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "bounds": "practical",
+        "confidence": 1.0,
+        "reference": "phase",
+        "capacity": 20,
+        "holding": 1.0,
+        "penalty": 4.0
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "lost_sales_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "learner_inventory": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 161.0,
+          "learner_cost": 122.0,
+          "difference": 39.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 136.0,
+          "learner_cost": 128.0,
+          "difference": 8.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "hql",
+        "scenario": "drift",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "bounds": "practical",
+        "confidence": 1.0,
+        "reference": "phase",
+        "capacity": 20,
+        "holding": 1.0,
+        "penalty": 4.0
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "lost_sales_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "learner_inventory": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 152.0,
+          "learner_cost": 116.0,
+          "difference": 36.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 165.0,
+          "learner_cost": 118.0,
+          "difference": 47.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "meta",
+        "scenario": "native",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "bounds": "practical",
+        "confidence": 1.0,
+        "reference": "phase",
+        "capacity": 20,
+        "holding": 1.0,
+        "penalty": 4.0
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "lost_sales_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "learner_inventory": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 38.0,
+          "learner_cost": 127.0,
+          "difference": -89.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 36.0,
+          "learner_cost": 116.0,
+          "difference": -80.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "meta",
+        "scenario": "zero",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "bounds": "practical",
+        "confidence": 1.0,
+        "reference": "phase",
+        "capacity": 20,
+        "holding": 1.0,
+        "penalty": 4.0
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "lost_sales_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "learner_inventory": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 118.0,
+          "learner_cost": 180.0,
+          "difference": -62.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 118.0,
+          "learner_cost": 180.0,
+          "difference": -62.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "meta",
+        "scenario": "steady",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "bounds": "practical",
+        "confidence": 1.0,
+        "reference": "phase",
+        "capacity": 20,
+        "holding": 1.0,
+        "penalty": 4.0
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "lost_sales_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "learner_inventory": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 41.0,
+          "learner_cost": 102.0,
+          "difference": -61.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 78.0,
+          "learner_cost": 111.0,
+          "difference": -33.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "meta",
+        "scenario": "peak",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "bounds": "practical",
+        "confidence": 1.0,
+        "reference": "phase",
+        "capacity": 20,
+        "holding": 1.0,
+        "penalty": 4.0
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "lost_sales_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "learner_inventory": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 110.0,
+          "learner_cost": 129.0,
+          "difference": -19.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 67.0,
+          "learner_cost": 94.0,
+          "difference": -27.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "meta",
+        "scenario": "alternating",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "bounds": "practical",
+        "confidence": 1.0,
+        "reference": "phase",
+        "capacity": 20,
+        "holding": 1.0,
+        "penalty": 4.0
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "lost_sales_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "learner_inventory": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 182.0,
+          "learner_cost": 62.0,
+          "difference": 120.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 191.0,
+          "learner_cost": 84.0,
+          "difference": 107.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "meta",
+        "scenario": "burst",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "bounds": "practical",
+        "confidence": 1.0,
+        "reference": "phase",
+        "capacity": 20,
+        "holding": 1.0,
+        "penalty": 4.0
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "lost_sales_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "learner_inventory": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 165.0,
+          "learner_cost": 107.0,
+          "difference": 58.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 142.0,
+          "learner_cost": 126.0,
+          "difference": 16.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "meta",
+        "scenario": "drift",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "bounds": "practical",
+        "confidence": 1.0,
+        "reference": "phase",
+        "capacity": 20,
+        "holding": 1.0,
+        "penalty": 4.0
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "lost_sales_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "learner_inventory": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 152.0,
+          "learner_cost": 170.0,
+          "difference": -18.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 165.0,
+          "learner_cost": 146.0,
+          "difference": 19.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "fql",
+        "scenario": "native",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "reference": "phase"
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "pipeline_and_cost": {
+          "passed": 36,
+          "total": 36
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 236.0,
+          "learner_cost": 200.0,
+          "difference": 36.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 185.5,
+          "learner_cost": 166.5,
+          "difference": 19.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "fql",
+        "scenario": "zero",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "reference": "phase"
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "pipeline_and_cost": {
+          "passed": 36,
+          "total": 36
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 75.0,
+          "learner_cost": 9.0,
+          "difference": 66.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 75.0,
+          "learner_cost": 9.0,
+          "difference": 66.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "fql",
+        "scenario": "steady",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "reference": "phase"
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "pipeline_and_cost": {
+          "passed": 36,
+          "total": 36
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 112.0,
+          "learner_cost": 106.5,
+          "difference": 5.5
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 96.0,
+          "learner_cost": 81.5,
+          "difference": 14.5
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "fql",
+        "scenario": "peak",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "reference": "phase"
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "pipeline_and_cost": {
+          "passed": 36,
+          "total": 36
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 95.5,
+          "learner_cost": 82.5,
+          "difference": 13.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 134.5,
+          "learner_cost": 124.5,
+          "difference": 10.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "fql",
+        "scenario": "alternating",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "reference": "phase"
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "pipeline_and_cost": {
+          "passed": 36,
+          "total": 36
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 182.0,
+          "learner_cost": 158.0,
+          "difference": 24.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 172.5,
+          "learner_cost": 152.0,
+          "difference": 20.5
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "fql",
+        "scenario": "burst",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "reference": "phase"
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "pipeline_and_cost": {
+          "passed": 36,
+          "total": 36
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 153.5,
+          "learner_cost": 174.5,
+          "difference": -21.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 187.0,
+          "learner_cost": 208.0,
+          "difference": -21.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "fql",
+        "scenario": "drift",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "reference": "phase"
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "pipeline_and_cost": {
+          "passed": 36,
+          "total": 36
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 199.0,
+          "learner_cost": 170.5,
+          "difference": 28.5
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 201.5,
+          "learner_cost": 161.5,
+          "difference": 40.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "mimic",
+        "scenario": "native",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "reference": "phase"
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "pipeline_and_cost": {
+          "passed": 36,
+          "total": 36
+        },
+        "physical_never_resets": {
+          "passed": 18,
+          "total": 18
+        },
+        "virtual_clock": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 185.0,
+          "learner_cost": 430.0,
+          "difference": -245.0
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 143.0,
+          "learner_cost": 366.0,
+          "difference": -223.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "mimic",
+        "scenario": "zero",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "reference": "phase"
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "pipeline_and_cost": {
+          "passed": 36,
+          "total": 36
+        },
+        "physical_never_resets": {
+          "passed": 18,
+          "total": 18
+        },
+        "virtual_clock": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 76.5,
+          "learner_cost": 0.0,
+          "difference": 76.5
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 76.5,
+          "learner_cost": 0.0,
+          "difference": 76.5
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "mimic",
+        "scenario": "steady",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "reference": "phase"
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "pipeline_and_cost": {
+          "passed": 36,
+          "total": 36
+        },
+        "physical_never_resets": {
+          "passed": 18,
+          "total": 18
+        },
+        "virtual_clock": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 63.5,
+          "learner_cost": 260.0,
+          "difference": -196.5
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 48.5,
+          "learner_cost": 214.0,
+          "difference": -165.5
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "mimic",
+        "scenario": "peak",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "reference": "phase"
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "pipeline_and_cost": {
+          "passed": 36,
+          "total": 36
+        },
+        "physical_never_resets": {
+          "passed": 18,
+          "total": 18
+        },
+        "virtual_clock": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 60.0,
+          "learner_cost": 211.5,
+          "difference": -151.5
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 113.0,
+          "learner_cost": 314.0,
+          "difference": -201.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "mimic",
+        "scenario": "alternating",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "reference": "phase"
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "pipeline_and_cost": {
+          "passed": 36,
+          "total": 36
+        },
+        "physical_never_resets": {
+          "passed": 18,
+          "total": 18
+        },
+        "virtual_clock": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 133.5,
+          "learner_cost": 351.0,
+          "difference": -217.5
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 86.5,
+          "learner_cost": 327.0,
+          "difference": -240.5
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "mimic",
+        "scenario": "burst",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "reference": "phase"
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "pipeline_and_cost": {
+          "passed": 36,
+          "total": 36
+        },
+        "physical_never_resets": {
+          "passed": 18,
+          "total": 18
+        },
+        "virtual_clock": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 150.5,
+          "learner_cost": 346.0,
+          "difference": -195.5
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 144.0,
+          "learner_cost": 348.0,
+          "difference": -204.0
+        }
+      ]
+    },
+    {
+      "config": {
+        "kind": "mimic",
+        "scenario": "drift",
+        "seed": 9000,
+        "seeds": 2,
+        "cycles": 3,
+        "load": 1.0,
+        "reference": "phase"
+      },
+      "steps": 18,
+      "checks": {
+        "common_demand": {
+          "passed": 18,
+          "total": 18
+        },
+        "finite_cost": {
+          "passed": 18,
+          "total": 18
+        },
+        "material_balance": {
+          "passed": 36,
+          "total": 36
+        },
+        "pipeline_and_cost": {
+          "passed": 36,
+          "total": 36
+        },
+        "physical_never_resets": {
+          "passed": 18,
+          "total": 18
+        },
+        "virtual_clock": {
+          "passed": 18,
+          "total": 18
+        }
+      },
+      "failures": [],
+      "seed_results": [
+        {
+          "seed": 9000,
+          "reference_cost": 74.5,
+          "learner_cost": 283.0,
+          "difference": -208.5
+        },
+        {
+          "seed": 9001,
+          "reference_cost": 96.5,
+          "learner_cost": 317.0,
+          "difference": -220.5
+        }
+      ]
+    }
+  ]
+}

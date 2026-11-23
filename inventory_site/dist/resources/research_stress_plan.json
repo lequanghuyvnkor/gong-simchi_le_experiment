@@ -1,0 +1,845 @@
+{
+  "schema_version": 1,
+  "status": "PLANNED_NOT_EXECUTED",
+  "created_client_date": "2026-11-23",
+  "baseline_commit": "5a91349",
+  "runner_available": false,
+  "purpose": "Stress-test specification, not an execution result or a theorem check",
+  "python_minimum": "3.10",
+  "documentation": "docs/stress_test_plan.md",
+  "source_contracts": [
+    "lost_sales_lab/model.py",
+    "lost_sales_lab/hql.py",
+    "lost_sales_lab/meta_hql.py",
+    "lost_sales_lab/fql_model.py",
+    "lost_sales_lab/fql.py",
+    "benchmarks/beer_rossmann/README.md",
+    "lost_sales_lab/mimic_ql.py"
+  ],
+  "models": {
+    "hql": {
+      "physics": "episodic_lost_sales",
+      "feedback": "own_censored_sales",
+      "H_current": 3,
+      "baseline_requirement": "same reset, grid, costs and terminal rule"
+    },
+    "meta_hql": {
+      "physics": "nondiscarding_lost_sales",
+      "feedback": "own_censored_sales",
+      "H_current": 3,
+      "baseline_requirement": "same physical carryover and all waiting-day costs"
+    },
+    "fql": {
+      "physics": "episodic_two_product_backlogging",
+      "feedback": "full_past_demand",
+      "H_current": 3,
+      "lead_time_current": 1,
+      "demand_support_current": [
+        0,
+        4
+      ],
+      "baseline_requirement": "same backlog, pipeline, order caps and terminal rule"
+    },
+    "mimic_ql": {
+      "physics": "nondiscarding_multiproduct_backlogging",
+      "feedback": "full_past_demand",
+      "status_at_baseline": "NOT_IMPLEMENTED_SOURCE_GATE_REQUIRED",
+      "source_gate": [
+        "primary URL/page",
+        "physical/virtual matching rule",
+        "real/virtual time progression",
+        "artificial cycle versus true H",
+        "order-limit feasibility",
+        "invariants and model crosswalk",
+        "Teaching adaptation tests do not close the final-published replication gate"
+      ],
+      "artificial_cycle_candidates": [
+        6,
+        9
+      ],
+      "baseline_requirement": "same nondiscarding dynamics; choose after source verification",
+      "model_variant_id": "mimic_ql_inspired_teaching_bounded",
+      "published_replication_status": "SOURCE_GATE_OPEN_FINAL_TEXT_AND_FEASIBILITY_UNRESOLVED",
+      "source_primary_url": "https://hdl.handle.net/1721.1/151589",
+      "source_version": "Author MIT thesis June 2023, earlier than final published article",
+      "source_pages": [
+        62,
+        63,
+        64,
+        65,
+        170,
+        171
+      ],
+      "true_H": 3,
+      "teaching_J_default": 6,
+      "candidate_scope": "finite teaching values only; J9 requires resource review; no theorem claim",
+      "requested_order": "max(IP_virtual + q_virtual - IP_real, 0)",
+      "executed_order": "min(per_product_cap, requested_order)",
+      "clocks": "both advance on each shared physical-period demand",
+      "diagnostics": [
+        "requested_order",
+        "executed_order",
+        "cap_binding",
+        "IP_gap",
+        "full_state_match",
+        "virtual_reset",
+        "physical_cost",
+        "virtual_cost"
+      ],
+      "implementation_current": "Explicitly bounded Mimic-QL-inspired teaching adaptation; not faithful published replication",
+      "demand_support_current": [
+        0,
+        2
+      ],
+      "per_product_order_cap_current": [
+        2,
+        2
+      ],
+      "initial_stock_current": [
+        0,
+        0
+      ],
+      "lead_time_current": 1
+    }
+  },
+  "execution_order": [
+    "P0",
+    "P1",
+    "P4",
+    "P2",
+    "P3"
+  ],
+  "seed_strategy": {
+    "status": "PROPOSED_NEW_SEEDS",
+    "calibration": [
+      9000,
+      9001,
+      9002,
+      9003,
+      9004
+    ],
+    "validation": [
+      10000,
+      10001,
+      10002,
+      10003,
+      10004,
+      10005,
+      10006,
+      10007,
+      10008,
+      10009
+    ],
+    "locked_test": [
+      20000,
+      20001,
+      20002,
+      20003,
+      20004,
+      20005,
+      20006,
+      20007,
+      20008,
+      20009,
+      20010,
+      20011,
+      20012,
+      20013,
+      20014,
+      20015,
+      20016,
+      20017,
+      20018,
+      20019,
+      20020,
+      20021,
+      20022,
+      20023,
+      20024,
+      20025,
+      20026,
+      20027,
+      20028,
+      20029
+    ],
+    "reserve_confirmation": [
+      30000,
+      30001,
+      30002,
+      30003,
+      30004,
+      30005,
+      30006,
+      30007,
+      30008,
+      30009,
+      30010,
+      30011,
+      30012,
+      30013,
+      30014,
+      30015,
+      30016,
+      30017,
+      30018,
+      30019,
+      30020,
+      30021,
+      30022,
+      30023,
+      30024,
+      30025,
+      30026,
+      30027,
+      30028,
+      30029,
+      30030,
+      30031,
+      30032,
+      30033,
+      30034,
+      30035,
+      30036,
+      30037,
+      30038,
+      30039,
+      30040,
+      30041,
+      30042,
+      30043,
+      30044,
+      30045,
+      30046,
+      30047,
+      30048,
+      30049,
+      30050,
+      30051,
+      30052,
+      30053,
+      30054,
+      30055,
+      30056,
+      30057,
+      30058,
+      30059,
+      30060,
+      30061,
+      30062,
+      30063,
+      30064,
+      30065,
+      30066,
+      30067,
+      30068,
+      30069,
+      30070,
+      30071,
+      30072,
+      30073,
+      30074,
+      30075,
+      30076,
+      30077,
+      30078,
+      30079,
+      30080,
+      30081,
+      30082,
+      30083,
+      30084,
+      30085,
+      30086,
+      30087,
+      30088,
+      30089,
+      30090,
+      30091,
+      30092,
+      30093,
+      30094,
+      30095,
+      30096,
+      30097,
+      30098,
+      30099
+    ],
+    "paired_demand": true,
+    "learner_rng_separate_from_demand_rng": true,
+    "namespace_fields": [
+      "experiment_id",
+      "condition_id",
+      "split",
+      "seed",
+      "day"
+    ],
+    "never_tune_on_test": true
+  },
+  "statistical_contract": {
+    "replicate_unit_synthetic": "independent seed path",
+    "fixed_profile_panel": "aggregate within seed before paired seed bootstrap unless another blocked design is predeclared",
+    "source_data": "define store/SKU clustering before resampling",
+    "primary_outcome": "paired cost difference within matched physics and evaluation regime",
+    "confidence_level": 0.95,
+    "multiplicity": "lock Holm or Bonferroni and primary family before test",
+    "relative_effect_zero_denominator": "report undefined and use absolute difference; never assign equivalence",
+    "tail_metrics": "need adequate tail samples and training-run uncertainty",
+    "frozen_policy": "lock Q, running sets, normalizers and action/scheduling rule; no test updates",
+    "effect_direction": "cost(learner)-cost(baseline); negative favors learner",
+    "oracle_validation": "Independent scalar Bellman/enumeration on small cases; disclose known-distribution versus hindsight; no optimality-gap label without a verified matched oracle"
+  },
+  "proposed_factors": {
+    "action_confidence_multiplier": [
+      0.25,
+      0.5,
+      1,
+      2,
+      4
+    ],
+    "bandit_confidence_multiplier": [
+      0.5,
+      1,
+      2
+    ],
+    "lost_sales_caps": [
+      5,
+      10,
+      20
+    ],
+    "training_episodes": [
+      30,
+      100,
+      500
+    ],
+    "cost_ratios": [
+      1,
+      5,
+      10
+    ],
+    "fql_order_caps": [
+      1,
+      2,
+      3
+    ],
+    "fql_demand_caps": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "factorial_policy": "one-factor controlled sweeps, then a small justified interaction panel; no automatic full Cartesian product",
+    "mimic_artificial_cycle": {
+      "teaching_values": [
+        6,
+        9
+      ],
+      "J9_requires_resource_review": true,
+      "published_values": "defer until final-source verification; finite teaching values are not theorem construction"
+    }
+  },
+  "path_fixtures": [
+    "zero_demand",
+    "small_constant",
+    "exact_stock_boundary",
+    "sustained_high_valid_demand",
+    "alternating_phase_profiles",
+    "burst_then_zero",
+    "boundary_switch_and_arrival"
+  ],
+  "out_of_assumption_groups": [
+    "drift",
+    "wrong_H_or_phase",
+    "serial_or_cross_product_dependence",
+    "rare_bursts_or_new_support",
+    "operational_closure_leadtime_MOQ_shared_capacity",
+    "cost_ratios_outside_locked_panel"
+  ],
+  "resources": {
+    "status": "ESTIMATES_TO_CALIBRATE",
+    "P0_target_minutes": 10,
+    "P1_target_minutes": 30,
+    "research_process_soft_memory_gib": 2,
+    "start_parallel_models": 1,
+    "measure_before_expansion": true,
+    "browser_step_warm_p95_target_seconds": 1,
+    "cold_runtime_load_measured_separately": true,
+    "no_full_matrix_started_by_this_plan": true
+  },
+  "stop_on": [
+    "accounting_failure",
+    "infeasible_action",
+    "future_information_leakage",
+    "duplicate_update",
+    "unexpected_nonfinite_value",
+    "state_outside_contract",
+    "timeout_or_memory_limit"
+  ],
+  "failure_policy": "persist first failing seed/step/config and minimal trace; do not silently remove failed seeds or reduce grid",
+  "artifacts": [
+    "design.json",
+    "environment.json",
+    "input_manifest.json",
+    "jobs.jsonl",
+    "metrics.csv",
+    "failures.jsonl",
+    "traces/",
+    "analysis/",
+    "report.md"
+  ],
+  "minimal_metric_fields": [
+    "experiment_id",
+    "model_variant",
+    "physics",
+    "case_id",
+    "split",
+    "seed",
+    "checkpoint",
+    "evaluation_regime",
+    "unit",
+    "cost_components",
+    "service_metrics",
+    "learning_diagnostics",
+    "wall_time",
+    "peak_memory",
+    "status"
+  ],
+  "video_contract": {
+    "format": "animated_system_design_diagram",
+    "subtitles": false,
+    "voice": false,
+    "screen_recording": false,
+    "require_correct_flow_timing": true,
+    "mimic_physical_virtual_distinction": true,
+    "not_an_empirical_performance_estimator": true
+  },
+  "tests": [
+    {
+      "id": "PHY-LS-01",
+      "phase": "P0",
+      "models": [
+        "hql",
+        "meta_hql"
+      ],
+      "purpose": "Conservation and demand/sales boundary",
+      "acceptance": "q>=0; y=max(x,B); s=min(y,D); I=y-s; L=D-s",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false
+    },
+    {
+      "id": "PHY-LS-02",
+      "phase": "P0",
+      "models": [
+        "hql",
+        "meta_hql"
+      ],
+      "purpose": "Zero/cap stock and equality censoring",
+      "acceptance": "0<=x<=y<=M; sellout including zero remains censored",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false
+    },
+    {
+      "id": "COST-LS-01",
+      "phase": "P0",
+      "models": [
+        "hql",
+        "meta_hql"
+      ],
+      "purpose": "True/pseudo cost identity",
+      "acceptance": "true-pseudo=pD; pairwise differences consistent",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false
+    },
+    {
+      "id": "INFO-LS-01",
+      "phase": "P0",
+      "models": [
+        "hql",
+        "meta_hql"
+      ],
+      "purpose": "Same observed sales with different hidden demand",
+      "acceptance": "same learner state and updates",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false
+    },
+    {
+      "id": "INFO-ALL-01",
+      "phase": "P0",
+      "models": [
+        "hql",
+        "meta_hql",
+        "fql",
+        "mimic_ql"
+      ],
+      "purpose": "Future-demand perturbation and one shared draw",
+      "acceptance": "decisions through t unchanged; demand sampled after decisions",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "END-HQL-01",
+      "phase": "P0",
+      "models": [
+        "hql"
+      ],
+      "purpose": "Episodic reset boundary",
+      "acceptance": "charge final day before reset; update once",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false
+    },
+    {
+      "id": "UPD-HQL-01",
+      "phase": "P0",
+      "models": [
+        "hql"
+      ],
+      "purpose": "Independent scalar delayed Bellman case",
+      "acceptance": "reward/stopping/continuation/update order matches contract",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false
+    },
+    {
+      "id": "META-01",
+      "phase": "P0",
+      "models": [
+        "meta_hql"
+      ],
+      "purpose": "Phase/stock waits",
+      "acceptance": "keep physical inventory; charge waiting; no learning during wait",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false
+    },
+    {
+      "id": "META-02",
+      "phase": "P0",
+      "models": [
+        "meta_hql"
+      ],
+      "purpose": "Partial blocks and empty-set handling",
+      "acceptance": "correct episode count, schedule and logged safeguard",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false
+    },
+    {
+      "id": "PHY-BK-01",
+      "phase": "P0",
+      "models": [
+        "fql",
+        "mimic_ql"
+      ],
+      "purpose": "Backlog/pipeline conservation",
+      "acceptance": "net_next=net+arrival-demand; pipeline_next=order for L1",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "COST-BK-01",
+      "phase": "P0",
+      "models": [
+        "fql",
+        "mimic_ql"
+      ],
+      "purpose": "Joint fee and cost components",
+      "acceptance": "joint fee once iff any positive order; no simultaneous stock/backlog",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "END-FQL-01",
+      "phase": "P0",
+      "models": [
+        "fql"
+      ],
+      "purpose": "Terminal stock/backlog/pipeline",
+      "acceptance": "record balances and final costs, then declared episode reset",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false
+    },
+    {
+      "id": "UPD-FQL-01",
+      "phase": "P0",
+      "models": [
+        "fql"
+      ],
+      "purpose": "All-entry Bellman scalar reference",
+      "acceptance": "full feedback sweep matches independent calculation",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false
+    },
+    {
+      "id": "MIMIC-01",
+      "phase": "P0",
+      "models": [
+        "mimic_ql"
+      ],
+      "purpose": "Teaching artificial-cycle physical/virtual boundary",
+      "acceptance": "both clocks advance with same D; only virtual resets; physical balances persist",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "MIMIC-02",
+      "phase": "P0",
+      "models": [
+        "mimic_ql"
+      ],
+      "purpose": "Negative physical IP and capped catch-up request",
+      "acceptance": "executed order satisfies cap; requested/executed/cap_binding/gap remain visible; never claim false full-state synchronization",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "NUM-01",
+      "phase": "P0",
+      "models": [
+        "hql",
+        "meta_hql",
+        "fql",
+        "mimic_ql"
+      ],
+      "purpose": "Numerical bounds and tie breaking",
+      "acceptance": "finite required quantities; intentional infinite initial bound explicit",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "REPLAY-01",
+      "phase": "P0",
+      "models": [
+        "hql",
+        "meta_hql",
+        "fql",
+        "mimic_ql"
+      ],
+      "purpose": "Read-only replay",
+      "acceptance": "learner/day/RNG/cost hashes unchanged",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "PATH-SMOKE",
+      "phase": "P1",
+      "models": [
+        "hql",
+        "meta_hql",
+        "fql",
+        "mimic_ql"
+      ],
+      "purpose": "Seven path fixtures, calibration seeds",
+      "acceptance": "deterministic replay and policy-independent paired demand",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "PERF-LOCKED",
+      "phase": "P2",
+      "models": [
+        "hql",
+        "meta_hql",
+        "fql",
+        "mimic_ql"
+      ],
+      "purpose": "Matched-physics locked test panel",
+      "acceptance": "report learning and frozen costs with independent-run uncertainty",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "SENS-CB",
+      "phase": "P2",
+      "models": [
+        "hql",
+        "meta_hql"
+      ],
+      "purpose": "Separate action/bandit sweeps",
+      "acceptance": "same normalized formula and other factors held fixed",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false
+    },
+    {
+      "id": "SENS-GRID-HORIZON",
+      "phase": "P2",
+      "models": [
+        "hql",
+        "meta_hql",
+        "fql",
+        "mimic_ql"
+      ],
+      "purpose": "Grid/horizon/support sensitivity",
+      "acceptance": "log representation, normalizer, RAM estimate and model variant",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "OOD-GROUPS",
+      "phase": "P3",
+      "models": [
+        "hql",
+        "meta_hql",
+        "fql",
+        "mimic_ql"
+      ],
+      "purpose": "Six declared OOD groups",
+      "acceptance": "label violated assumptions; do not pool into primary win rate",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "UI-START",
+      "phase": "P4",
+      "models": [
+        "hql",
+        "meta_hql",
+        "fql",
+        "mimic_ql"
+      ],
+      "purpose": "First-run path",
+      "acceptance": "one clear primary action and visible model assumptions",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "UI-STATE",
+      "phase": "P4",
+      "models": [
+        "hql",
+        "meta_hql",
+        "fql",
+        "mimic_ql"
+      ],
+      "purpose": "Switch/reset/autoplay rapid inputs",
+      "acceptance": "no duplicate days or shared-state corruption",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "UI-INPUT",
+      "phase": "P4",
+      "models": [
+        "hql",
+        "meta_hql",
+        "fql",
+        "mimic_ql"
+      ],
+      "purpose": "Invalid configuration",
+      "acceptance": "reject before mutation with actionable message",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "UI-READ",
+      "phase": "P4",
+      "models": [
+        "hql",
+        "meta_hql",
+        "fql",
+        "mimic_ql"
+      ],
+      "purpose": "Inspect Q and scrub timeline",
+      "acceptance": "no learning or demand generation",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "UI-EXPORT",
+      "phase": "P4",
+      "models": [
+        "hql",
+        "meta_hql",
+        "fql",
+        "mimic_ql"
+      ],
+      "purpose": "Unicode CSV and observation contract",
+      "acceptance": "valid quoting and no hidden-demand leakage in store mode",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "UI-ACCESS",
+      "phase": "P4",
+      "models": [
+        "hql",
+        "meta_hql",
+        "fql",
+        "mimic_ql"
+      ],
+      "purpose": "Keyboard/mobile/zoom/reduced motion",
+      "acceptance": "usable controls and stoppable animation",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "UI-RESOURCE",
+      "phase": "P4",
+      "models": [
+        "hql",
+        "meta_hql",
+        "fql",
+        "mimic_ql"
+      ],
+      "purpose": "Maximum supported model and repeated reset",
+      "acceptance": "bounded allocation; responsive feedback; controlled trace retention",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "VIDEO-01",
+      "phase": "P4",
+      "models": [
+        "hql",
+        "meta_hql",
+        "fql",
+        "mimic_ql"
+      ],
+      "purpose": "Animated system diagram",
+      "acceptance": "model timing and state transitions correct; no subtitles or voice",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "VIDEO-02",
+      "phase": "P4",
+      "models": [
+        "hql",
+        "meta_hql",
+        "fql",
+        "mimic_ql"
+      ],
+      "purpose": "Feedback, arrivals and virtual system",
+      "acceptance": "no early arrivals, disappearing debt or learner hidden-demand edge",
+      "status": "PLANNED",
+      "mimic_requires_source_gate": false,
+      "mimic_scope": "declared teaching contract; published replication has separate open source gate"
+    },
+    {
+      "id": "MIMIC-03",
+      "phase": "P0",
+      "models": [
+        "mimic_ql"
+      ],
+      "purpose": "Position versus full-state match and physical cost bounds",
+      "acceptance": "IP match distinct from pipeline/state match; no unconditional L-period synchronization claim; no clipping of real debt/cost to virtual reward bound",
+      "status": "PLANNED",
+      "mimic_scope": "declared teaching contract"
+    }
+  ],
+  "execution_note": "Release gate: P0 then P1 then P4. Research performance and OOD matrix P2 then P3 is separate; rerun P4 on UI/core changes."
+}

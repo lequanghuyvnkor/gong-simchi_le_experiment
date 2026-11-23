@@ -16,10 +16,10 @@ py.FS.mkdirTree('/lab');
 for (const name of await fs.readdir(path.join(site,'dist/assets/python'))) {
   if (name.endsWith('.py')) py.FS.writeFile('/lab/'+name, await fs.readFile(path.join(site,'dist/assets/python',name),'utf8'));
 }
-py.runPython("import sys\nsys.path.insert(0,'/lab')\nimport lab_api");
+py.runPython("import sys\nsys.path.insert(0,'/lab')\nimport lab_api, stress_api");
 const call = request => {
   py.globals.set('_request',JSON.stringify(request));
-  return JSON.parse(py.runPython('lab_api.handle_json(_request)'));
+  return JSON.parse(py.runPython("stress_api.handle_json(_request) if __import__('json').loads(_request).get('op','').startswith('stress_') else lab_api.handle_json(_request)"));
 };
 const results = {};
 for (const kind of ['hql','meta','fql','mimic']) {
@@ -31,4 +31,12 @@ for (const kind of ['hql','meta','fql','mimic']) {
   if (!call({op:'export'}).csv.startsWith('\ufeff')) throw new Error('CSV encoding');
   results[kind] = {days:s.day,human_cost:s.sum_human,algorithm_cost:s.sum_algorithm,q_trace:Boolean(q.new_q!==undefined||q.available_actions)};
 }
-console.log(JSON.stringify({status:'passed',scope:'Pyodide in Node; not browser UI QA',python:py.runPython('sys.version.split()[0]'),numpy:py.runPython('lab_api.np.__version__'),models:results},null,2));
+const stressResults={};
+for (const kind of ['hql','meta','fql','mimic']) {
+  let s=call({op:'stress_reset',config:{kind,scenario:'drift',seeds:2,cycles:2}});
+  while(!s.finished)s=call({op:'stress_step'});
+  if(s.failures.length||!s.summary.ci95)throw new Error('Stress invariants or CI');
+  stressResults[kind]={steps:s.completed,summary:s.summary};
+  if(!call({op:'stress_export'}).csv.startsWith('\ufeff'))throw new Error('Stress CSV');
+}
+console.log(JSON.stringify({status:'passed',scope:'Pyodide in Node; not browser UI QA',python:py.runPython('sys.version.split()[0]'),numpy:py.runPython('lab_api.np.__version__'),models:results,stress:stressResults},null,2));

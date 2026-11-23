@@ -3,8 +3,10 @@
   "python": "3.12.14",
   "numpy": "2.3.5",
   "core_tests": {
-    "passed": 69,
-    "scope": "existing HQL/Meta/FQL regression and declared Mimic physical/virtual construction"
+    "passed": 109,
+    "core": 69,
+    "stress_api": 40,
+    "scope": "teaching cores and bounded interactive stress engine; not the research specification"
   },
   "adapter_and_assets": "passed; full native runs of all four models, Q arithmetic, common demand, CSV privacy, retained model sessions, exact video trace replay and asset hashes",
   "videos": {
@@ -20,7 +22,7 @@
   },
   "browser_preview": {
     "status": "blocked_by_infrastructure",
-    "attempts": 2,
+    "attempts": 3,
     "error": "sites-preview: relay could not open browser port 4173: timed out waiting for relay readiness",
     "browser_inventory": "Cloud Chrome available; no successful preview URL returned"
   },
@@ -32,16 +34,6 @@
   },
   "stress_matrix_executed": false,
   "published_algorithm_replication_claimed": false,
-  "clean_clone_check": {
-    "status": "passed",
-    "commit": "b04a6fc86c7085aa73ccea378af62e31c38a4e55",
-    "clone": "git clone --no-hardlinks /workspace/gong-simchi_le_experiment /tmp/gong-inventory-clean",
-    "fresh_venv": "/tmp/gong-inventory-venv",
-    "core_tests_passed": 69,
-    "adapter_assets_and_exact_video_trace_replay": true,
-    "pyodide_four_complete_runs": true,
-    "worktree_clean_after_checks": true
-  },
   "fresh_venv": {
     "python": "3.12.14",
     "numpy": "2.5.5",
@@ -69,5 +61,54 @@
     "audience": "owner only",
     "url": "https://gong-simchi-inventory-lab.snu-chatgpt-5678.chatgpt.site",
     "receipt": "Latest source/version/deployment receipt is docs/inventory_site_release.json in the GitHub monorepo."
+  },
+  "previous_clean_clone_check": {
+    "status": "passed",
+    "commit": "b04a6fc86c7085aa73ccea378af62e31c38a4e55",
+    "clone": "git clone --no-hardlinks /workspace/gong-simchi_le_experiment /tmp/gong-inventory-clean",
+    "fresh_venv": "/tmp/gong-inventory-venv",
+    "core_tests_passed": 69,
+    "adapter_assets_and_exact_video_trace_replay": true,
+    "pyodide_four_complete_runs": true,
+    "worktree_clean_after_checks": true
+  },
+  "portal": {
+    "features": [
+      "overview",
+      "four-model live simulation",
+      "seven editable stress scenarios",
+      "independent stress sessions with replay/CI/CSV/JSON",
+      "four silent diagram videos",
+      "60/40 minute presentation guide",
+      "in-page HTML report readers",
+      "slide v4/script and Streamlit source download",
+      "evidence references and research direction D"
+    ],
+    "dom_component_integration": {
+      "status": "passed",
+      "checks": 8,
+      "backend": "real native Python through a test bridge",
+      "browser_visual_claim": false
+    },
+    "stress_smoke": {
+      "status": "passed",
+      "configurations": 28,
+      "steps": 504,
+      "source": "results/interactive_stress/smoke_results.json",
+      "research_matrix_executed": false
+    },
+    "webassembly": {
+      "status": "passed",
+      "model_runs": 4,
+      "additional_stress_runs": 4,
+      "stress_steps_each": 12,
+      "numpy": "2.0.2",
+      "python": "3.12.7"
+    },
+    "builder": {
+      "markdown": "3.11.3",
+      "jsdom": "26.1.0"
+    },
+    "clean_clone_check": "pending current portal integration"
   }
 }

@@ -14,14 +14,20 @@ var scopes = {
   mimic:'<p>Bản học dựa trên mô tả Mimic-QL của tác giả: FQL ảo chạy khối dài J=6, trong khi chu kỳ nhu cầu thật H=3. Cả hai hệ thống nhận cùng nhu cầu và cùng tiến thời gian.</p><p>Chỉ hệ ảo reset. Kho thực giữ toàn bộ tồn, nợ và hàng đang về. Lệnh bù được tính từ vị thế tồn (tồn ròng + pipeline) và lệnh ảo, rồi giới hạn bởi hạn mức lệnh mỗi sản phẩm.</p><p>Giới hạn lệnh và cách giải nghĩa công thức ghép là điều chỉnh minh họa, được xuất trong CSV. Chưa xác minh tương đương thuật toán công bố hoặc bảo đảm regret. Không đặt giới hạn giả rằng mọi lần đồng bộ đều xong trong một ngày.</p>'
 };
 var kind='hql', worker=null, ready=false, busy=false, auto=false, timer=null, seq=0;
-var waiting=new Map(), views={hql:[],meta:[],fql:[],mimic:[]}, state=null, loadingTimer;
+var waiting=new Map(), views={hql:[],meta:[],fql:[],mimic:[]}, state=null, displayedState=null, loadingTimer;
 function esc(x){return String(x==null?'':x).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 function fmt(x,n){return Number(x||0).toLocaleString('vi-VN',{minimumFractionDigits:n==null?2:n,maximumFractionDigits:n==null?2:n});}
 function pair(x){return Array.isArray(x)?'A '+x[0]+' · B '+x[1]:String(x==null?'—':x);}
 function setError(message){$('error').textContent=message||'';$('error').hidden=!message;}
+function readNumber(id,label,low,high,whole){var raw=$(id).value.trim(),v=Number(raw);if(!raw||!Number.isFinite(v)||(whole&&!Number.isSafeInteger(v))||v<low||v>high)throw new Error(label+' phải '+(whole?'là số nguyên ':'')+'trong ['+low+', '+high+'].');return v;}
+function failPending(message){waiting.forEach(function(p){clearTimeout(p.timeout);p.reject(new Error(message));});waiting.clear();}
+function engineFailure(message){ready=false;stopAuto();clearTimeout(loadingTimer);failPending(message);$('loading').hidden=false;$('loading-title').textContent='Bộ tính toán đã dừng';$('loading-detail').textContent='Khởi động phiên mới sẽ bắt đầu lại các lượt mô phỏng trong tab. Video và báo cáo vẫn dùng được.';$('retry').hidden=false;setError(message);updateButtons();}
 function boot(){
   if(worker)worker.terminate();
+  failPending('Phiên tính toán đã bắt đầu lại.');views={hql:[],meta:[],fql:[],mimic:[]};state=null;displayedState=null;
   ready=false;busy=false;stopAuto();$('loading').hidden=false;$('retry').hidden=true;setError('');
+  $('loading-title').textContent='Đang chuẩn bị bộ mô phỏng Python';renderEmpty();
+  document.dispatchEvent(new CustomEvent('engine:reset'));
   worker=new Worker('./engine.worker.js');
   clearTimeout(loadingTimer);
   loadingTimer=setTimeout(function(){$('loading-title').textContent='Bộ tính toán đang tải chậm';$('loading-detail').textContent='Bạn có thể xem sơ đồ video trong lúc chờ hoặc thử tải lại.';$('retry').hidden=false;},45000);
@@ -29,15 +35,15 @@ function boot(){
     var message=event.data;
     if(message.type==='progress'){$('loading-title').textContent=message.message;return;}
     if(message.type==='ready'){clearTimeout(loadingTimer);ready=true;$('loading').hidden=true;selectModel(kind);return;}
-    if(message.type==='fatal'){clearTimeout(loadingTimer);$('loading-title').textContent='Chưa tải được bộ tính toán';$('loading-detail').textContent='Kiểm tra kết nối rồi thử lại. Các video diagram vẫn xem được.';$('retry').hidden=false;setError(message.message);return;}
-    var p=waiting.get(message.id);if(!p)return;waiting.delete(message.id);
+    if(message.type==='fatal'){engineFailure(message.message);return;}
+    var p=waiting.get(message.id);if(!p)return;waiting.delete(message.id);clearTimeout(p.timeout);
     if(message.type==='result')p.resolve(message.result);else p.reject(new Error(message.message));
   };
-  worker.onerror=function(){setError('Bộ tính toán chưa sẵn sàng. Hãy thử tải lại.');$('retry').hidden=false;};
+  worker.onerror=function(){engineFailure('Bộ tính toán gặp lỗi. Bạn có thể khởi động phiên mới.');};
   updateButtons();
 }
 function request(payload){
-  return new Promise(function(resolve,reject){if(!ready){reject(new Error('Bộ tính toán chưa tải xong.'));return;}var id=++seq;waiting.set(id,{resolve:resolve,reject:reject});worker.postMessage({id:id,payload:payload});});
+  return new Promise(function(resolve,reject){if(!ready){reject(new Error('Bộ tính toán chưa tải xong.'));return;}var id=++seq;var timeout=setTimeout(function(){if(waiting.has(id))engineFailure('Lượt tính toán mất quá lâu. Hãy khởi động phiên mới.');},60000);waiting.set(id,{resolve:resolve,reject:reject,timeout:timeout});worker.postMessage({id:id,payload:payload});});
 }
 function updateButtons(){
   var replay=state&&Number($('replay').value)!==state.day;
@@ -46,8 +52,11 @@ function updateButtons(){
   $('q-show').disabled=!ready||busy||!state||!state.day||replay;
   $('export').disabled=!ready||busy||!state||!state.day;
   $('reset').disabled=!ready||busy;
+  $('replay').disabled=!state||busy;
+  ['target','order-a','order-b'].forEach(function(id){$(id).disabled=!ready||busy||replay;});
   $('auto').textContent=auto?'Dừng tự chạy':'Tự chạy theo quyết định này';
   document.querySelectorAll('.model').forEach(function(b){b.disabled=busy;});
+  document.dispatchEvent(new CustomEvent('engine:status',{detail:{ready:ready,busy:busy}}));
 }
 async function selectModel(next){
   if(busy)return;stopAuto();kind=next;setError('');
@@ -81,13 +90,13 @@ function stopAuto(){auto=false;clearTimeout(timer);if($('auto'))$('auto').textCo
 async function step(){
   if(busy||!state||state.finished)return;
   busy=true;updateButtons();setError('');
-  var action=kind==='hql'||kind==='meta'?Number($('target').value):[Number($('order-a').value),Number($('order-b').value)];
-  try{var result=await request({op:'step',action:action});state=result;views[kind][result.day]=result;$('replay').max=result.day;$('replay').value=result.day;render(result);syncControls();pulse();if(result.finished)stopAuto();}
+  try{var action=kind==='hql'||kind==='meta'?Number($('target').value):[readNumber('order-a','Lệnh A',0,state.max_order[0],true),readNumber('order-b','Lệnh B',0,state.max_order[1],true)];var result=await request({op:'step',action:action});state=result;views[kind][result.day]=result;$('replay').max=result.day;$('replay').value=result.day;render(result);syncControls();pulse();if(result.finished)stopAuto();}
   catch(e){setError(e.message);stopAuto();}
   finally{busy=false;updateButtons();if(auto)timer=setTimeout(step,Number($('tempo').value));}
 }
-function renderEmpty(){diagram(null);$('day-badge').textContent='Chưa bắt đầu';$('step-summary').textContent='Chạy từng ngày để quan sát luồng hàng và phản hồi.';}
+function renderEmpty(){displayedState=null;diagram(null);$('day-badge').textContent='Chưa bắt đầu';$('step-summary').textContent='Chạy từng ngày để quan sát luồng hàng và phản hồi.';$('replay').value=0;$('replay').max=0;$('replay-day').textContent='0';['human-cost','algorithm-cost','difference'].forEach(function(id){$(id).textContent='0.00';});$('cost-chart').innerHTML='<p class="empty">Chưa có dữ liệu của phiên này.</p>';$('q-detail').textContent='Chưa có episode hoàn tất.';}
 function render(s){
+  displayedState=s;
   $('flow-title').textContent='Luồng vận hành của '+labels[kind];
   $('day-badge').textContent='Ngày '+s.day+' / '+s.total_days;
   $('replay-day').textContent=s.day;
@@ -118,13 +127,14 @@ function node(x,y,w,h,title,value,style){
   return '<g><rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="12" class="'+(style||'store')+'"/><text x="'+(x+14)+'" y="'+(y+25)+'" class="node-label">'+esc(title)+'</text><text x="'+(x+14)+'" y="'+(y+54)+'" class="node-value">'+esc(value)+'</text></g>';
 }
 function diagram(s){
+  if(window.matchMedia('(max-width:680px)').matches){mobileDiagram(s);return;}
   var a=s&&s.algorithm, full=kind==='fql'||kind==='mimic';
   var stock=a?pair(a.remaining):(s?pair(s.manual_opening):(full?'A 1 · B 1':'3'));
   var demand=a&&a.demand!=null?pair(a.demand):'Chưa quan sát';
   var sale=a?pair(a.sales):'—';
   var html='<svg viewBox="0 0 820 340" role="img" aria-label="Sơ đồ nhà cung cấp, kho, khách hàng và phản hồi cho bộ học"><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10" fill="#78b5ca"/></marker></defs>';
   html+='<path class="edge" marker-end="url(#arrow)" d="M170 100 H300"/><path class="edge" marker-end="url(#arrow)" d="M510 100 H640"/><path class="signal" d="M715 150 V265 H510"/><path class="signal" d="M300 265 H90 V150"/>';
-  html+=node(15,55,155,90,full?'Nhà cung cấp · trễ 1 ngày':'Nhà cung cấp · đến ngay',a?pair(a.ordered):'Chờ lệnh');
+  html+=node(15,55,155,90,'Nhà cung cấp',a?pair(a.ordered):'Chờ lệnh');
   html+=node(300,55,210,90,'Kho thực · tồn cuối ngày',stock);
   html+=node(640,55,165,90,'Khách hàng · nhu cầu',demand);
   html+='<text x="185" y="82" class="tiny">'+esc(full?'Đơn cho ngày mai':'Lượng bổ sung')+'</text><text x="540" y="82" class="tiny">Bán '+esc(sale)+'</text>';
@@ -143,7 +153,22 @@ function diagram(s){
   $('diagram').innerHTML=html;
   var svg=$('diagram').querySelector('svg');if(svg&&svg.pauseAnimations)svg.pauseAnimations();
 }
-function pulse(){var svg=$('diagram').querySelector('svg');if(!svg||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;if(svg.unpauseAnimations)svg.unpauseAnimations();setTimeout(function(){if(svg.pauseAnimations)svg.pauseAnimations();},2200);}
+function mobileDiagram(s){
+  var a=s&&s.algorithm,full=kind==='fql'||kind==='mimic';
+  var card=function(title,value,extra,type){return '<div class="flow-node '+(type||'')+'"><b>'+esc(title)+'</b><strong>'+esc(value)+'</strong>'+(extra?'<small>'+esc(extra)+'</small>':'')+'</div>';};
+  var html=card('Nhà cung cấp · lệnh đã đặt',a?pair(a.ordered):'Chờ quyết định',full?'Đơn mới giao sau một ngày':'Hàng đến ngay');
+  html+='<div class="mobile-route">'+(full?'Pipeline cho ngày kế tiếp':'Bổ sung vào kho')+'</div>';
+  html+=card('Kho thực · tồn cuối ngày',a?pair(a.remaining):(s?pair(s.manual_opening):'—'),full?'Đang về: '+(a?pair(a.pipeline):'0'):(kind==='hql'?'Reset sau mỗi tập 3 ngày':'Kho thực giữ tồn liên tục'));
+  html+='<div class="mobile-route">Phục vụ nhu cầu</div>';
+  html+=card('Khách hàng',a?'Bán '+pair(a.sales):'Chưa chạy ngày nào',a?(full?'Đơn nợ: '+pair(a.backlog):'Nhu cầu: '+(a.demand==null?'bị kiểm duyệt':a.demand)):'Quyết định chốt trước nhu cầu');
+  html+='<div class="mobile-route">'+(full?'Phản hồi nhu cầu đầy đủ':'Chỉ doanh số của thuật toán')+'</div>';
+  if(kind==='meta'&&s){html+='<div class="flow-node learner-node"><b>Bộ điều phối Meta-HQL</b>';s.arms.forEach(function(arm){html+='<div class="mobile-arm '+(arm.selected?'selected':'')+'">HQL pha '+arm.arm+' · '+arm.episodes+' tập'+(arm.selected?' · đang chọn':'')+'</div>';});html+='</div>';}
+  else if(kind==='mimic'){html+=card('FQL ảo · J=6',s&&s.virtual?'Tồn ròng '+pair(s.virtual.net):'Chưa có dữ liệu',s?'IP thực '+pair(s.real_position)+' / IP ảo '+pair(s.virtual_position):'Hệ thực giữ tồn, nợ và pipeline','learner-node');}
+  else html+=card(full?'FQL · cập nhật Q ngược':'HQL · mô phỏng tồn thấp hơn',s&&s.alpha?'α = '+fmt(s.alpha,3):'Thu thập episode',full?'Cập nhật từ pha cuối về đầu':'Phản hồi một phía','learner-node');
+  $('diagram').innerHTML='<div class="mobile-system">'+html+'</div>';
+}
+function pulse(){if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;var svg=$('diagram').querySelector('svg'),mobile=$('diagram').querySelector('.mobile-system');if(svg&&svg.unpauseAnimations)svg.unpauseAnimations();if(mobile)mobile.classList.add('pulsing');setTimeout(function(){if(svg&&svg.pauseAnimations)svg.pauseAnimations();if(mobile)mobile.classList.remove('pulsing');},2200);}
+window.addEventListener('resize',function(){diagram(displayedState);});
 function chart(s){
   var data=views[kind].filter(Boolean).filter(function(x){return x.day<=s.day;});
   if(data.length<2){$('cost-chart').innerHTML='<p class="empty">Chạy ngày đầu tiên để có điểm dữ liệu.</p>';return;}
@@ -162,11 +187,10 @@ async function showQ(){
   }catch(e){setError(e.message);}finally{busy=false;updateButtons();}
 }
 document.querySelectorAll('.model').forEach(function(b){b.addEventListener('click',function(){selectModel(b.dataset.model);});});
-document.querySelectorAll('.nav').forEach(function(b){b.addEventListener('click',function(){stopAuto();document.querySelectorAll('.nav').forEach(function(x){x.classList.toggle('active',x===b);});['lab','films','learn'].forEach(function(v){$(v+'-view').hidden=v!==b.dataset.view;});});});
 $('step').onclick=step;
 $('auto').onclick=function(){if(auto){stopAuto();updateButtons();return;}auto=true;step();};
-$('target').oninput=syncControls;
-$('replay').oninput=function(){stopAuto();var view=views[kind][Number(this.value)];if(view)render(view);$('live').disabled=Number(this.value)===state.day;updateButtons();};
+$('target').oninput=function(){stopAuto();syncControls();updateButtons();};
+$('replay').oninput=function(){if(!state)return;stopAuto();var view=views[kind][Number(this.value)];if(view)render(view);$('live').disabled=Number(this.value)===state.day;updateButtons();};
 $('live').onclick=function(){if(state){$('replay').value=state.day;render(state);}};
 $('q-show').onclick=showQ;
 $('retry').onclick=boot;
@@ -174,11 +198,12 @@ $('scope-open').onclick=function(){$('scope-title').textContent=labels[kind]+' �
 $('scope-close').onclick=function(){$('scope').close();};
 $('reset').onclick=async function(){
   if(busy)return;stopAuto();busy=true;updateButtons();setError('');
-  try{var result=await request({op:'reset',kind:kind,options:{seed:Number($('seed').value),cycles:Number($('cycles').value),bounds:$('bounds').value,researcher:$('researcher').checked}});state=result;views[kind]=[];views[kind][0]=result;$('replay').max=0;$('replay').value=0;render(result);syncControls();$('q-detail').textContent='Lượt mới đã bắt đầu. Chưa có episode hoàn tất.';}
+  try{var result=await request({op:'reset',kind:kind,options:{seed:readNumber('seed','Seed',0,2147483647,true),cycles:readNumber('cycles','Số chu kỳ',1,20,true),bounds:$('bounds').value,researcher:$('researcher').checked}});state=result;views[kind]=[];views[kind][0]=result;$('replay').max=0;$('replay').value=0;render(result);syncControls();$('q-detail').textContent='Lượt mới đã bắt đầu. Chưa có episode hoàn tất.';}
   catch(e){setError(e.message);}finally{busy=false;updateButtons();}
 };
 $('export').onclick=async function(){
-  try{var result=await request({op:'export'});var url=URL.createObjectURL(new Blob([result.csv],{type:'text/csv;charset=utf-8'}));var a=document.createElement('a');a.href=url;a.download='inventory-'+kind+'-seed'+state.seed+'.csv';a.click();setTimeout(function(){URL.revokeObjectURL(url);},1000);}catch(e){setError(e.message);}
+  if(busy)return;busy=true;updateButtons();var filename='inventory-'+kind+'-seed'+state.seed+'.csv';
+  try{var result=await request({op:'export'});downloadFile(filename,result.csv,'text/csv;charset=utf-8');}catch(e){setError(e.message);}finally{busy=false;updateButtons();}
 };
 var filmDescriptions={
   hql:'Nhu cầu bị kiểm duyệt, phản hồi một phía, cập nhật ngược và ranh giới episode.',
@@ -186,5 +211,5 @@ var filmDescriptions={
   fql:'Hai sản phẩm, đơn giao trễ, hàng về trả nợ và cập nhật Q cuối episode.',
   mimic:'Hai hệ thống cùng tiến: FQL ảo reset theo khối dài, kho thực ghép vị thế tồn với hạn mức lệnh.'
 };
-$('film-grid').innerHTML=Object.keys(labels).map(function(k){return '<article class="film"><video controls playsinline preload="metadata" poster="./media/'+k+'.png" aria-label="Sơ đồ động '+esc(labels[k])+'"><source src="./media/'+k+'.mp4" type="video/mp4">Trình duyệt chưa phát được video.</video><div class="film-body"><h3>'+esc(labels[k])+'</h3><p>'+esc(filmDescriptions[k])+'</p></div></article>';}).join('');
-renderEmpty();boot();
+$('film-grid').innerHTML=Object.keys(labels).map(function(k){return '<article class="film"><video controls playsinline preload="metadata" poster="./media/'+k+'.png" aria-label="Sơ đồ động '+esc(labels[k])+'"><source src="./media/'+k+'.mp4" type="video/mp4">Trình duyệt chưa phát được video.</video><div class="film-body"><h3>'+esc(labels[k])+'</h3><p>'+esc(filmDescriptions[k])+'</p><div class="video-actions"><button class="secondary" data-demo="'+k+'">Thử mô hình này</button><a href="./media/'+k+'.mp4" download>Tải MP4</a></div></div></article>';}).join('');
+renderEmpty();updateButtons();

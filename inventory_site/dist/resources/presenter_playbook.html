@@ -1,0 +1,503 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hướng dẫn thuyết trình experimental</title><style>body{font:16px/1.8 system-ui,sans-serif;color:#203d53;max-width:1000px;padding:25px 32px;margin:auto}h1{font-size:1.9rem;line-height:1.3}h2{margin-top:2.5rem;font-size:1.35rem}h3{font-size:1.1rem;margin-top:2rem}a{color:#0879ad}table{display:block;overflow-x:auto;border-collapse:collapse;max-width:100%;font-size:.9rem}td,th{padding:10px 12px;border:1px solid #d6e3eb;min-width:125px;vertical-align:top}th{background:#eef5f8}blockquote{border-left:3px solid #18a4bc;margin:20px 0;padding:1px 20px;background:#f1f8fa}pre{overflow:auto;background:#edf4f8;padding:16px;border-radius:8px}code{font-family:ui-monospace,monospace;font-size:.9em}li{margin-bottom:8px}@media(max-width:600px){body{padding:17px}h1{font-size:1.6rem}}</style></head><body><h1 id="cach-trinh-bay-phan-thuc-nghiem-cua-gong-simchi-levi">Cách trình bày phần thực nghiệm của Gong &amp; Simchi-Levi</h1>
+<p><strong>Báo cáo tư vấn cho người trình bày experimental — phiên bản 23/11/2026</strong></p>
+<p>Tài liệu này giúp chọn thông điệp, tổ chức bằng chứng, điều khiển demo và trả lời phản biện. Nó bổ sung cho <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/presentation/README.md">script tiếng Việt hiện có</a>, không yêu cầu đọc lại toàn bộ lời thoại. Ngôn ngữ nói hướng dẫn ở đây là tiếng Việt; bộ slide hiện có dùng tiếng Anh. Lộ trình mặc định là khoảng 60 phút, chưa tính hỏi đáp. Các mốc thời gian dưới đây là đề xuất luyện tập, chưa phải thời lượng đã đo.</p>
+<p>Nguồn kết quả được khóa theo trạng thái dự án sau commit <code>5a91349</code>. Các thay đổi giao diện/mô hình tiếp theo cần được ghi thêm vào hồ sơ bản phát hành; không tự gắn chúng vào kết quả lưu trữ cũ. <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/presentation/evidence_map.md">Danh mục nguồn theo từng slide</a> là điểm tra cứu nhanh khi chuẩn bị bài nói.</p>
+<h2 id="1-vai-tro-cua-ban-trong-buoi-bao-cao">1. Vai trò của bạn trong buổi báo cáo</h2>
+<p>Người phụ trách experimental có trách nhiệm trả lời ba câu: <strong>chương trình thực sự đang chạy bài toán nào; số liệu được tạo và kiểm tra như thế nào; kết luận nào được dữ liệu hỗ trợ</strong>. Bạn không cần chứng minh lại toàn bộ định lý nếu người trình bày trước đã phụ trách lý thuyết.</p>
+<p>Thông điệp trung tâm nên là:</p>
+<blockquote>
+<p>Tôi kiểm tra khoảng cách giữa thuật toán được mô tả, chương trình được chạy và ý nghĩa vận hành của kết quả. Khả năng tái tạo output, chất lượng chính sách sau học và chi phí để học là những câu hỏi cần đo riêng.</p>
+</blockquote>
+<p>Ba kết quả có thể tạo thành mạch chính của bài nói:</p>
+<ol>
+<li><strong>Có bằng chứng tái tạo output đã lưu của notebook Rossmann.</strong> Đây là một mức tái lập cụ thể; chưa đồng nghĩa đã khớp mọi hình trong bài báo hoặc có cài đặt độc lập cho kết quả tương tự.</li>
+<li><strong>Thứ hạng phụ thuộc chế độ đánh giá.</strong> Trong benchmark hai phiên bản thích nghi, chi phí trong lúc học và chi phí policy đóng băng sau học nghiêng về hai thuật toán khác nhau.</li>
+<li><strong>Lợi ích triển khai phải so với baseline mạnh.</strong> Một chênh lệch lớn so với DQN có thể đi cùng chênh lệch nhỏ so với quy tắc theo thứ; ví dụ CFO còn phụ thuộc các đơn giá mẫu và phí hệ thống.</li>
+</ol>
+<p>Những nhận định này không biến audit mã thành kết luận về tính đúng sai của định lý. Hướng nghiên cứu D tập trung vào mức tái lập, sự phù hợp của benchmark/cài đặt và độ nhạy confidence bound. Xem <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/docs/research_direction_d.md">định hướng D</a>.</p>
+<h3 id="mo-au-khoang-mot-phut">Mở đầu khoảng một phút</h3>
+<p>“Sau phần mô hình và bảo đảm lý thuyết, tôi sẽ đi vào phần triển khai. Tôi phân biệt kết quả của code bổ sung chính thức, mô phỏng thực hành độc lập và phép so sánh hai thuật toán đã thích nghi. Mỗi nhánh dùng một giao thức riêng. Mục tiêu là biết điều gì tái tạo được, lựa chọn triển khai nào ảnh hưởng kết quả và cần thêm bằng chứng nào trước khi nói đến triển khai thực tế.”</p>
+<p>Bạn nên nói rõ phần đóng góp của mình bằng động từ cụ thể: chuẩn bị dữ liệu, xây môi trường, thực hiện phép so sánh ghép cặp, lưu cấu hình, kiểm tra đầu ra, phân tích độ nhạy và diễn giải giới hạn. Chỉ nhận phần công việc đã có bằng chứng trong repo; không nhận các thuật toán hoặc định lý của tác giả làm đóng góp mới.</p>
+<h2 id="2-ban-o-bang-chung-can-giu-tren-ban-trinh-bay">2. Bản đồ bằng chứng cần giữ trên bàn trình bày</h2>
+<table>
+<thead>
+<tr>
+<th>Nhánh</th>
+<th>Đã có gì</th>
+<th>Có thể nói gì</th>
+<th>Điều chưa được chứng minh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Audit notebook tác giả</td>
+<td>JSON snapshot, hash đầu vào, output synthetic/Rossmann và kiểm tra chỉ số episode</td>
+<td>Code đã được chạy lại ở lần audit được ghi nhận; một số tổng khớp output lưu</td>
+<td>Phiên cloud hiện tại chưa chạy lại gói INFORMS; chưa đối chiếu đủ hình bài báo; chưa có xác minh lý thuyết</td>
+</tr>
+<tr>
+<td>Notebook năm thí nghiệm</td>
+<td>Cấu hình quick, CSV, hình và manifest</td>
+<td>Các mẫu hành vi trong mô hình thực hành hữu hạn đã chạy</td>
+<td>Không phải tái lập đầy đủ bài báo; các hệ số cận nhỏ và nhánh DP có phạm vi riêng</td>
+</tr>
+<tr>
+<td>Benchmark Beer–Rossmann</td>
+<td>Mã thích nghi, cấu hình khóa, metric theo lần chạy và bootstrap tái phân tích</td>
+<td>So sánh có điều kiện giữa SRDQN-A và Meta-HQL-P với giao thức công bố</td>
+<td>Chưa huấn luyện lại toàn bộ benchmark trong phiên cloud; chưa có thứ hạng phổ quát</td>
+</tr>
+<tr>
+<td>CFO</td>
+<td>Giả định, bảng được tái tạo, pilot mô phỏng được chạy lại</td>
+<td>Cách quy đổi chi phí và đánh giá lợi ích tăng thêm trong sample giả định</td>
+<td>Không có hóa đơn cửa hàng, ROI quan sát hay pilot doanh nghiệp</td>
+</tr>
+<tr>
+<td>Website và diagram động</td>
+<td>Công cụ học cơ chế; trạng thái cài đặt phải xem bản phát hành hiện tại</td>
+<td>Dùng để giải thích luồng hàng, thông tin và cập nhật</td>
+<td>Một lượt chơi hoặc video không phải ước lượng regret kỳ vọng</td>
+</tr>
+</tbody>
+</table>
+<p>Nguồn: <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/replication_audit/audit_results.json">audit</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/five_experiments/manifest.json">manifest notebook</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/beer_rossmann/cloud_validation.json">xác minh benchmark</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/cfo/cloud_validation.json">xác minh CFO</a>.</p>
+<h3 id="ba-muc-tai-lap">Ba mức tái lập</h3>
+<p><strong>Mức A — Output agreement.</strong> Cùng notebook, đầu vào được nhận diện bằng checksum và các quy ước được ghi rõ cho ra output như snapshot. Đây là mức repo hiện có bằng chứng ở Rossmann.</p>
+<p><strong>Mức B — Paper-figure reconciliation.</strong> Ánh xạ từng đường, bảng, thang đo và cách tổng hợp trong paper sang lần chạy cụ thể. Chưa được coi là hoàn tất chỉ vì một tổng chi phí khớp.</p>
+<p><strong>Mức C — Independent computational agreement.</strong> Cài đặt độc lập, cùng mô hình và cùng giao thức tạo ra hành vi tương tự trong độ bất định được công bố. Notebook thực hành hiện tại còn khác lưới, cận và các quy ước; cần làm rõ trước khi dùng nó làm bằng chứng mức C.</p>
+<p>Kiểm tra chứng minh toán học là một công việc khác với ba mức trên. Tránh đặt nhãn “fully replicated” cho toàn bộ công trình khi mới đạt một phần mức A.</p>
+<h2 id="3-lo-trinh-60-phut-bam-bo-slide-hien-co">3. Lộ trình 60 phút bám bộ slide hiện có</h2>
+<table>
+<thead>
+<tr>
+<th>Mốc đề xuất</th>
+<th>Slide chính</th>
+<th>Nhiệm vụ của đoạn nói</th>
+<th>Câu chốt trước khi chuyển</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00:00–08:00</td>
+<td>1–6</td>
+<td>Nêu câu hỏi experimental; recap trạng thái, hành động, phản hồi và oracle</td>
+<td>“Mô hình và quyền quan sát phải cố định trước khi đọc bảng chi phí.”</td>
+</tr>
+<tr>
+<td>08:00–20:00</td>
+<td>7–12</td>
+<td>Thiết lập chính thức, mức tái lập và hai chẩn đoán audit</td>
+<td>“Output agreement đã có; benchmark synthetic và đối chiếu hình vẫn cần kiểm tra riêng.”</td>
+</tr>
+<tr>
+<td>20:00–31:00</td>
+<td>13–18</td>
+<td>Giải thích đường học, Running Set và handoff bằng mô phỏng thực hành</td>
+<td>“Lợi ích của chu kỳ phải bù được chi phí khám phá trong chân trời hữu hạn.”</td>
+</tr>
+<tr>
+<td>31:00–42:00</td>
+<td>19–22</td>
+<td>Benchmark thích nghi; học/sau học; weekday baseline; ví dụ CFO</td>
+<td>“Chính sách sau học tốt hơn chưa tự tạo giá trị đầu tư.”</td>
+</tr>
+<tr>
+<td>42:00–52:00</td>
+<td>23–27</td>
+<td>Risk/capital như các mở rộng DP biết phân phối</td>
+<td>“Thay mục tiêu hoặc chi phí có thể đổi đánh đổi tồn kho–phục vụ.”</td>
+</tr>
+<tr>
+<td>52:00–58:00</td>
+<td>28–31</td>
+<td>Giới hạn, hướng D và ba kết luận có bằng chứng</td>
+<td>“Bước tiếp theo là kiểm tra có kiểm soát, không mở rộng kết luận từ một bảng.”</td>
+</tr>
+<tr>
+<td>58:00–60:00</td>
+<td>Dự phòng</td>
+<td>Chuyển cảnh, trục trặc demo, một câu hỏi làm rõ</td>
+<td>Giữ kết luận chính trong thời gian quy định</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nếu chỉ còn khoảng 40 phút:</strong> dành khoảng 6 phút recap, 10 phút audit, 8 phút cơ chế, 10 phút benchmark/baseline, 4 phút giới hạn và 2 phút dự phòng. Đưa risk/capital sang phụ lục. Đây là phương án cắt nội dung, không tăng tốc đọc toàn bộ script.</p>
+<p><strong>Nếu người trước đã trình bày kỹ lý thuyết:</strong> chỉ nhắc thứ tự quyết định–nhu cầu–quan sát, sự khác nhau giữa episodic và nondiscarding, cùng quyền quan sát của bộ học. Dành thời gian còn lại cho giao thức và bằng chứng.</p>
+<p>Không nên chiếu liên tục cả bốn video trong bài chính. HQL/Meta-HQL hỗ trợ trực tiếp câu chuyện lost-sales; FQL và Mimic-QL phù hợp phần mở rộng hoặc hỏi đáp. Tất cả video vẫn có thể nằm trên website để người xem tự học.</p>
+<h2 id="4-cach-giai-thich-mo-hinh-ma-khong-sa-vao-chung-minh">4. Cách giải thích mô hình mà không sa vào chứng minh</h2>
+<h3 id="luong-su-kien-lost-sales">Luồng sự kiện lost-sales</h3>
+<p>Với tồn đầu kỳ x, chọn mục tiêu B trước khi biết nhu cầu. Lượng mua là q=max(B−x,0), tồn sau mua y=x+q. Doanh số s=min(y,D), tồn cuối I=y−s, cầu mất L=max(D−y,0). Chi phí thật là oI+pL; chi phí thay thế quan sát được là oI−ps. Hai đại lượng chênh nhau pD.</p>
+<p>Một ví dụ giả định đủ dùng: khi có hàng và bán hết, ta chỉ biết nhu cầu không thấp hơn lượng đã bán; không biết chính xác cầu mất. Phản thực ở tồn kho thấp hơn có thể xác định, còn kết quả ở tồn kho cao hơn vẫn bị kiểm duyệt. Đây là trực giác cho phản hồi một phía; người nghe chưa cần đi qua toàn bộ Bellman update.</p>
+<p>Nhấn vào ba điểm bằng cách chỉ diagram:</p>
+<ul>
+<li>Quyết định nằm trước nút nhu cầu.</li>
+<li>Mũi tên về learner chỉ mang phản hồi được phép dùng.</li>
+<li>Nhánh evaluator có thể biết D thật để chấm điểm, nhưng không truyền D về learner lost-sales.</li>
+</ul>
+<p>Nguồn mô hình/cài đặt: <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/lost_sales_lab/README.md">README ứng dụng</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/lost_sales_lab/model.py">model.py</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/lost_sales_lab/hql.py">hql.py</a>.</p>
+<h3 id="phan-biet-bon-nhanh">Phân biệt bốn nhánh</h3>
+<table>
+<thead>
+<tr>
+<th>Nhánh</th>
+<th>Điều cần người xem nhìn thấy</th>
+<th>Không nên gộp với nhánh khác</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HQL episodic</td>
+<td>Kho hữu hạn, bán bị kiểm duyệt, Running Set và cập nhật ngược; có reset cuối episode</td>
+<td>Không coi reset là vận hành giữ tồn liên tục</td>
+</tr>
+<tr>
+<td>Meta-HQL</td>
+<td>Kho vật lý giữ tồn; các bản sao dịch pha; ngày chạy và ngày chờ; chi phí mọi ngày thực</td>
+<td>Không coi ngày chờ là dữ liệu học của một bản sao đang nghỉ</td>
+</tr>
+<tr>
+<td>FQL episodic</td>
+<td>Hai sản phẩm, hàng đang về, nợ cũ, đơn mới; nhu cầu được quan sát đầy đủ; cập nhật nhiều trạng thái/hành động</td>
+<td>Không coi đơn mới là hàng có thể bán ngay khi lead time dương</td>
+</tr>
+<tr>
+<td>Mimic-QL-inspired teaching adaptation</td>
+<td>Tách hệ vật lý giữ tồn và FQL ảo với cycle nhân tạo J; hiển thị yêu cầu ghép và lệnh thực có hạn mức</td>
+<td>Không gọi bản dạy hữu hạn này là replication nguyên gốc hoặc gắn bảo đảm regret của bài</td>
+</tr>
+</tbody>
+</table>
+<p>Trong snapshot cơ sở của kết quả, HQL/Meta-HQL/FQL đã có mã. Bản website mới bổ sung một <strong>Mimic-QL-inspired teaching adaptation</strong>, không phải replication có bảo đảm lý thuyết. Nguồn primary dùng để đối chiếu là <a target="_blank" rel="noreferrer noopener" href="https://hdl.handle.net/1721.1/151589">luận án MIT của Gong, 2023</a>, §§3.3.1–3.3.2, trang 58–65 và phụ lục trang 170–171; đây là phiên bản trước bài báo cuối cùng. Bản dạy chọn true H=3, cycle ảo J=6, giữ tồn/nợ/pipeline thật và cho cả hai đồng hồ tiến theo cùng mỗi nhu cầu. Yêu cầu đặt là max(IP_ảo + q_ảo − IP_thực,0), với IP là tồn ròng cộng pipeline; lệnh thực bị chặn bởi actuator cap đã công bố, và phải lưu yêu cầu, lệnh thực, cap-binding, gap và trạng thái ghép. Các lựa chọn này giải thích cơ chế bằng một miền nhỏ; chúng không hiện thực tự động cách chọn J theo T trong phân tích lý thuyết. Chi tiết matching/feasibility trong phiên bản bài báo cuối chưa được xác minh đầy đủ. Không diễn giải bất đồng ký hiệu trong luận án như kết luận định lý sai.</p>
+<h2 id="5-cach-trinh-bay-cac-ket-qua-chinh">5. Cách trình bày các kết quả chính</h2>
+<h3 id="audit-rossmann-bat-au-tu-ieu-chay-lai-uoc">Audit Rossmann: bắt đầu từ điều chạy lại được</h3>
+<table>
+<thead>
+<tr>
+<th>Chỉ tiêu từ snapshot audit</th>
+<th style="text-align: right;">Giá trị</th>
+<th>Trường nguồn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tổng chi phí learner</td>
+<td style="text-align: right;">59801</td>
+<td><code>runs.rossmann.learner.total</code></td>
+</tr>
+<tr>
+<td>Tổng với expert advice</td>
+<td style="text-align: right;">56470</td>
+<td><code>runs.rossmann.expert_advice.total</code></td>
+</tr>
+<tr>
+<td>Mean learner</td>
+<td style="text-align: right;">63.7537313433</td>
+<td><code>runs.rossmann.learner.mean</code></td>
+</tr>
+<tr>
+<td>Mean advice</td>
+<td style="text-align: right;">60.2025586354</td>
+<td><code>runs.rossmann.expert_advice.mean</code></td>
+</tr>
+<tr>
+<td>Mean vector mang nhãn near_OPT</td>
+<td style="text-align: right;">47.0799573561</td>
+<td><code>runs.rossmann.near_OPT_vector.mean</code></td>
+</tr>
+<tr>
+<td>Mean best i.i.d.</td>
+<td style="text-align: right;">92.1673773987</td>
+<td><code>runs.rossmann.best_iid.mean</code></td>
+</tr>
+</tbody>
+</table>
+<p>Tất cả số trong bảng lấy từ <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/replication_audit/audit_results.json">audit_results.json</a>, trên 938 thời điểm được ghi ở <code>runs.rossmann.T</code>. Đây là chi phí đơn vị mô hình. Rossmann dùng doanh thu làm proxy nhu cầu; không có suy luận rằng đây là chi phí VND hoặc nhu cầu theo SKU đã quan sát đầy đủ.</p>
+<p>Câu nói đề xuất: “Hai tổng chi phí trong snapshot khớp output notebook đã lưu theo giao thức audit. Tôi dùng kết quả này để xác nhận khả năng thực thi lại một thiết lập, chưa gọi đó là tái tạo mọi kết quả công bố.”</p>
+<p>Khi nhắc expert advice, có thể nói mức giảm mean trên toàn chân trời khoảng 5.6%, tính từ (mean learner−mean advice)/mean learner. Không gọi riêng đó là lợi ích trong vài ngày đầu nếu chưa trình bày một phép đo theo thời gian.</p>
+<h3 id="synthetic-at-cau-hoi-ung-ve-benchmark">Synthetic: đặt câu hỏi đúng về benchmark</h3>
+<p>Snapshot audit seed 0 ghi mean policy DP notebook là 0.64468, trong khi policy khả thi với target [9,4,1,0,6] có mean 0.48668 trên cùng chuỗi. Audit ghi nhận biến giữ giá trị mẫu bị gán đè trước phép lấy trung bình trong đường mã được kiểm tra. Nguồn: <code>runs.synthetic</code> và <code>findings.synthetic_DP_benchmark</code> trong <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/replication_audit/audit_results.json">audit JSON</a>.</p>
+<p>Câu nói đề xuất: “Kết quả này cho thấy đối tượng được dùng làm chuẩn số cần được kiểm chứng độc lập trước khi coi là cận được chứng nhận. Nó chưa kiểm tra hoặc bác bỏ định lý của bài báo.”</p>
+<p>Không trình bày chênh lệch của một seed như CI hoặc thứ hạng kỳ vọng. Cũng cần phân biệt một benchmark biết phân phối với benchmark nhìn thấy nhu cầu đã thực hiện. Tên biến <code>near_OPT</code> hay nhãn “Lower Bound” không tự chứng nhận vai trò toán học của nó.</p>
+<h3 id="oi-chi-so-episode-phat-hien-ky-thuat-co-hieu-ung-quan-sat-nho">Đổi chỉ số episode: phát hiện kỹ thuật có hiệu ứng quan sát nhỏ</h3>
+<p>Mean Rossmann đổi từ 63.7537313433 sang 63.7665245203 khi audit đổi đối số chỉ số bắt đầu episode. Hiệu khoảng +0.012794 là phép trừ của hai mean trước khi làm tròn. Nguồn: <code>runs.rossmann_episode_start_sensitivity.learner.mean</code> trong <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/replication_audit/audit_results.json">audit JSON</a>.</p>
+<p>Cách nói: “Đây là một kiểm tra độ nhạy đường mã. Trong chuỗi này hiệu ứng nhỏ; tôi không dùng nó làm kết luận nghiên cứu lớn hoặc bằng chứng có ý nghĩa thống kê.”</p>
+<h3 id="notebook-quick-dung-e-giai-thich-hanh-vi">Notebook quick: dùng để giải thích hành vi</h3>
+<p>Notebook quick có H=7, cap=32, 6 đường học độc lập, 500 chu kỳ, base/meta confidence scales bằng 0.05. Nguồn: <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/five_experiments/configuration.json">configuration.json</a>. Cấu hình này khác mô phỏng ứng dụng H=3 và khác benchmark chuẩn hóa Beer–Rossmann.</p>
+<p>Câu nói hữu ích là: “Đây là biến thể thực hành trên lưới hữu hạn, giúp nhìn thấy cơ chế trong ngân sách tính toán nhỏ.” Sau đó chỉ một đường học và một ví dụ chuyển nhánh. Đừng đọc tất cả điểm trên mọi đồ thị.</p>
+<p>Các số như lợi ích chu kỳ, waiting share, risk/CVaR và vốn cần tra đúng CSV trong <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/presentation/evidence_map.md">evidence_map.md</a>. TN4–TN5 giải DP biết phân phối; chúng không phải learner có cùng tập thông tin với Meta-HQL.</p>
+<h3 id="benchmark-thich-nghi-cho-nguoi-nghe-thay-hai-truc-anh-gia">Benchmark thích nghi: cho người nghe thấy hai trục đánh giá</h3>
+<table>
+<thead>
+<tr>
+<th>Mean trên panel chính</th>
+<th style="text-align: right;">SRDQN-A</th>
+<th style="text-align: right;">Meta-HQL-P</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chi phí trong học</td>
+<td style="text-align: right;">1.327365</td>
+<td style="text-align: right;">2.569863</td>
+</tr>
+<tr>
+<td>Chi phí policy sau học</td>
+<td style="text-align: right;">1.208841</td>
+<td style="text-align: right;">0.806871</td>
+</tr>
+</tbody>
+</table>
+<p>Nguồn: <code>core_means</code> trong <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/beer_rossmann/analysis_summary.json">analysis_summary.json</a>. Panel có 18 điều kiện, 4 profile cố định, 30 seed, 21000 kỳ học và 1400 kỳ đánh giá policy đóng băng. Nguồn thiết kế: <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/benchmarks/beer_rossmann/config/preregistered_design.json">preregistered_design.json</a>.</p>
+<p>Nghiên cứu ghi quyết định nghiêng Meta-HQL-P ở 18/18 ô sau học và nghiêng SRDQN-A ở 18/18 ô trong học. Kiểm tra dài có 4 ô nghiêng rõ Meta-P, 2 ô chưa rõ. Những quyết định này dùng giao thức CI và ngưỡng thực hành đã công bố; không có nghĩa mỗi thuật toán thống trị ở mọi cấu hình, mọi ngân sách hoặc trên bài toán gốc nhiều tầng Beer Game.</p>
+<p>Phải dùng đủ tên <strong>SRDQN-A thích nghi</strong> và <strong>Meta-HQL-P thích nghi cho một điểm tồn kho/một sản phẩm</strong>. Không gọi chúng là hai lần chạy nguyên gốc của bài báo.</p>
+<h3 id="baseline-va-cfo-ngan-ket-luan-au-tu-i-qua-du-lieu">Baseline và CFO: ngăn kết luận đầu tư đi quá dữ liệu</h3>
+<p>Baseline weekday có mean frozen_cost 0.815723, gần Meta-P 0.806871. Mức giảm của Meta-P so với weekday từ các mean này khoảng 1.1%; đây là ước lượng điểm gộp, chưa xác nhận tương đương từng ô. Nguồn: <code>core_means</code> trong <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/beer_rossmann/analysis_summary.json">summary benchmark</a>.</p>
+<p>Sample CFO p=10 ghi lợi ích vận hành khoảng 60893.87 VND/SKU/năm so với weekday. Với 100 SKU giống nhau độc lập, setup giả định 50 triệu và phí chạy hệ thống giả định 24 triệu/năm, net năm đầu khoảng −67.91 triệu VND. Nguồn: <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/cfo/summary.json">summary CFO</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/reports/cfo/assumptions.json">assumptions.json</a> và <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/cfo/illustrative_portfolio_tco.csv">portfolio</a>.</p>
+<p>Câu nói đề xuất: “Các đơn giá và quy mô đều là giả định mẫu. Ví dụ này minh họa lợi ích tăng thêm và chi phí hệ thống có thể đổi quyết định; nó chưa phải ROI của một cửa hàng thật.”</p>
+<p>Chi phí trong simulator khi học offline không phải khoản tiền tồn kho đã chi thật. Với học trong vận hành, phải đo tổn thất tăng thêm trên cùng kỳ so với baseline; không cộng trùng vào pilot/TCO. Chi phí học, TCO, payback, số kỳ hòa vốn online/frozen và giải phóng vốn tồn kho là các đại lượng khác nhau.</p>
+<h2 id="6-cach-giai-thich-thiet-ke-va-ci-khi-uoc-hoi">6. Cách giải thích thiết kế và CI khi được hỏi</h2>
+<p>Trong panel chính, bốn profile là panel cố định. Phân tích lấy trung bình profile theo seed rồi bootstrap ghép cặp trên 30 seed. Không coi từng ngày hoặc mỗi profile là một lần lặp độc lập. Effect được định nghĩa là 100(S−M)/((S+M)/2), với S là chi phí SRDQN-A và M là chi phí Meta-P. Có 20000 bootstrap draws, alpha bằng 0.05/18 và ngưỡng thực hành ±5%. Nguồn: <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/benchmarks/beer_rossmann/analyze_conditions.py">mã phân tích</a>, hàm <code>effect</code>/<code>paired</code>.</p>
+<p>Ở nhánh nguồn, việc bootstrap gộp item Beer trong cửa hàng và lấy mẫu chéo cửa hàng/seed là để phản ánh cấu trúc phụ thuộc đã chọn. Điều này không loại bỏ các hạn chế về doanh số làm proxy cầu hoặc biến động ngoài thời gian huấn luyện. Nguồn: hàm <code>crossed_source</code> trong cùng mã.</p>
+<p>Hai mô hình cùng đường cầu không có nghĩa phải có tồn kho giống nhau sau mỗi ngày: tồn kho là hệ quả của quyết định. Cần giữ cùng điều kiện đầu, động lực, tập hành động và cơ sở chi phí; mỗi policy theo dõi trạng thái riêng. Tập thông tin của oracle phải được ghi rõ. Baseline weekday có lịch sử riêng ưu đãi, nên dùng như phương án vận hành mạnh cần vượt, không gọi nó là một learner cold-start cùng thông tin lịch sử.</p>
+<p>Không dùng số lần truy cập Q như một đơn vị lặp thống kê. Không tuning trên test. Khi thay hệ số cận, hoặc chọn một seed có ảnh đẹp, cần ghi đó là thiết kế validation hay ví dụ đại diện đã chọn bằng quy tắc nào.</p>
+<h2 id="7-demo-va-video-diagram-trong-bai-noi">7. Demo và video diagram trong bài nói</h2>
+<h3 id="demo-chinh-khoang-mot-en-hai-phut">Demo chính khoảng một đến hai phút</h3>
+<p>Chuẩn bị trước một kịch bản HQL hoặc Meta-HQL với seed cố định và cấu hình được lưu. Trước khi bấm chạy, nói người xem cần quan sát một điều duy nhất: phản hồi bị kiểm duyệt, hoặc lý do phải chờ chuyển nhánh.</p>
+<ol>
+<li>Chỉ tồn đầu kỳ, quyết định đặt và nút nhu cầu chưa phát sinh.</li>
+<li>Chạy một ngày; chỉ doanh số đã quan sát và tồn dư. Khi bán hết, nhấn rằng cầu thật vẫn có thể cao hơn.</li>
+<li>Đi tới một thời điểm cập nhật hoặc chuyển nhánh đã chọn trước; dùng nút phát lại để giải thích một bước Q/Running Set hoặc ngày chờ.</li>
+<li>Chốt: “Đây là minh họa cơ chế trên một đường mẫu, không phải ước lượng regret.” Sau đó quay lại slide kết quả có nhiều lần lặp.</li>
+</ol>
+<p>Không xem Q/oracle rồi mới nhận rằng mình chơi tốt hơn thuật toán trong một phép so sánh mù. Nếu mở chế độ nhà nghiên cứu để thấy cầu thật, nói rõ đó là dữ liệu evaluator được phép xem sau khi ngày đã xảy ra.</p>
+<h3 id="video-ung-yeu-cau-nguoi-dung">Video đúng yêu cầu người dùng</h3>
+<p>Video là <strong>diagram system design chuyển động</strong>, không phụ đề, không giọng đọc và không quay màn hình ứng dụng. Nhãn nút và ký hiệu sơ đồ vẫn cần rõ: kho, nhu cầu, đơn hàng, nợ, pipeline, learner và evaluator. Chuyển động phải theo trace hoặc quy tắc nguồn được xác minh, không tạo cảm giác đã có một kết quả thực nghiệm mới.</p>
+<table>
+<thead>
+<tr>
+<th>Video</th>
+<th>Điều cần thấy bằng chuyển động</th>
+<th>Điểm dễ diễn đạt sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HQL</td>
+<td>Luồng hàng đến ngay, bán/thiếu, phản hồi một phía, lượt cập nhật cuối episode</td>
+<td>Mũi tên learner không được mang cầu mất thật</td>
+</tr>
+<tr>
+<td>Meta-HQL</td>
+<td>Kho vật lý liên tục, bản sao dịch pha, lịch khối, chờ pha/chờ tồn</td>
+<td>Không làm hàng biến mất khi đổi bản sao; không học trong ngày chờ</td>
+</tr>
+<tr>
+<td>FQL</td>
+<td>Hai sản phẩm, đơn mới nằm trong pipeline, hàng đến trả nợ cũ, cập nhật ngược</td>
+<td>Không đưa đơn mới vào bán ngay; không xóa nợ trước khi ghi số dư cuối episode</td>
+</tr>
+<tr>
+<td>Mimic teaching adaptation</td>
+<td>Hệ vật lý và hệ ảo tách biệt; cả hai tiến theo cùng D; yêu cầu ghép, lệnh có cap và gap được biểu diễn</td>
+<td>Nhãn bản dạy phải hiện rõ; IP khớp chưa luôn đồng nghĩa toàn pipeline đã khớp; không hứa ghép trong một số ngày cố định</td>
+</tr>
+</tbody>
+</table>
+<h3 id="du-phong-khi-demo-gap-loi">Dự phòng khi demo gặp lỗi</h3>
+<p>Lưu video và một trace mẫu đã kiểm tra để mở offline. Ghi seed/cấu hình trên ghi chú người nói. Nếu ứng dụng không tải hoặc animation bị giật, chuyển ngay sang video và bảng kết quả đã lưu; không dành phần hỏi đáp để sửa môi trường. Không đổi seed trực tiếp để tìm một lần chạy đẹp hơn.</p>
+<h2 id="8-tra-loi-phan-bien-thuong-gap">8. Trả lời phản biện thường gặp</h2>
+<table>
+<thead>
+<tr>
+<th>Câu hỏi</th>
+<th>Câu trả lời ngắn nên dùng</th>
+<th>Tư liệu mở thêm nếu cần</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anh đã tái lập đầy đủ bài báo chưa?</td>
+<td>Tôi có output agreement ở các thiết lập được audit. Đối chiếu đủ hình paper và agreement của cài đặt độc lập vẫn là các công việc riêng.</td>
+<td>Audit README và evidence ladder</td>
+</tr>
+<tr>
+<td>Tại sao chi phí tốt hơn một đối tượng gọi là lower bound?</td>
+<td>Tôi kiểm tra nhãn và đường mã của benchmark đó. So sánh cùng chuỗi cho thấy cần tái xây chuẩn độc lập; đây chưa phải phản chứng định lý.</td>
+<td><code>findings.synthetic_DP_benchmark</code></td>
+</tr>
+<tr>
+<td>Policy [9,4,1,0,6] có phải tối ưu không?</td>
+<td>Đây là policy khả thi dùng làm đối chiếu trên cùng đường cầu; tôi không chứng nhận nó là tối ưu toàn cục.</td>
+<td>Synthetic audit source</td>
+</tr>
+<tr>
+<td>Đổi episode-start có ý nghĩa nghiên cứu lớn không?</td>
+<td>Hiệu ứng quan sát ở chuỗi hiện tại nhỏ. Nó xác định một lựa chọn cài đặt cần kiểm tra, chưa đủ cho kết luận phổ quát.</td>
+<td>Audit sensitivity</td>
+</tr>
+<tr>
+<td>18/18 có nghĩa luôn thắng không?</td>
+<td>Nó áp dụng cho panel, biến thể, ngân sách và quy tắc CI/±5% đã khóa; không phải mọi môi trường.</td>
+<td>Thiết kế và comparison tables</td>
+</tr>
+<tr>
+<td>Có cùng ngân sách học không?</td>
+<td>Main benchmark giữ ngân sách quan sát và đường cầu ghép cặp. Ngân sách tuning, thông tin lịch sử và biến thể vẫn cần nêu riêng.</td>
+<td>Design/config và baseline note</td>
+</tr>
+<tr>
+<td>Tại sao không chỉ dùng weekday?</td>
+<td>Đó là câu hỏi triển khai chính đáng: baseline mạnh rất gần Meta-P về mean. Cần lợi ích tăng thêm, mức phục vụ và chi phí hệ thống.</td>
+<td>Core means và CFO</td>
+</tr>
+<tr>
+<td>HQL có lợi thế thông tin hơn DQN không?</td>
+<td>Hai bộ học được phép nhận cùng phản hồi gốc trong phép so tương ứng; khai thác phản hồi suy ra là cấu trúc thuật toán. Một ablation bổ sung mẫu suy ra cho DQN sẽ giúp đo nguồn lợi ích.</td>
+<td>Mã và kế hoạch ablation</td>
+</tr>
+<tr>
+<td>Tại sao không dùng nhu cầu thật cho HQL?</td>
+<td>Lost-sales che cầu khi hết hàng; truyền D thật sẽ đổi tập thông tin và bài toán. Evaluator giữ D chỉ để chấm điểm.</td>
+<td>HQL observation contract</td>
+</tr>
+<tr>
+<td>FQL thấy D đầy đủ có công bằng không?</td>
+<td>FQL ở nhánh backlogging khác, nơi nhu cầu không mất đi và được quan sát. Không dùng nó như một đối thủ cùng information set của HQL lost-sales.</td>
+<td>FQL model/README</td>
+</tr>
+<tr>
+<td>Cận nhỏ còn bảo đảm regret không?</td>
+<td>Kết quả thực nghiệm với cận nhỏ cần nhãn biến thể. Tôi không chuyển bảo đảm của hệ số gốc sang lựa chọn thực hành.</td>
+<td>App/config caveats</td>
+</tr>
+<tr>
+<td>Mean thấp hơn nhưng fill rate thấp hơn thì sao?</td>
+<td>Hàm chi phí có thể ưu tiên đánh đổi khác. Cần kiểm tra ràng buộc phục vụ trước khi kết luận triển khai.</td>
+<td>Core/source mean và CFO</td>
+</tr>
+<tr>
+<td>CI phản ánh rủi ro doanh nghiệp chưa?</td>
+<td>CI ở đây phản ánh ngẫu nhiên trong mô phỏng theo thiết kế. Nó không bao gồm sai đơn giá, sai mô hình, drift hoặc tính đại diện doanh nghiệp.</td>
+<td>Analysis methods</td>
+</tr>
+<tr>
+<td>365 kỳ pilot có phải thử cửa hàng không?</td>
+<td>Đó là mô phỏng hậu kiểm với chân trời 365 đã biết, giữ cấu hình trước; chưa có cửa hàng, hóa đơn hay dữ liệu can thiệp thực.</td>
+<td>CFO validation/design</td>
+</tr>
+<tr>
+<td>Anh vừa chạy lại toàn bộ main benchmark phải không?</td>
+<td>Phiên cloud đã tái phân tích metric, kiểm tra bảng và smoke; pilot CFO được chạy lại. Toàn bộ main training chưa được chạy lại trong phiên này.</td>
+<td>Cloud validation JSONs</td>
+</tr>
+<tr>
+<td>Hash QA sai có làm kết quả vô hiệu không?</td>
+<td>Nó ngăn tôi chứng nhận toàn archive nguyên vẹn. Tôi công bố mismatch và kiểm tra riêng cấu hình/bảng/CI; chưa biết nguyên nhân nên không kết luận đó chỉ là lỗi vô hại.</td>
+<td>Benchmark provenance</td>
+</tr>
+<tr>
+<td>Có thể so chi phí bốn model trên cùng một cột xếp hạng không?</td>
+<td>Chỉ khi đã đồng nhất động lực, terminal rule, tập thông tin và đơn vị. Episodic lost-sales, giữ tồn và backlogging không tự đáp ứng điều đó.</td>
+<td>Model compatibility matrix</td>
+</tr>
+<tr>
+<td>Vì sao video không đủ làm bằng chứng?</td>
+<td>Video diễn giải cơ chế; ước lượng hiệu quả cần nhiều seed, giao thức và độ bất định.</td>
+<td>Trace và stress plan</td>
+</tr>
+</tbody>
+</table>
+<p>Khi chưa biết, câu trả lời tốt là: “Tôi chưa chạy phép kiểm đó. Phần này thuộc kế hoạch stress test, và tôi sẽ không suy từ hình hiện tại sang kết luận ấy.” Sau đó chỉ đúng test ID hoặc tiêu chí cần đo, thay vì trả lời chung chung rằng thuật toán chắc sẽ ổn.</p>
+<h2 id="9-van-e-hash-qa_reportjson-cach-bao-cao-ung">9. Vấn đề hash <code>qa_report.json</code>: cách báo cáo đúng</h2>
+<p><a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/benchmarks/beer_rossmann/provenance.json">Provenance benchmark</a>, mục <code>archive_manifest_checks.condition_study.mismatches</code>, ghi một mismatch của <code>qa_report.json</code>. Không chỉnh tệp manifest để làm mất dấu mismatch, không nói mọi byte của archive đều đã được xác nhận. Cũng không tự suy nguyên nhân là chỉnh sửa sau xuất, lỗi truyền hoặc làm giả.</p>
+<p>Phân biệt hai mệnh đề:</p>
+<ul>
+<li><strong>Tính toàn vẹn snapshot:</strong> archive có ít nhất một tệp không khớp manifest đi kèm; chưa thể chứng nhận toàn bộ gói.</li>
+<li><strong>Kiểm tra kết quả cụ thể:</strong> mã hiện có đã tái tính bootstrap, so các bảng chính, xác minh cấu hình khóa và kiểm tra các đồng nhất thức chi phí trên metric nhận được. Phạm vi này được ghi riêng trong <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/beer_rossmann/cloud_validation.json">cloud_validation.json</a>.</li>
+</ul>
+<p>Nếu có người hỏi độ tin cậy, đề xuất bước tiếp: xác nhận bản nguồn với người tạo archive, tạo manifest mới có ngày/nguồn rõ và giữ manifest cũ như bằng chứng lịch sử. Tái chạy một phần độc lập ở cấu hình nhỏ rồi mở rộng nếu cần; không gọi việc tạo manifest mới là tái lập thí nghiệm.</p>
+<h2 id="10-chuan-bi-truoc-buoi-trinh-bay">10. Chuẩn bị trước buổi trình bày</h2>
+<table>
+<thead>
+<tr>
+<th>Thời điểm gợi ý</th>
+<th>Việc cụ thể</th>
+<th>Tiêu chí sẵn sàng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Một lượt chuẩn bị nội dung</td>
+<td>Đánh dấu mỗi slide là paper, audit, independent, adapted, hypothetical hoặc proposed</td>
+<td>Không có bảng thiếu nhãn thuật toán/đơn vị/giao thức</td>
+</tr>
+<tr>
+<td>Một lượt kiểm tra kỹ thuật</td>
+<td>Chạy các lệnh kiểm tra repo, lưu phiên bản phần mềm và file kết quả</td>
+<td>Mọi số chủ chốt mở được tới nguồn; mọi ngoại lệ được ghi</td>
+</tr>
+<tr>
+<td>Một lượt luyện nói</td>
+<td>Bấm giờ lộ trình chính; tập câu chuyển ý; cắt risk/capital nếu trễ</td>
+<td>Phần kết luận xuất hiện trước hết giờ, không tăng tốc đọc</td>
+</tr>
+<tr>
+<td>Trước khi trình chiếu</td>
+<td>Tải video/trace dự phòng; thử font; tắt các thông báo gây gián đoạn</td>
+<td>Có phương án offline và bản trình bày phân phối đúng quyền</td>
+</tr>
+</tbody>
+</table>
+<p>Lệnh kiểm tra đã có trong repo, Python 3.10+:</p>
+<pre><code class="language-bash">python tools/check_research_brief.py
+python presentation/check_evidence.py
+python benchmarks/beer_rossmann/run.py snapshot --run-dir local_checks/presentation_review
+python reports/cfo/calculate.py --output-dir local_checks/cfo_review --verify-default
+</code></pre>
+<p>Cài dependency theo README của từng phần. Những lệnh này chủ yếu đối chiếu nội dung hoặc tái phân tích kết quả lưu trữ; không biến chúng thành mô tả “đã huấn luyện lại toàn bộ”. Kế hoạch stress test mới ở <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/docs/stress_test_plan.md">docs/stress_test_plan.md</a> và <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/experiments/stress_tests/plan.json">plan.json</a> chưa được coi là đã thực thi.</p>
+<h3 id="ket-thuc-khoang-mot-phut">Kết thúc khoảng một phút</h3>
+<p>“Tôi có bằng chứng rằng một số output chính thức chạy lại được theo snapshot audit. Các mô phỏng và benchmark thích nghi cho thấy cần tách chi phí trong học, hiệu quả policy sau học và lợi ích tăng thêm so với baseline. Những giới hạn về benchmark, cận tin cậy, dữ liệu proxy và chi phí giả định xác định thí nghiệm cần làm tiếp; chúng chưa phải kết luận về tính đúng sai của các định lý.”</p>
+<h2 id="11-ho-so-nguon-toi-thieu-cho-moi-con-so">11. Hồ sơ nguồn tối thiểu cho mọi con số</h2>
+<table>
+<thead>
+<tr>
+<th>Nhãn</th>
+<th>Tệp trong repo</th>
+<th>Nội dung dùng trong báo cáo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td><a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/replication_audit/audit_results.json">audit_results.json</a></td>
+<td>Totals/means, seed, targets, chỉ số episode, cảnh báo và môi trường audit</td>
+</tr>
+<tr>
+<td>N</td>
+<td><a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/five_experiments/configuration.json">configuration.json</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/five_experiments/manifest.json">manifest.json</a></td>
+<td>Phạm vi notebook quick; tên bảng và hình</td>
+</tr>
+<tr>
+<td>B</td>
+<td><a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/beer_rossmann/analysis_summary.json">analysis_summary.json</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/benchmarks/beer_rossmann/config/preregistered_design.json">design</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/benchmarks/beer_rossmann/analyze_conditions.py">analysis code</a></td>
+<td>Mean, số quyết định, ngân sách, panel, seed và CI</td>
+</tr>
+<tr>
+<td>C</td>
+<td><a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/cfo/summary.json">summary.json</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/reports/cfo/assumptions.json">assumptions</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/cfo/illustrative_portfolio_tco.csv">portfolio</a></td>
+<td>Các số VND giả định và phép tính đầu tư</td>
+</tr>
+<tr>
+<td>V</td>
+<td><a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/beer_rossmann/cloud_validation.json">benchmark checks</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/cfo/cloud_validation.json">CFO checks</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/presentation/cloud_validation.json">slide checks</a></td>
+<td>Phạm vi đã kiểm tra thực tế trong cloud</td>
+</tr>
+<tr>
+<td>P</td>
+<td><a target="_blank" rel="noreferrer noopener" href="https://doi.org/10.1287/mnsc.2023.4947">Bài báo qua DOI</a>, <a target="_blank" rel="noreferrer noopener" href="https://hdl.handle.net/1721.1/151589">luận án MIT 2023</a></td>
+<td>Định nghĩa/thuật toán gốc; luận án là nguồn sớm hơn, không thay thế xác minh bản công bố cuối</td>
+</tr>
+</tbody>
+</table>
+<p>Các mốc thời gian luyện tập, cỡ video và thứ tự demo trong tài liệu này là đề xuất tổ chức, không phải số đo từ thí nghiệm. Nội dung diagram động do dự án dựng không thay cho ảnh/thuật toán gốc; không phân phối dữ liệu hoặc hình bên thứ ba khi chưa xác định quyền.</p></body></html>

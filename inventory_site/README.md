@@ -1,4 +1,4 @@
-# Inventory Lab — website bốn mô hình
+# Inventory Research Hub — cổng mô phỏng, stress test và thuyết trình
 
 Site riêng tư: <https://gong-simchi-inventory-lab.snu-chatgpt-5678.chatgpt.site>.
 Đây là bản cloud mới từ app trong chat “Hình dung bốn mô hình thuật toán”; chat đó chỉ có app Streamlit cục bộ, chưa có Site được xuất bản. Mã Streamlit cũ vẫn có ba lựa chọn HQL/Meta-HQL/FQL. Website này có thêm **Mimic-QL-inspired teaching adaptation** với giới hạn công khai trong [phạm vi Mimic](../docs/mimic_teaching_scope.md).
@@ -55,5 +55,38 @@ node inventory_site/tools/check_pyodide.mjs /tmp/gong-pyodide/node_modules/pyodi
 ```
 
 Đường dẫn `/tmp` dành cho Linux; trên Windows chọn thư mục tạm tương ứng. Script chạy hết bốn lượt qua Python 3.12.7/NumPy 2.0.2 trong WASM. NumPy wheel được tải từ CDN chính thức và kiểm tra theo lock Pyodide; nếu Node không tải được qua proxy, có thể lưu đúng wheel trong thư mục package sau khi xác minh SHA-256 của `pyodide-lock.json`. Kiểm tra WASM không xác nhận layout, thao tác UI hoặc việc CDN được cho phép trong trình duyệt người dùng.
+
+## Bản cổng tổng hợp
+
+Menu **Tổng quan** nối các phần thành một luồng: hiểu sản phẩm qua video, tự thử mô phỏng, thiết kế kiểm tra rồi trình bày bằng chứng. Trang tổng quan, video và báo cáo không chờ Python khởi động. Chỉ khi mở mô phỏng/stress mới tải bộ tính toán. Trên màn hình hẹp, sơ đồ phòng mô phỏng chuyển thành các khối dọc có nhãn đọc được.
+
+- **Phòng mô phỏng:** giữ bốn lượt độc lập, có video riêng của mô hình đang xem, Q replay và CSV. Lỗi worker giải phóng request đang chờ; khởi động phiên mới xóa trạng thái cũ với thông báo rõ.
+- **Thiết kế stress:** nhấp các khối diagram để đổi mô hình, nhu cầu, seed/ngân sách hoặc baseline. Có bảy kịch bản: native, zero, steady, peak, alternating, burst và drift. Ba kịch bản cuối được đánh dấu ngoài giả định lặp H=3. Có thể sửa/nhập/tải JSON cấu hình.
+- **Chạy stress:** từng ngày hoặc tự chạy có tạm dừng; tối đa 5 seed × 20 chu kỳ × 3 ngày. Diagram trace nhận số liệu thật; xem lại không học thêm. Kết quả/CSV/JSON ghi cấu hình, Python/NumPy và SHA-256 mã. Chỉnh thiết kế sau khi chạy không ghi đè kết quả cũ cho tới khi bấm Áp dụng hợp lệ.
+- **Góc thuyết trình:** outline 60/40 phút, 10 Q&A có nguồn, checklist, báo cáo và kế hoạch đọc trực tiếp bằng HTML. Tải PDF/DOCX, slide v4 bản phân phối và script tiếng Việt. Sản phẩm Streamlit có gói ZIP để chạy cục bộ; giao diện Streamlit vẫn có ba lựa chọn, website có thêm bản học Mimic.
+- **Nguồn & phạm vi:** thông điệp dẫn về kết quả trong repo và ba câu hỏi nghiên cứu D. `content/presentation.json` là asset nội dung có tham chiếu nguồn, được kiểm tra khi dựng.
+
+Stress dùng riêng đối tượng Lab, không thay đổi các lượt chơi. Môi trường thay bộ sinh nhu cầu trong phạm vi một bước, chốt quyết định trước khi đưa mẫu cầu vào và luôn khôi phục bộ sinh. Worker tuần tự hóa các RPC. Learner HQL vẫn chỉ nhận doanh số riêng; cột nhu cầu thật dành cho người kiểm tra. FQL/Mimic giữ support hữu hạn; tăng cường độ làm xác suất tiệm tới 1, không cắt ngọn mẫu cầu. Tham số kho/phí/confidence chỉ hiện và có hiệu lực với HQL/Meta-HQL; nhập giá trị khác mặc định cho các trường đó ở FQL/Mimic bị từ chối.
+
+Chi phí trong workspace là **trong lúc học**, không phải policy đóng băng sau học, TCO hoặc VND. CI 95% là Student t trên chênh lệch ghép cặp giữa các seed hoàn tất (n=2–5); ít seed tạo khoảng rộng và chỉ mang tính mô tả. Không gộp với bootstrap của benchmark 18 điều kiện, không xếp hạng chéo các mô hình có vật lý khác nhau. Lõi Mimic tiếp tục là teaching adaptation.
+
+## Kiểm tra cổng và chạy lại một thiết kế
+
+Python 3.10+, Node.js 20+ (môi trường đã kiểm tra: Node 24); các lệnh từ gốc repo:
+
+```bash
+python -m pip install -r inventory_site/requirements.txt
+python inventory_site/tools/sync_assets.py
+python inventory_site/tools/check_site.py
+python -m pytest lost_sales_lab/tests/test_model.py lost_sales_lab/tests/test_hql.py lost_sales_lab/tests/test_meta_hql.py lost_sales_lab/tests/test_fql.py lost_sales_lab/tests/test_mimic_ql.py inventory_site/tests/test_stress_api.py -q
+npm --prefix inventory_site ci --ignore-scripts
+npm --prefix inventory_site test
+python inventory_site/tools/run_stress.py --config experiments/stress_tests/interactive_example.json --output-dir local_checks/selected_stress
+python inventory_site/tools/run_stress.py --smoke --output-dir local_checks/interactive_stress
+```
+
+Nếu Python trong venv có tên/path riêng, đặt biến môi trường `PYTHON` cho lệnh npm test. Test DOM dùng jsdom và một worker bridge đến lõi Python thật; kiểm tra handler, cấu hình, replay, chuyển tab, export và phục hồi lỗi, **không** thay thế nghiệm thu layout trong trình duyệt. Không cài trình duyệt thay thế cho managed preview.
+
+[Kết quả smoke](../results/interactive_stress/README.md) có 28 cấu hình / 504 bước. Đây là kiểm tra phần mềm đã chạy; [kế hoạch nghiên cứu 32 test](../experiments/stress_tests/plan.json) vẫn là thiết kế, chưa có runner đầy đủ hoặc kết quả toàn ma trận. Hướng dẫn tải và kiểm tra dữ liệu của benchmark/CFO giữ nguyên ở các thư mục tương ứng.
 
 Site source có `.openai/hosting.json`; giữ nguyên project ID khi cập nhật. Chỉ đẩy mã/asset tự soạn, không đẩy token, dữ liệu thô hoặc tài liệu gốc bên thứ ba. Gói tĩnh để xuất bản chứa manifest và `dist/`, từ đúng commit đã push lên source repository của Site. Giữ audience riêng tư hiện tại.

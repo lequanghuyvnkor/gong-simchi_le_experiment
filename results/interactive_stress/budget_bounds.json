@@ -1,0 +1,175 @@
+{
+  "status": "passed",
+  "scope": "interactive UI upper budget bounds; not research matrix",
+  "metadata": {
+    "variant": "inventory_hub_stress_v1",
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "cost_scope": "during_learning_only",
+    "ci": "95% paired Student t across completed independent seeds; descriptive small sample",
+    "source_sha256": {
+      "experiment.py": "e365f26abe5d6ae9f6ecd2b33c2fad932d2e6fee2145c23427a28d120db659a3",
+      "fql.py": "79ff25aaec769a9a8bf9366538e0808448c96b41ba9fd35e870573530da22f11",
+      "fql_experiment.py": "cdd67fccef2f07a6d9e36031533523606fffc8ee37d40cf245a38d052e5be856",
+      "fql_model.py": "869414e2da99ba2cb52202568e6e7b3f81d032eb60937422dcfb79b4edafe3fb",
+      "hql.py": "83b3a4797737ff5faefc8c3a863b36098e5258803346f373f95faf33032aa3c7",
+      "lab_api.py": "3a78880faa05c00d9234679ec1307506c26ad0cdc31042b031b8009315de1c3a",
+      "meta_hql.py": "cb3aa42f8d4226d20cb2b3db3f48c3f18aa9deae7b2d227fb95faeafe0020765",
+      "mimic_ql.py": "b14200fa94c80fcc3f5c5290a400f8aba3aef1efe08e220514fca5fb126dfade",
+      "model.py": "527ccd5ece5f222ff402133c8d356b0feaf376655088e92412388dcd72c7f6ed",
+      "stress_api.py": "3ef88d7aa6f8385e782ca86597ef10858995931b89e2b22662a21c2d17b853d4"
+    }
+  },
+  "runs": [
+    {
+      "config": {
+        "kind": "hql",
+        "scenario": "peak",
+        "seed": 9000,
+        "seeds": 5,
+        "cycles": 20,
+        "load": 2.0,
+        "bounds": "practical",
+        "confidence": 4.0,
+        "reference": "phase",
+        "capacity": 40,
+        "holding": 10.0,
+        "penalty": 20.0
+      },
+      "steps": 300,
+      "checks": {
+        "common_demand": {
+          "passed": 300,
+          "total": 300
+        },
+        "finite_cost": {
+          "passed": 300,
+          "total": 300
+        },
+        "material_balance": {
+          "passed": 600,
+          "total": 600
+        },
+        "lost_sales_balance": {
+          "passed": 600,
+          "total": 600
+        },
+        "learner_inventory": {
+          "passed": 300,
+          "total": 300
+        }
+      },
+      "failures": []
+    },
+    {
+      "config": {
+        "kind": "meta",
+        "scenario": "peak",
+        "seed": 9000,
+        "seeds": 5,
+        "cycles": 20,
+        "load": 2.0,
+        "bounds": "practical",
+        "confidence": 4.0,
+        "reference": "phase",
+        "capacity": 40,
+        "holding": 10.0,
+        "penalty": 20.0
+      },
+      "steps": 300,
+      "checks": {
+        "common_demand": {
+          "passed": 300,
+          "total": 300
+        },
+        "finite_cost": {
+          "passed": 300,
+          "total": 300
+        },
+        "material_balance": {
+          "passed": 600,
+          "total": 600
+        },
+        "lost_sales_balance": {
+          "passed": 600,
+          "total": 600
+        },
+        "learner_inventory": {
+          "passed": 300,
+          "total": 300
+        }
+      },
+      "failures": []
+    },
+    {
+      "config": {
+        "kind": "fql",
+        "scenario": "peak",
+        "seed": 9000,
+        "seeds": 5,
+        "cycles": 20,
+        "load": 2.0,
+        "reference": "phase"
+      },
+      "steps": 300,
+      "checks": {
+        "common_demand": {
+          "passed": 300,
+          "total": 300
+        },
+        "finite_cost": {
+          "passed": 300,
+          "total": 300
+        },
+        "material_balance": {
+          "passed": 600,
+          "total": 600
+        },
+        "pipeline_and_cost": {
+          "passed": 600,
+          "total": 600
+        }
+      },
+      "failures": []
+    },
+    {
+      "config": {
+        "kind": "mimic",
+        "scenario": "peak",
+        "seed": 9000,
+        "seeds": 5,
+        "cycles": 20,
+        "load": 2.0,
+        "reference": "phase"
+      },
+      "steps": 300,
+      "checks": {
+        "common_demand": {
+          "passed": 300,
+          "total": 300
+        },
+        "finite_cost": {
+          "passed": 300,
+          "total": 300
+        },
+        "material_balance": {
+          "passed": 600,
+          "total": 600
+        },
+        "pipeline_and_cost": {
+          "passed": 600,
+          "total": 600
+        },
+        "physical_never_resets": {
+          "passed": 300,
+          "total": 300
+        },
+        "virtual_clock": {
+          "passed": 300,
+          "total": 300
+        }
+      },
+      "failures": []
+    }
+  ]
+}

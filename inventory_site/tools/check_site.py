@@ -19,10 +19,42 @@ def main():
         for source in (ROOT / item["source"], DIST / "assets/python" / name):
             assert hashlib.sha256(source.read_bytes()).hexdigest() == expected, source
     html = (DIST / "index.html").read_text()
+    ids=re.findall(r'\bid="([^\"]+)"',html)
+    assert len(ids)==len(set(ids)),"Duplicate static element IDs"
     for link in re.findall(r'(?:src|href)="(\./[^"#]+)', html):
         assert (DIST / link).exists(), link
-    for name in ("app.js", "engine.worker.js"):
+    for name in ("app.js", "engine.worker.js", "hub.js", "stress.js"):
         subprocess.run(["node", "--check", str(DIST / name)], check=True)
+    # The portal reader is an exact render of authored documents, with inert HTML.
+    for name in ("presenter_playbook.html","stress_test_plan.html"):
+        doc=(DIST/"resources"/name).read_text()
+        assert 'lang="vi"' in doc and '<h1' in doc
+        assert not re.search(r'<(?:script|object|embed)\b',doc,re.I)
+    presentation=json.loads((DIST/"resources/presentation.json").read_text())
+    assert {o["minutes"] for o in presentation["outlines"]} == {40,60}
+    assert len(presentation["research_questions"]) == 3
+    for outline in presentation["outlines"]:
+        assert outline["segments"][0]["minute_start"] == 0
+        assert outline["segments"][-1]["minute_end"] == outline["minutes"]
+    def check_refs(value):
+        if isinstance(value,dict):
+            if "path" in value:
+                path=ROOT/value["path"];assert path.is_file(),path
+                if "pointer" in value:
+                    result=json.loads(path.read_text())
+                    for key in value["pointer"].strip('/').split('/'):
+                        key=key.replace('~1','/').replace('~0','~')
+                        result=result[int(key)] if isinstance(result,list) else result[key]
+            for child in value.values():check_refs(child)
+        elif isinstance(value,list):
+            for child in value:check_refs(child)
+    check_refs(presentation)
+    for name,source in {
+        "presenter_playbook.docx":"reports/experimental_presenter/experimental_presenter_playbook_vi.docx",
+        "slides_v4.pptx":"presentation/Gong_Simchi_2024_Academic_60min_v4_repo.pptx",
+        "script_vi.docx":"presentation/Gong_Simchi_2024_Script_Tieng_Viet_60_phut_repo.docx",
+    }.items():
+        assert (DIST/"resources"/name).read_bytes()==(ROOT/source).read_bytes(),name
     movies = json.loads((DIST / "media/videos_manifest.json").read_text())
     assert set(movies) == {"hql", "meta", "fql", "mimic"}
     for kind, metadata in movies.items():

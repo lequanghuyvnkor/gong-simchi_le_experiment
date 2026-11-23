@@ -1,0 +1,450 @@
+{
+  "schema_version": 1,
+  "language": "vi",
+  "title": "Trình bày với vai trò người làm thực nghiệm",
+  "intro": "Kiểm tra chương trình đang giải bài toán nào, số liệu được tạo ra sao và kết luận nào được bằng chứng hỗ trợ. Dùng demo để giải thích cơ chế; dùng giao thức, nhiều seed và độ bất định để đánh giá hiệu quả.",
+  "scope_note": "Nội dung rút từ playbook đã kiểm tra nguồn. Các mốc 60/40 phút là đề xuất luyện nói, chưa phải thời lượng đã đo; chưa tính phần hỏi đáp riêng. Kết quả audit, benchmark thích nghi, giả định CFO và giả thuyết nghiên cứu được giữ thành các loại bằng chứng riêng.",
+  "playbook_path": "reports/experimental_presenter/playbook_vi.md",
+  "evidence_map_path": "presentation/evidence_map.md",
+  "evidence_labels": [
+    {
+      "id": "audit",
+      "label": "Audit đã lưu",
+      "meaning": "Kết quả của lần kiểm tra notebook được ghi trong snapshot; phiên cloud này chưa chạy lại gói INFORMS và chưa đối chiếu đủ hình của bài báo."
+    },
+    {
+      "id": "adaptation",
+      "label": "Benchmark thích nghi",
+      "meaning": "SRDQN-A và Meta-HQL-P đã điều chỉnh cho một điểm tồn kho/một sản phẩm. Kết luận có điều kiện theo panel, ngân sách và giao thức đã công bố."
+    },
+    {
+      "id": "hypothetical_finance",
+      "label": "Tài chính giả định",
+      "meaning": "Đơn giá VND, giá vốn, phạt thiếu và chi phí hệ thống là giả định mẫu; chưa phải chi phí hoặc ROI quan sát tại doanh nghiệp."
+    },
+    {
+      "id": "hypothesis",
+      "label": "Giả thuyết cần kiểm tra",
+      "meaning": "Câu hỏi nghiên cứu hoặc phép thử dự kiến; chưa được diễn đạt như kết quả đã chạy."
+    },
+    {
+      "id": "teaching_demo",
+      "label": "Mô phỏng giải thích cơ chế",
+      "meaning": "Cài đặt hữu hạn phục vụ học và demo. Một lượt chơi hoặc video không ước lượng regret kỳ vọng; Mimic là teaching adaptation có hạn mức lệnh."
+    }
+  ],
+  "evidence_ladder": [
+    {
+      "level": "A",
+      "title": "Khớp output trong thiết lập được audit",
+      "status": "Có bằng chứng một phần",
+      "description": "Nhận diện notebook và đầu vào bằng checksum, ghi môi trường và so output. Snapshot Rossmann hỗ trợ mức này trong phạm vi đã nêu."
+    },
+    {
+      "level": "B",
+      "title": "Đối chiếu từng hình và bảng của bài báo",
+      "status": "Còn phải làm",
+      "description": "Ánh xạ cấu hình, đường vẽ, thang đo và cách tổng hợp sang đúng lần chạy; một tổng chi phí khớp chưa hoàn tất mức này."
+    },
+    {
+      "level": "C",
+      "title": "Agreement của cài đặt độc lập",
+      "status": "Còn phải làm",
+      "description": "Cùng mô hình và giao thức, một cài đặt độc lập tạo hành vi tương tự trong độ bất định được công bố. Kiểm tra định lý là nhiệm vụ riêng."
+    }
+  ],
+  "outlines": [
+    {
+      "id": "full_60",
+      "title": "Lộ trình khoảng 60 phút",
+      "minutes": 60,
+      "status": "Đề xuất luyện nói",
+      "note": "Giữ phần kết luận trong thời gian quy định. Nếu người trước đã giải thích lý thuyết, chỉ recap thứ tự quyết định–nhu cầu–quan sát và chuyển nhanh sang bằng chứng.",
+      "segments": [
+        {
+          "time": "00:00–08:00",
+          "minute_start": 0,
+          "minute_end": 8,
+          "slides": "1–6",
+          "task": "Nêu câu hỏi experimental; nhắc trạng thái, hành động, phản hồi và oracle.",
+          "closing": "Mô hình và quyền quan sát phải cố định trước khi đọc bảng chi phí."
+        },
+        {
+          "time": "08:00–20:00",
+          "minute_start": 8,
+          "minute_end": 20,
+          "slides": "7–12",
+          "task": "Thiết lập mức tái lập; trình bày audit Rossmann và chẩn đoán synthetic với giới hạn rõ.",
+          "closing": "Output agreement đã có; chuẩn synthetic và đối chiếu hình vẫn cần kiểm tra riêng."
+        },
+        {
+          "time": "20:00–31:00",
+          "minute_start": 20,
+          "minute_end": 31,
+          "slides": "13–18",
+          "task": "Giải thích đường học, Running Set, handoff và ngày chờ bằng mô phỏng thực hành.",
+          "closing": "Lợi ích của chu kỳ phải bù được chi phí khám phá trong chân trời hữu hạn."
+        },
+        {
+          "time": "31:00–42:00",
+          "minute_start": 31,
+          "minute_end": 42,
+          "slides": "19–22",
+          "task": "Tách chi phí trong học và sau học; đặt weekday baseline cạnh benchmark thích nghi và ví dụ CFO.",
+          "closing": "Chính sách sau học tốt hơn chưa tự tạo giá trị đầu tư."
+        },
+        {
+          "time": "42:00–52:00",
+          "minute_start": 42,
+          "minute_end": 52,
+          "slides": "23–27",
+          "task": "Trình bày risk/capital như các mở rộng dùng DP biết phân phối; nêu đúng tập thông tin.",
+          "closing": "Thay mục tiêu hoặc chi phí có thể đổi đánh đổi tồn kho–phục vụ."
+        },
+        {
+          "time": "52:00–58:00",
+          "minute_start": 52,
+          "minute_end": 58,
+          "slides": "28–31",
+          "task": "Chốt giới hạn, hướng nghiên cứu D và những kết luận được dữ liệu hỗ trợ.",
+          "closing": "Bước tiếp theo là kiểm tra có kiểm soát, không mở rộng kết luận từ một bảng."
+        },
+        {
+          "time": "58:00–60:00",
+          "minute_start": 58,
+          "minute_end": 60,
+          "slides": "Dự phòng",
+          "task": "Dành chỗ cho chuyển cảnh, lỗi demo hoặc một câu hỏi làm rõ.",
+          "closing": "Quay về thông điệp chính và giữ thời gian kết thúc."
+        }
+      ]
+    },
+    {
+      "id": "focused_40",
+      "title": "Lộ trình rút gọn khoảng 40 phút",
+      "minutes": 40,
+      "status": "Đề xuất luyện nói",
+      "note": "Đưa phần risk/capital ở slide 23–27 sang phần mở thêm khi hỏi đáp; cắt nội dung thay vì tăng tốc đọc toàn bộ script.",
+      "segments": [
+        {
+          "time": "00:00–06:00",
+          "minute_start": 0,
+          "minute_end": 6,
+          "slides": "1–6",
+          "task": "Recap vai trò experimental, vật lý tồn kho và quyền quan sát.",
+          "closing": "Ta phải biết chính sách được phép nhìn thấy gì trước khi so chi phí."
+        },
+        {
+          "time": "06:00–16:00",
+          "minute_start": 6,
+          "minute_end": 16,
+          "slides": "7–12",
+          "task": "Ưu tiên bằng chứng Rossmann và vấn đề cần xác minh độc lập ở chuẩn synthetic.",
+          "closing": "Tái tạo output là một mức bằng chứng cụ thể, chưa hoàn tất replication."
+        },
+        {
+          "time": "16:00–24:00",
+          "minute_start": 16,
+          "minute_end": 24,
+          "slides": "13–18",
+          "task": "Chọn một đường học và một ví dụ handoff/ngày chờ; giữ demo ngắn, seed cố định.",
+          "closing": "Demo giải thích cơ chế; bảng nhiều lần lặp mới giúp đánh giá hiệu quả."
+        },
+        {
+          "time": "24:00–34:00",
+          "minute_start": 24,
+          "minute_end": 34,
+          "slides": "19–22",
+          "task": "Tách hai chế độ đánh giá, baseline mạnh và giả định tài chính.",
+          "closing": "Lợi ích tăng thêm phải được so với chi phí để học và vận hành."
+        },
+        {
+          "time": "34:00–38:00",
+          "minute_start": 34,
+          "minute_end": 38,
+          "slides": "28–31",
+          "task": "Nêu giới hạn và ba câu hỏi hướng D; phân biệt đã chạy và kế hoạch tiếp theo.",
+          "closing": "Audit xác định điều cần kiểm tra tiếp, chưa kết luận về định lý."
+        },
+        {
+          "time": "38:00–40:00",
+          "minute_start": 38,
+          "minute_end": 40,
+          "slides": "Dự phòng",
+          "task": "Xử lý chuyển cảnh hoặc đổi sang video/trace dự phòng.",
+          "closing": "Kết thúc bằng kết luận có nguồn và câu hỏi còn mở."
+        }
+      ]
+    }
+  ],
+  "qa": [
+    {
+      "id": "replication_scope",
+      "question": "Bạn đã tái lập đầy đủ bài báo chưa?",
+      "answer": "Tôi có output agreement ở các thiết lập được audit. Đối chiếu đủ hình của bài báo và agreement của cài đặt độc lập vẫn là các công việc riêng; phiên cloud này chưa chạy lại gói INFORMS.",
+      "evidence_type": "audit",
+      "sources": [
+        {"path": "replication_audit/README.md", "section": "Kết quả và cách hiểu"},
+        {"path": "reports/experimental_presenter/playbook_vi.md", "section": "2. Bản đồ bằng chứng cần giữ trên bàn trình bày"}
+      ]
+    },
+    {
+      "id": "benchmark_lower_bound",
+      "question": "Tại sao policy khả thi có chi phí thấp hơn đối tượng mang nhãn lower bound?",
+      "answer": "Audit kiểm tra nhãn và đường mã của chuẩn đó. So sánh trên cùng chuỗi cho thấy cần xác minh benchmark độc lập; policy đối chiếu chưa được chứng nhận tối ưu, và phát hiện này chưa phải phản chứng định lý.",
+      "evidence_type": "audit",
+      "sources": [
+        {"path": "results/replication_audit/audit_results.json", "pointer": "/findings/synthetic_DP_benchmark"},
+        {"path": "results/replication_audit/audit_results.json", "pointer": "/runs/synthetic/candidate_feasible_policy"}
+      ]
+    },
+    {
+      "id": "panel_wins",
+      "question": "Kết quả 18/18 có nghĩa thuật toán luôn thắng không?",
+      "answer": "Kết quả chỉ áp dụng cho panel, hai biến thể thích nghi, ngân sách và quy tắc CI/ngưỡng thực hành đã công bố. Nó không xác lập thứ hạng phổ quát trên mọi môi trường hoặc thuật toán nguyên gốc.",
+      "evidence_type": "adaptation",
+      "sources": [
+        {"path": "results/beer_rossmann/analysis_summary.json", "pointer": "/primary_counts"},
+        {"path": "results/beer_rossmann/analysis_summary.json", "pointer": "/online_counts"},
+        {"path": "benchmarks/beer_rossmann/config/preregistered_design.json", "pointer": "/primary"}
+      ]
+    },
+    {
+      "id": "online_frozen",
+      "question": "Vì sao thứ hạng trong học và sau học khác nhau?",
+      "answer": "Đó là hai outcome khác nhau: chi phí trong học bao gồm quá trình khám phá, còn frozen policy được đánh giá sau khi khóa chính sách. Kết quả hiện có mô tả sự khác biệt; muốn quy nguyên nhân cho một cơ chế phải làm ablation riêng.",
+      "evidence_type": "adaptation",
+      "sources": [
+        {"path": "results/beer_rossmann/analysis_summary.json", "pointer": "/core_means"},
+        {"path": "benchmarks/beer_rossmann/README.md", "section": "Nội dung và giới hạn"}
+      ]
+    },
+    {
+      "id": "weekday",
+      "question": "Tại sao không chỉ dùng baseline weekday?",
+      "answer": "Đây là câu hỏi triển khai cần trả lời. Mean của weekday rất gần Meta-HQL-P, nên cần xem lợi ích tăng thêm, mức phục vụ và chi phí hệ thống; weekday cũng được dùng lịch sử riêng, không phải learner cold-start cùng thông tin.",
+      "evidence_type": "adaptation",
+      "sources": [
+        {"path": "results/beer_rossmann/analysis_summary.json", "pointer": "/core_means/Prior weekday"},
+        {"path": "reports/experimental_presenter/playbook_vi.md", "section": "6. Cách giải thích thiết kế và CI khi được hỏi"}
+      ]
+    },
+    {
+      "id": "independent_unit",
+      "question": "CI có coi mỗi ngày hoặc mỗi profile là một mẫu độc lập không?",
+      "answer": "Không. Panel chính lấy trung bình các profile cố định trong mỗi seed rồi bootstrap ghép cặp trên seed. CI phản ánh ngẫu nhiên theo thiết kế ấy; nó chưa bao gồm sai mô hình, drift hay bất định đơn giá doanh nghiệp.",
+      "evidence_type": "adaptation",
+      "sources": [
+        {"path": "benchmarks/beer_rossmann/analyze_conditions.py", "symbol": "paired"},
+        {"path": "reports/experimental_presenter/playbook_vi.md", "section": "6. Cách giải thích thiết kế và CI khi được hỏi"}
+      ]
+    },
+    {
+      "id": "cfo_costs",
+      "question": "Các con số VND và ROI là của doanh nghiệp thật phải không?",
+      "answer": "Đó là giả định mẫu để minh họa quy đổi và TCO. Chưa có hóa đơn, chi phí hệ thống quan sát hoặc pilot doanh nghiệp; chi phí simulator trong học offline cũng không phải tiền tồn kho thực đã chi.",
+      "evidence_type": "hypothetical_finance",
+      "sources": [
+        {"path": "reports/cfo/assumptions.json", "pointer": "/status"},
+        {"path": "results/cfo/summary.json", "pointer": "/no_store_invoice_costs"},
+        {"path": "reports/cfo/README.md", "section": "Đã kiểm tra và giới hạn"}
+      ]
+    },
+    {
+      "id": "qa_hash",
+      "question": "Hash qa_report.json không khớp có làm kết quả vô hiệu không?",
+      "answer": "Mismatch ngăn tôi chứng nhận toàn archive nguyên vẹn. Tôi công bố ngoại lệ và kiểm tra riêng cấu hình, bảng và CI trên metric nhận được; chưa biết nguyên nhân nên không gọi đây là sai khác vô hại hoặc kết luận mọi kết quả sai.",
+      "evidence_type": "adaptation",
+      "sources": [
+        {"path": "benchmarks/beer_rossmann/provenance.json", "pointer": "/archive_manifest_checks/condition_study/mismatches"},
+        {"path": "results/beer_rossmann/cloud_validation.json", "pointer": "/checks"}
+      ]
+    },
+    {
+      "id": "four_model_scope",
+      "question": "Có thể xếp hạng cả bốn model từ chi phí trên website không?",
+      "answer": "Cần đồng nhất vật lý, terminal rule, tập thông tin và đơn vị trước. HQL/Meta-HQL lost-sales và FQL backlogging có các contract khác nhau; Mimic trên Site là teaching adaptation hữu hạn có hạn mức lệnh, chưa phải replication công bố có bảo đảm regret.",
+      "evidence_type": "teaching_demo",
+      "sources": [
+        {"path": "lost_sales_lab/README.md", "section": "FQL: 2 sản phẩm, backlogging, giao hàng 1 ngày"},
+        {"path": "lost_sales_lab/mimic_ql.py", "symbol": "MimicRun"},
+        {"url": "https://hdl.handle.net/1721.1/151589", "label": "Luận án MIT của Xiaoyue Gong (2023)", "location": "Trang 62–65, 170–171", "version_note": "Nguồn sớm hơn bản bài báo cuối; chi tiết replication công bố còn mở."}
+      ]
+    },
+    {
+      "id": "confidence_guarantee",
+      "question": "Dùng cận nhỏ trong thực hành có còn bảo đảm lý thuyết không?",
+      "answer": "Kết quả với hệ số nhỏ phải được gắn nhãn biến thể thực hành. Tôi không chuyển bảo đảm của công thức gốc sang lựa chọn này; tác động riêng của cận hành động và cận bandit cần được đo bằng thiết kế độ nhạy có kiểm soát.",
+      "evidence_type": "hypothesis",
+      "sources": [
+        {"path": "docs/research_direction_d.md", "section": "Giả thuyết và công việc tiếp theo"},
+        {"path": "docs/stress_test_plan.md", "section": "5. P2: ma trận trong giả định và sensitivity có kiểm soát"}
+      ]
+    }
+  ],
+  "research_questions": [
+    {
+      "id": "D1",
+      "title": "Mức tái lập kết quả",
+      "question": "Gói bổ sung có tái tạo được bảng, hình và hành vi báo cáo khi cố định phiên bản, dữ liệu, seed và quy ước chỉ số không?",
+      "current_evidence": "Có snapshot audit và output agreement ở những thiết lập được nêu; chưa hoàn tất đối chiếu mọi hình và chưa chạy lại gói INFORMS trong cloud này.",
+      "next_step": "Nhận đúng gói nguồn/checksum, chạy nguyên trạng trước rồi đối chiếu từng hình và bảng.",
+      "evidence_type": "hypothesis",
+      "sources": [{"path": "docs/research_direction_d.md", "section": "Ba câu hỏi nghiên cứu"}]
+    },
+    {
+      "id": "D2",
+      "title": "Độ phù hợp của benchmark và cài đặt",
+      "question": "Chuẩn so sánh có đúng vai trò cận hoặc policy khả thi như nhãn, và các cài đặt có cùng thông tin, trạng thái đầu/cuối, thời gian, ngân sách và phạm vi chi phí không?",
+      "current_evidence": "Audit synthetic đặt ra yêu cầu kiểm chứng chuẩn độc lập; các nhánh benchmark đã có nhãn thích nghi và giao thức riêng.",
+      "next_step": "Xây DP độc lập cho trường hợp nhỏ, kiểm tra terminal rule và tạo bảng tương thích mô hình trước khi đọc optimality gap hoặc regret.",
+      "evidence_type": "hypothesis",
+      "sources": [{"path": "docs/research_direction_d.md", "section": "Ba câu hỏi nghiên cứu"}]
+    },
+    {
+      "id": "D3",
+      "title": "Độ nhạy với confidence bound",
+      "question": "Hệ số cận hành động và cận bandit ảnh hưởng thế nào đến loại ứng viên/nhánh, chi phí trong học, sau học và tính ổn định theo seed/chân trời?",
+      "current_evidence": "Đã có biến thể thực hành và thí nghiệm alpha riêng; chúng chưa cô lập đầy đủ tác động của hai hệ số cận trên benchmark chính.",
+      "next_step": "Khóa panel và split, quét từng yếu tố có kiểm soát, dùng đường cầu ghép cặp, policy đóng băng và CI theo đơn vị lặp độc lập.",
+      "evidence_type": "hypothesis",
+      "sources": [{"path": "docs/research_direction_d.md", "section": "Ba câu hỏi nghiên cứu"}]
+    }
+  ],
+  "key_messages": [
+    {
+      "id": "rossmann_output",
+      "title": "Output agreement có phạm vi cụ thể",
+      "body": "Snapshot Rossmann ghi tổng chi phí learner 59801 và expert advice 56470 trên 938 thời điểm. Đây là chi phí đơn vị mô hình và bằng chứng của lần audit đã lưu; chưa phải toàn bộ paper đã được replication.",
+      "evidence_type": "audit",
+      "sources": [
+        {"path": "results/replication_audit/audit_results.json", "pointer": "/runs/rossmann/learner/total"},
+        {"path": "results/replication_audit/audit_results.json", "pointer": "/runs/rossmann/expert_advice/total"},
+        {"path": "results/replication_audit/audit_results.json", "pointer": "/runs/rossmann/T"}
+      ]
+    },
+    {
+      "id": "synthetic_reference",
+      "title": "Chuẩn số phải được kiểm chứng độc lập",
+      "body": "Ở synthetic seed 0, mean của policy DP notebook là 0.64468; policy khả thi đối chiếu là 0.48668 trên cùng chuỗi. Đây là chẩn đoán về lần chạy và chuẩn số, không chứng nhận policy đối chiếu tối ưu hoặc bác bỏ định lý.",
+      "evidence_type": "audit",
+      "sources": [
+        {"path": "results/replication_audit/audit_results.json", "pointer": "/runs/synthetic/seed"},
+        {"path": "results/replication_audit/audit_results.json", "pointer": "/runs/synthetic/author_DP_policy_realized_cost/mean"},
+        {"path": "results/replication_audit/audit_results.json", "pointer": "/runs/synthetic/candidate_feasible_policy/mean"},
+        {"path": "results/replication_audit/audit_results.json", "pointer": "/findings/synthetic_DP_benchmark"}
+      ]
+    },
+    {
+      "id": "evaluation_regimes",
+      "title": "Tách chi phí trong học và sau học",
+      "body": "Trong panel chính, mean trong học của SRDQN-A/Meta-HQL-P là 1.327365/2.569863; mean policy sau học là 1.208841/0.806871. Quyết định theo giao thức nghiêng SRDQN-A trong học và Meta-HQL-P sau học ở 18/18 ô. Đây là hai phiên bản thích nghi cho một điểm tồn kho/một sản phẩm, không phải thứ hạng phổ quát.",
+      "evidence_type": "adaptation",
+      "sources": [
+        {"path": "results/beer_rossmann/analysis_summary.json", "pointer": "/core_means/SRDQN-A"},
+        {"path": "results/beer_rossmann/analysis_summary.json", "pointer": "/core_means/Meta-HQL-P"},
+        {"path": "results/beer_rossmann/analysis_summary.json", "pointer": "/online_counts"},
+        {"path": "results/beer_rossmann/analysis_summary.json", "pointer": "/primary_counts"},
+        {"path": "benchmarks/beer_rossmann/config/preregistered_design.json", "pointer": "/primary"},
+        {"path": "results/beer_rossmann/cloud_validation.json", "pointer": "/scope"}
+      ]
+    },
+    {
+      "id": "strong_baseline",
+      "title": "Đánh giá lợi ích tăng thêm trước baseline mạnh",
+      "body": "Mean policy sau học của weekday là 0.815723, gần Meta-HQL-P 0.806871. Đây là các ước lượng điểm gộp; độ gần của chúng chưa chứng minh tương đương từng điều kiện. Cần nêu rõ lợi thế thông tin lịch sử của weekday.",
+      "evidence_type": "adaptation",
+      "sources": [
+        {"path": "results/beer_rossmann/analysis_summary.json", "pointer": "/core_means/Prior weekday/frozen_cost"},
+        {"path": "results/beer_rossmann/analysis_summary.json", "pointer": "/core_means/Meta-HQL-P/frozen_cost"},
+        {"path": "reports/experimental_presenter/playbook_vi.md", "section": "6. Cách giải thích thiết kế và CI khi được hỏi"}
+      ]
+    },
+    {
+      "id": "hypothetical_cfo",
+      "title": "Hiệu quả policy chưa tự tạo ROI",
+      "body": "Sample CFO p=10 ghi lợi ích vận hành khoảng 60893.87 VND/SKU/năm so với weekday. Đơn giá, phí hệ thống và giả định ổn định đều là ví dụ mẫu; chưa có chi phí hay ROI doanh nghiệp quan sát. Phải tách policy sau học, chi phí học, TCO và hòa vốn.",
+      "evidence_type": "hypothetical_finance",
+      "sources": [
+        {"path": "results/cfo/summary.json", "pointer": "/annual_p10_saving_per_sku_vs_weekday"},
+        {"path": "reports/cfo/assumptions.json", "pointer": "/p"},
+        {"path": "reports/cfo/assumptions.json", "pointer": "/status"},
+        {"path": "results/cfo/summary.json", "pointer": "/no_store_invoice_costs"},
+        {"path": "reports/cfo/README.md", "section": "Phân biệt các kết quả"}
+      ]
+    },
+    {
+      "id": "confidence_hypothesis",
+      "title": "Cận tin cậy là câu hỏi nghiên cứu còn mở",
+      "body": "Giả thuyết cần kiểm tra: cận lớn có thể duy trì khám phá lâu; cận nhỏ có thể giảm chi phí sớm nhưng tăng rủi ro loại hành động tốt. Các kết quả hiện có chưa cô lập quan hệ nhân quả của từng hệ số cận; không kế thừa bảo đảm lý thuyết cho hệ số thực hành.",
+      "evidence_type": "hypothesis",
+      "sources": [
+        {"path": "docs/research_direction_d.md", "section": "Giả thuyết và công việc tiếp theo"},
+        {"path": "docs/stress_test_plan.md", "section": "5. P2: ma trận trong giả định và sensitivity có kiểm soát"}
+      ]
+    }
+  ],
+  "checklist": [
+    {
+      "id": "claim_labels",
+      "title": "Gắn nhãn cho từng slide",
+      "detail": "Đánh dấu nội dung từ bài báo, audit, cài đặt độc lập, benchmark thích nghi, giả định CFO hoặc công việc đề xuất. Không nhận thuật toán và định lý của tác giả làm đóng góp mới.",
+      "when": "Chuẩn bị nội dung"
+    },
+    {
+      "id": "source_check",
+      "title": "Mở được nguồn của mọi con số chính",
+      "detail": "Đối chiếu evidence_map và JSON/CSV gốc; ghi rõ lần audit, cấu hình, đơn vị, phiên bản và ngoại lệ checksum. Không gọi tái phân tích metric là huấn luyện lại toàn bộ.",
+      "when": "Chuẩn bị nội dung",
+      "commands": [
+        "python tools/check_research_brief.py",
+        "python presentation/check_evidence.py",
+        "python reports/experimental_presenter/check_documents.py"
+      ]
+    },
+    {
+      "id": "python_environment",
+      "title": "Kiểm tra môi trường Python",
+      "detail": "Dùng Python 3.10+ và dependencies theo README từng phần; cài R không thay thế được môi trường chạy dự án. Lưu phiên bản cùng hồ sơ demo.",
+      "when": "Kiểm tra kỹ thuật",
+      "commands": ["python --version"]
+    },
+    {
+      "id": "demo_contract",
+      "title": "Khóa kịch bản demo",
+      "detail": "Chọn seed/cấu hình và một cơ chế cần quan sát; giữ quyết định trước nhu cầu. Lost-sales learner chỉ nhận sales; nếu mở chế độ nghiên cứu, chỉ xem nhu cầu thật của ngày đã xảy ra.",
+      "when": "Kiểm tra kỹ thuật"
+    },
+    {
+      "id": "offline_backup",
+      "title": "Chuẩn bị video và trace dự phòng",
+      "detail": "Tải bản offline đã kiểm tra. Video là diagram system design chuyển động, không phụ đề, không voice và không quay màn hình; không dùng video như kết quả đo hiệu quả.",
+      "when": "Trước khi trình chiếu"
+    },
+    {
+      "id": "time_rehearsal",
+      "title": "Luyện nói và thử phương án cắt",
+      "detail": "Bấm giờ lộ trình đã chọn. Nếu trễ, đưa risk/capital sang phụ lục và giữ phần kết luận; nếu người trước đã trình bày kỹ lý thuyết, rút recap để dành chỗ cho giao thức và bằng chứng.",
+      "when": "Luyện trình bày"
+    },
+    {
+      "id": "display_and_rights",
+      "title": "Thử bản phân phối và cách dừng chuyển động",
+      "detail": "Thử font tiếng Việt, máy chiếu, bàn phím và nút pause. Dùng slide phân phối đã xử lý quyền hình ảnh; giữ nguyên bản gốc riêng và không công khai dữ liệu/hình bên thứ ba khi quyền chưa rõ.",
+      "when": "Trước khi trình chiếu"
+    },
+    {
+      "id": "limits_and_questions",
+      "title": "Giữ sẵn câu trả lời về giới hạn",
+      "detail": "Có thể nói: “Tôi chưa chạy phép kiểm đó; đây là công việc cần làm tiếp.” Phân biệt planned với passed, teaching adaptation với published replication và phát hiện audit với kết luận về định lý.",
+      "when": "Trước phần hỏi đáp"
+    }
+  ],
+  "closing_line": "Các output được audit, benchmark thích nghi và ví dụ CFO trả lời những câu hỏi khác nhau. Công việc tiếp theo là kiểm tra có kiểm soát, giữ cấu hình và nguồn, rồi mở rộng kết luận theo mức bằng chứng.",
+  "primary_paper": {
+    "title": "Bandits atop Reinforcement Learning: Tackling Online Inventory Models with Cyclic Demands",
+    "authors": "Xiao-Yue Gong và David Simchi-Levi",
+    "year": 2024,
+    "url": "https://doi.org/10.1287/mnsc.2023.4947"
+  }
+}

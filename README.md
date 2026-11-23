@@ -2,9 +2,9 @@
 
 Repo này tập hợp ứng dụng học mô hình tồn kho, website bốn mô hình, notebook thí nghiệm và hồ sơ thực nghiệm. Tài liệu, giao diện và hướng dẫn hiện viết bằng tiếng Việt.
 
-**Mở [Inventory Lab trên cloud](https://gong-simchi-inventory-lab.snu-chatgpt-5678.chatgpt.site)** — Site riêng tư, có HQL, Meta-HQL, FQL và bản học Mimic-QL; bốn video sơ đồ hệ thống, chạy từng ngày, phát lại Q và xuất CSV. [Cách dùng, dựng lại và giới hạn](inventory_site/README.md).
+**Mở [Inventory Research Hub trên cloud](https://gong-simchi-inventory-lab.snu-chatgpt-5678.chatgpt.site)** — Site riêng tư tổng hợp sản phẩm mô phỏng, stress test qua diagram có cấu hình thay đổi được và báo cáo hướng dẫn thuyết trình. Có bốn video hệ thống, bốn mô hình tương tác, stress chạy từng ngày/tự chạy, JSON/CSV, báo cáo đọc ngay trên trang, slide v4/script và gói mã Streamlit. [Cách dùng, dựng lại và giới hạn](inventory_site/README.md).
 
-[Hồ sơ xuất bản và kiểm tra](docs/inventory_site_release.json) ghi source commit, Site version và phạm vi kiểm tra. Lõi qua 69 test và bốn lượt native/WASM khớp từ clone sạch; kiểm thử layout/mobile và thao tác UI sau đăng nhập chưa hoàn tất vì relay preview lỗi và browser cloud chưa đăng nhập ChatGPT.
+[Hồ sơ xuất bản và kiểm tra](docs/inventory_site_release.json) ghi source commit, Site version và phạm vi kiểm tra. Bản cổng được kiểm tra bằng 109 test Python (69 lõi + 40 stress API), kiểm tra DOM với Python thật, WebAssembly và [smoke 28 cấu hình / 504 bước](results/interactive_stress/README.md). Layout và thao tác UI trong trình duyệt sau đăng nhập vẫn cần nghiệm thu; kiểm tra DOM/WASM không thay thế bước đó.
 
 Người chuẩn bị thuyết trình xem [playbook experimental tiếng Việt](reports/experimental_presenter/README.md) ([PDF](reports/experimental_presenter/experimental_presenter_playbook_vi.pdf), [DOCX](reports/experimental_presenter/experimental_presenter_playbook_vi.docx)): lộ trình 60/40 phút, lập luận từ bằng chứng, demo và phản biện. [Kế hoạch stress test](docs/stress_test_plan.md) có 32 test ID và thiết kế seed/split; đây là kế hoạch, chưa phải kết quả chạy ma trận.
 

@@ -1,0 +1,14 @@
+{
+  "kind": "meta",
+  "scenario": "drift",
+  "seed": 9000,
+  "seeds": 3,
+  "cycles": 6,
+  "load": 1.0,
+  "reference": "phase",
+  "capacity": 20,
+  "holding": 1.0,
+  "penalty": 4.0,
+  "bounds": "practical",
+  "confidence": 1.0
+}

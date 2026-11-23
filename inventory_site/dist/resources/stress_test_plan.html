@@ -1,0 +1,471 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kế hoạch stress test nghiên cứu</title><style>body{font:16px/1.8 system-ui,sans-serif;color:#203d53;max-width:1000px;padding:25px 32px;margin:auto}h1{font-size:1.9rem;line-height:1.3}h2{margin-top:2.5rem;font-size:1.35rem}h3{font-size:1.1rem;margin-top:2rem}a{color:#0879ad}table{display:block;overflow-x:auto;border-collapse:collapse;max-width:100%;font-size:.9rem}td,th{padding:10px 12px;border:1px solid #d6e3eb;min-width:125px;vertical-align:top}th{background:#eef5f8}blockquote{border-left:3px solid #18a4bc;margin:20px 0;padding:1px 20px;background:#f1f8fa}pre{overflow:auto;background:#edf4f8;padding:16px;border-radius:8px}code{font-family:ui-monospace,monospace;font-size:.9em}li{margin-bottom:8px}@media(max-width:600px){body{padding:17px}h1{font-size:1.6rem}}</style></head><body><h1 id="ke-hoach-stress-test-cho-bon-nhanh-mo-hinh-ton-kho">Kế hoạch stress test cho bốn nhánh mô hình tồn kho</h1>
+<p><strong>Trạng thái: thiết kế đề xuất, chưa thực thi toàn bộ ma trận.</strong> Ngày lập: 23/11/2026. Cấu hình máy đọc được nằm tại <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/experiments/stress_tests/plan.json">experiments/stress_tests/plan.json</a>. Tệp JSON là đặc tả công việc cho runner tương lai, không phải một lệnh đã chạy hoặc một bộ kết quả.</p>
+<p>Mục tiêu là tìm lỗi vật lý, rò rỉ thông tin, sai cập nhật và các vùng hiệu quả kém; sau đó mới đo tính ổn định của kết luận. Kế hoạch tách kiểm tra phần mềm, thí nghiệm trong giả định và stress ngoài giả định. Không dùng một stress ngoài phạm vi lý thuyết để tuyên bố bác bỏ định lý.</p>
+<h2 id="1-pham-vi-va-ieu-kien-vao">1. Phạm vi và điều kiện vào</h2>
+<p>Các nguồn cần đọc trước khi tạo runner là <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/lost_sales_lab/README.md">README mô phỏng</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/lost_sales_lab/model.py">model.py</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/lost_sales_lab/hql.py">HQL</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/lost_sales_lab/meta_hql.py">Meta-HQL</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/lost_sales_lab/fql_model.py">FQL model</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/lost_sales_lab/fql.py">FQL</a> và <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/benchmarks/beer_rossmann/README.md">giao thức benchmark</a>. Mọi thay đổi của bản website mới phải có bảng ánh xạ về các lõi Python này.</p>
+<p><a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/lost_sales_lab/mimic_ql.py">Mimic teaching core</a> dùng order cap (2,2), initial stock (0,0), demand support 0..2 và L=1. Support 0..4 của FQL mặc định không tự áp dụng cho biến thể Mimic này; fixture phải đọc đúng spec từng model.</p>
+<table>
+<thead>
+<tr>
+<th>Nhánh</th>
+<th>Động lực và thông tin</th>
+<th>Oracle/baseline được phép so</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HQL</td>
+<td>Episodic lost-sales; hàng đến ngay; chỉ thấy doanh số bị kiểm duyệt</td>
+<td>Policy cố định/theo pha trong cùng episode; DP biết phân phối với cùng reset và terminal rule</td>
+</tr>
+<tr>
+<td>Meta-HQL</td>
+<td>Lost-sales giữ tồn; điều phối bản sao dịch pha; giữ kho vật lý cả ngày chờ</td>
+<td>Baseline giữ tồn cùng chuỗi; DP hoặc policy reference phù hợp nondiscarding và cùng chân trời</td>
+</tr>
+<tr>
+<td>FQL</td>
+<td>Backlogging hai sản phẩm; lead time một ngày; full demand feedback; episode độc lập</td>
+<td>Baseline có cùng pipeline/nợ/terminal rule; DP hữu hạn nhỏ cùng trạng thái–hành động</td>
+</tr>
+<tr>
+<td>Mimic teaching adaptation</td>
+<td>Nondiscarding backlogging hữu hạn; FQL ảo có J=6, true H=3; lệnh ghép theo IP rồi actuator cap</td>
+<td>Baseline cùng vật lý và cap; tách khỏi replication nguyên gốc và khỏi policy FQL reset</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Hai trạng thái Mimic phải tách riêng.</strong> Bản website mới triển khai <strong>Mimic-QL-inspired teaching adaptation</strong>, theo ý tưởng inventory-position trong <a target="_blank" rel="noreferrer noopener" href="https://hdl.handle.net/1721.1/151589">luận án MIT của Gong (2023)</a>, trang 62–65 và 170–171. Bản dạy dùng true H=3 và cycle ảo J=6; cả đồng hồ thực/ảo cùng tiến với mỗi nhu cầu. Yêu cầu q=max(IP_ảo+q_ảo−IP_thực,0), lệnh thực=min(cap,yêu cầu); phải ghi cap-binding và gap. IP là tồn ròng cộng pipeline, không chỉ on-hand. Đây là lựa chọn hữu hạn minh bạch, không phải một replication nguyên gốc có theorem guarantee. Full text cuối cùng và chi tiết feasibility/reset của thuật toán công bố vẫn là source gate cho nhánh <strong>published replication</strong>. Các test teaching có thể chạy theo contract đã công bố; chúng không đóng source gate của nhánh published, và kết quả cũ không tự trở thành kết quả Mimic. Không suy rằng bỏ reset của FQL là đủ. Không diễn giải khác biệt ký hiệu/feasibility trong nguồn sớm như kết luận định lý sai.</p>
+<h2 id="2-cac-muc-kiem-tra-va-thu-tu-lam">2. Các mức kiểm tra và thứ tự làm</h2>
+<table>
+<thead>
+<tr>
+<th>Mức</th>
+<th>Mục đích</th>
+<th>Điều kiện chuyển mức</th>
+<th>Ngân sách đề xuất</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P0 — Bất biến và hợp đồng</td>
+<td>Tính đúng vật lý/thông tin/cập nhật</td>
+<td>Không còn lỗi accounting, action feasibility, future leakage, replay hoặc NaN</td>
+<td>Một lượt hiệu chuẩn trên miền nhỏ; mục tiêu trong khoảng 10 phút, chưa đo</td>
+</tr>
+<tr>
+<td>P1 — Smoke và tính xác định</td>
+<td>Chạy qua reset/chuyển nhánh/hàng về trên nhiều seed</td>
+<td>Chạy lại cùng cấu hình cho cùng trace; đổi chính sách không đổi đường cầu chung</td>
+<td>5 seed hiệu chuẩn; mục tiêu dưới 30 phút sau khi có runner, chưa đo</td>
+</tr>
+<tr>
+<td>P2 — Trong giả định</td>
+<td>Đo chi phí học, policy sau học và độ ổn định</td>
+<td>Validation kết thúc, cấu hình và tiêu chí khóa trước test</td>
+<td>30 seed test mỗi ô; bắt đầu bằng ma trận lõi nhỏ</td>
+</tr>
+<tr>
+<td>P3 — Ngoài giả định</td>
+<td>Tìm vùng suy giảm/đổ vỡ khi drift, sai chu kỳ, tương quan</td>
+<td>Mỗi vi phạm giả định được gắn nhãn; không gộp với bảng primary</td>
+<td>Mở từng nhóm sau P2, dừng theo ngân sách nguồn lực</td>
+</tr>
+<tr>
+<td>P4 — Website và video</td>
+<td>Trải nghiệm, phản hồi, replay/export và tính trung thực diagram</td>
+<td>Luồng chính, bàn phím/mobile, trạng thái độc lập và video khớp mô hình</td>
+<td>Chạy kiểm tra hồi quy khi UI/core hoặc artifact đổi</td>
+</tr>
+</tbody>
+</table>
+<p>Các con số ngân sách là <strong>mục tiêu lập kế hoạch</strong>, chưa phải benchmark tốc độ. Trước P2, đo một ô đại diện, ghi wall time/peak memory và ngoại suy khoảng thời gian theo số model, không cam kết “chạy qua đêm” chỉ bằng số seed. Không khởi chạy toàn bộ ma trận dài khi chưa có kiểm soát dừng.</p>
+<p>Để phát hành công cụ học, chạy P0 → P1 → P4 trước; P4 được chạy lại khi giao diện hoặc core đổi. P2 → P3 là tuyến nghiên cứu tiếp theo, không phải điều kiện phải hoàn thành cả ma trận dài mới kiểm tra được nút bấm/video.</p>
+<h2 id="3-p0-hop-ong-vat-ly-thong-tin-va-cap-nhat">3. P0: hợp đồng vật lý, thông tin và cập nhật</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Nhánh</th>
+<th>Trường hợp cần tạo</th>
+<th>Điều kiện đạt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PHY-LS-01</td>
+<td>HQL/Meta</td>
+<td>D=0, D<y, D=y, D>y; tồn đầu bằng/trên mục tiêu đề xuất</td>
+<td>q≥0; y=max(x,B); s=min(y,D); I=y−s; lost=D−s; không tạo hoặc làm mất hàng ngoài quy ước terminal</td>
+</tr>
+<tr>
+<td>PHY-LS-02</td>
+<td>HQL/Meta</td>
+<td>Tồn 0/M, đặt 0, bán hết 0 hàng</td>
+<td>0≤x≤y≤M; equality vẫn là quan sát bị kiểm duyệt; không chia cho 0</td>
+</tr>
+<tr>
+<td>COST-LS-01</td>
+<td>HQL/Meta</td>
+<td>Nhiều h/p dương; mọi mức lưới nhỏ</td>
+<td>C−pseudo=pD; chênh lệch hai policy trên cùng D nhất quán; pseudo âm không bị gọi là lợi nhuận</td>
+</tr>
+<tr>
+<td>INFO-LS-01</td>
+<td>HQL/Meta</td>
+<td>Hai nhu cầu thật khác nhau nhưng cho cùng chuỗi sales quan sát ở policy đang xét</td>
+<td>Trạng thái learner và cập nhật giống nhau; không nhận D thật, lost cost, seed phân phối hoặc quyết định của người chơi</td>
+</tr>
+<tr>
+<td>INFO-ALL-01</td>
+<td>Tất cả</td>
+<td>Sửa nhu cầu tương lai sau thời điểm t; giữ lịch sử hiện tại</td>
+<td>Quyết định tới t không thay đổi; mỗi ngày chỉ sinh một nhu cầu chung sau khi hai quyết định được chốt</td>
+</tr>
+<tr>
+<td>END-HQL-01</td>
+<td>HQL</td>
+<td>Ngày cuối episode còn hàng</td>
+<td>Tính chi phí ngày cuối trước reset; tồn sau reset bằng 0; chỉ cập nhật một lần</td>
+</tr>
+<tr>
+<td>UPD-HQL-01</td>
+<td>HQL</td>
+<td>Ví dụ tính tay có stopping time trễ và không trễ</td>
+<td>Reward sum/continuation/Q theo đúng thứ tự; tập dùng để xác định stopping time không bị sửa sớm; Q ngày sau theo quy ước mã đã công bố</td>
+</tr>
+<tr>
+<td>META-01</td>
+<td>Meta</td>
+<td>Vào bản sao khác pha, tồn cao; điều kiện cùng đúng hoặc cùng sai</td>
+<td>Kho vật lý giữ nguyên, không đặt khi chờ; chi phí ngày chờ được tính; không học từ ngày chờ</td>
+</tr>
+<tr>
+<td>META-02</td>
+<td>Meta</td>
+<td>Khối hoàn tất/còn dở, loại nhánh, chặn tập rỗng</td>
+<td>Đếm episode nội bộ đúng; không tính episode dở thành hoàn tất; lịch khối và xử lý bảo vệ được ghi; không âm thầm khởi tạo lại kho</td>
+</tr>
+<tr>
+<td>PHY-BK-01</td>
+<td>FQL/Mimic</td>
+<td>Có nợ cũ và hàng đang về; nhu cầu mới cùng ngày</td>
+<td>Hàng đến trả nợ cũ trước, sau đó phục vụ cầu mới; net_next=net+arrival−D; pipeline_next=order với L=1</td>
+</tr>
+<tr>
+<td>COST-BK-01</td>
+<td>FQL/Mimic</td>
+<td>Chỉ đặt A, chỉ B, cả hai, không đặt</td>
+<td>Phí joint order tính đúng một lần nếu có đơn dương; mua/giữ/nợ được tách, cộng đủ; không giữ tồn dương và nợ dương đồng thời cho cùng SKU</td>
+</tr>
+<tr>
+<td>END-FQL-01</td>
+<td>FQL</td>
+<td>Ngày cuối còn tồn/nợ/pipeline và có đơn mới</td>
+<td>Ghi đầy đủ số dư, chi phí và quy ước V_terminal; episode mới độc lập đúng cấu hình; không diễn giải reset thành miễn phí xóa nợ của vận hành thật</td>
+</tr>
+<tr>
+<td>UPD-FQL-01</td>
+<td>FQL</td>
+<td>Miền trạng thái nhỏ liệt kê hết; mẫu D hợp lệ</td>
+<td>So toàn bộ Q với Bellman scalar độc lập; cập nhật mọi ô cần thiết bằng full feedback; dùng đúng Q ngày sau vừa cập nhật</td>
+</tr>
+<tr>
+<td>MIMIC-01</td>
+<td>Mimic teaching</td>
+<td>Bắt đầu/end cycle ảo; hệ thực đang dư hàng hoặc nợ</td>
+<td>Cả hai đồng hồ cùng tiến với cùng D; chỉ reset hệ ảo; không xóa kho/nợ/pipeline thật để ép khớp</td>
+</tr>
+<tr>
+<td>MIMIC-02</td>
+<td>Mimic teaching</td>
+<td>IP thực âm tại boundary; yêu cầu ghép vượt order cap</td>
+<td>Lệnh thực khả thi; lưu cả requested/executed, cap-binding và gap; cap-binding được công bố là diagnostic của bản dạy, không bị che hoặc tự gán synchronized</td>
+</tr>
+<tr>
+<td>MIMIC-03</td>
+<td>Mimic teaching</td>
+<td>IP khớp nhưng pipeline chưa khớp; chi phí thực vượt bound episode ảo</td>
+<td>Phân biệt IP/full-state match; đo thời gian ghép thực tế, không hứa luôn ≤L; không clip chi phí/nợ thực để giữ normalization của hệ ảo</td>
+</tr>
+<tr>
+<td>NUM-01</td>
+<td>Tất cả</td>
+<td>Phí rất nhỏ/lớn nhưng hữu hạn, bounds đầu episode, tie Q</td>
+<td>Không NaN/Inf trong trường cần hữu hạn; bound vô hạn đầu episode có nhãn/serialization rõ; tie-break ổn định</td>
+</tr>
+<tr>
+<td>REPLAY-01</td>
+<td>Tất cả</td>
+<td>Tua đi/lùi, đổi tab, mở giải thích, xem Q/video</td>
+<td>Hash trạng thái learner, số ngày, RNG và chi phí không thay đổi do thao tác chỉ đọc</td>
+</tr>
+</tbody>
+</table>
+<p>Phân biệt kiểm tra invalid input với stress hợp lệ. Trong bản FQL hiện tại, D có support công bố 0..4; D&gt;4 phải bị từ chối hoặc đi qua một biến thể có support/cận chi phí được xây lại, không được cắt ngọn rồi gọi là cùng thí nghiệm. Ở lost-sales, D có thể vượt cap tồn; việc thiếu hàng lúc đó là hành vi hợp lệ, không phải lý do clip D.</p>
+<h2 id="4-ma-tran-p1-cac-quy-ao-toi-thieu">4. Ma trận P1: các quỹ đạo tối thiểu</h2>
+<p>Mỗi trường hợp dưới đây dùng một đường cầu được lưu, chạy lại cùng seed và chạy với quyết định người chơi khác để kiểm tra policy independence của bộ sinh. Các đường giả định là fixture, không phải dữ liệu doanh nghiệp.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Lost-sales</th>
+<th>Backlogging</th>
+<th>Mục tiêu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PATH-00</td>
+<td>Cầu luôn 0</td>
+<td>Cả hai SKU luôn 0</td>
+<td>Tồn dư, không có doanh số, phí đặt/mua không được biến mất</td>
+</tr>
+<tr>
+<td>PATH-01</td>
+<td>Cầu nhỏ đều</td>
+<td>Cầu từng SKU nhỏ trong support</td>
+<td>Quá trình học ổn định và xử lý tie</td>
+</tr>
+<tr>
+<td>PATH-02</td>
+<td>Cầu bằng lượng hàng ở ranh giới</td>
+<td>Cầu vừa hết lượng có thể giao</td>
+<td>Censoring equality; backlog và tồn cùng SKU không đồng thời dương</td>
+</tr>
+<tr>
+<td>PATH-03</td>
+<td>Cầu vượt cap nhiều ngày</td>
+<td>Cầu tối đa support nhiều ngày</td>
+<td>Thiếu hàng hoặc nợ kéo dài, không mất số dư</td>
+</tr>
+<tr>
+<td>PATH-04</td>
+<td>Pha thấp–cao–thấp</td>
+<td>A cao khi B thấp rồi đổi vai</td>
+<td>Căn pha, hàng đang về và trạng thái joint order</td>
+</tr>
+<tr>
+<td>PATH-05</td>
+<td>Burst rồi khoảng cầu 0</td>
+<td>Burst tạo nợ rồi hàng đến</td>
+<td>Tồn/nợ/pipeline và chi phí tích lũy</td>
+</tr>
+<tr>
+<td>PATH-06</td>
+<td>Trùng thời điểm đổi bản sao</td>
+<td>Ranh giới cycle ảo/episode và hàng đến</td>
+<td>Không lệch một ngày, không cập nhật hai lần</td>
+</tr>
+</tbody>
+</table>
+<p>Khởi tạo ở các góc miền đã hỗ trợ, gồm tồn đầu 0 và tồn đầu cap cho lost-sales; FQL dùng các cấu hình hợp lệ trong FQLSpec. Không đưa một trạng thái ngoài reachable grid vào learner rồi giải thích exception như hiệu quả kinh tế kém; đó là kiểm tra hợp đồng hoặc yêu cầu mở rộng miền.</p>
+<h2 id="5-p2-ma-tran-trong-gia-inh-va-sensitivity-co-kiem-soat">5. P2: ma trận trong giả định và sensitivity có kiểm soát</h2>
+<h3 id="51-panel-nhu-cau-hop-le">5.1 Panel nhu cầu hợp lệ</h3>
+<p>Lost-sales giữ nhu cầu độc lập theo ngày và phân phối lặp đúng H. Bắt đầu từ các profile mean của bản học: đều, thấp–cao–thấp và cao–thấp–cao, kèm cầu 0 hợp lệ khi mục đích là accounting. Khi muốn thay CV độc lập với mean, dùng một bộ sinh integer đã đặc tả và kiểm tra moment/support, không gọi thay mean Poisson là “chỉ thay độ biến động”.</p>
+<p>FQL giữ hai sản phẩm, L=1 và demand support đã công bố. Dùng mean theo pha 0, mức giữa và cap, cùng profile đảo pha giữa A/B. Thí nghiệm phụ thuộc chéo SKU hoặc tương quan theo thời gian phải được gắn nhãn riêng nếu làm khác giả định nguồn; không tự gộp vào panel primary.</p>
+<p>Không so chi phí HQL reset với Meta giữ tồn như hai policy cạnh tranh trên cùng một mô hình. Tương tự, không xếp FQL và Mimic chỉ bằng cùng seed khi terminal rule/chu kỳ nhân tạo khác nhau. Tạo baseline tương ứng cho từng mô hình, rồi mới so sensitivity bên trong mỗi mô hình.</p>
+<p>Oracle nhỏ phải được đối chiếu bằng Bellman scalar/liệt kê độc lập trước khi chấm learner. Ghi oracle biết phân phối hay biết tương lai; phương án hindsight chỉ là reference riêng. Chi phí chênh trên một đường cầu so với reference không tự là regret kỳ vọng trong định lý. Khi chưa có oracle được xác minh cho nondiscarding/backlogging, báo cáo cost difference với baseline khả thi, không đổi nhãn thành “optimality gap”.</p>
+<h3 id="52-cac-yeu-to-quet">5.2 Các yếu tố quét</h3>
+<table>
+<thead>
+<tr>
+<th>Yếu tố</th>
+<th>Mức đề xuất</th>
+<th>Quy tắc khóa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Confidence action HQL/Meta</td>
+<td>Multiplier quanh công thức đã định nghĩa: 0.25, 0.5, 1, 2, 4</td>
+<td>Một hệ số là baseline 1 theo cùng công thức/thang reward; không đồng nhất số tuyệt đối với action_scale của benchmark khác</td>
+</tr>
+<tr>
+<td>Confidence bandit Meta</td>
+<td>0.5, 1, 2</td>
+<td>Giữ action bound cố định khi đo hiệu ứng chính, rồi mới chạy tương tác có giới hạn</td>
+</tr>
+<tr>
+<td>Alpha</td>
+<td>Công thức chuẩn và các lịch đối chiếu đã đặc tả</td>
+<td>Tách tác động alpha khỏi cận; không đổi đồng thời mà gán nguyên nhân cho một biến</td>
+</tr>
+<tr>
+<td>Cap/lưới lost-sales</td>
+<td>Miền nhỏ để có oracle; thêm cap 5/10/20 theo đơn vị bản học</td>
+<td>Khi thay grid, ghi A, độ phân giải và chuẩn hóa reward; đảm bảo cùng feasible actions cho đối thủ</td>
+</tr>
+<tr>
+<td>Chân trời học</td>
+<td>Các bội của H tăng dần, ví dụ 30/100/500 episode cho nghiên cứu mới</td>
+<td>Các mốc này là thiết kế đề xuất; không tự đồng nhất với main benchmark 21000 kỳ</td>
+</tr>
+<tr>
+<td>Chi phí giữ/thiếu hoặc giữ/nợ</td>
+<td>Tỷ số 1/5/10 cho panel lõi; mức khác ở phần phụ</td>
+<td>Giữ đơn vị nhất quán; nếu thay cost bound hay mục tiêu, cập nhật nhãn phiên bản</td>
+</tr>
+<tr>
+<td>FQL độ lớn miền</td>
+<td>Order cap 1/2/3, demand cap trong support 1..4</td>
+<td>Kiểm tra grid đóng và cost bound lại; ước lượng RAM trước khi cấp phát bảng Q</td>
+</tr>
+<tr>
+<td>Mimic cycle nhân tạo</td>
+<td>J=6 của bản dạy; J=9 chỉ nếu triển khai/nguồn lực cho phép</td>
+<td>True H=3 và J khác nhau; tổng quát hóa grid, alpha và reward bound cùng nhau; các J nhỏ này không phải cách chọn asymptotic theo T của định lý</td>
+</tr>
+<tr>
+<td>Khởi tạo</td>
+<td>Tồn thấp/cao; nợ/pipeline nếu model contract cho phép</td>
+<td>Baseline và learner bắt đầu từ cùng điều kiện vật lý được công bố</td>
+</tr>
+</tbody>
+</table>
+<p>Không chạy tích Descartes của mọi hàng ngay từ đầu. Chọn một panel lõi nhỏ để đo từng hiệu ứng, sau đó một số ô tương tác đã nêu lý do. Mọi cấu hình bổ sung sau khi nhìn test phải được gắn nhãn exploratory và dùng một tập test mới nếu muốn xác nhận.</p>
+<h3 id="53-chi-tieu-phai-luu">5.3 Chỉ tiêu phải lưu</h3>
+<ul>
+<li>Chi phí thật trong học, chi phí policy đóng băng sau học, decomposition giữ/thiếu/mua/joint fee/nợ theo đúng model.</li>
+<li>Fill rate theo lượng, tồn bình quân, backlog bình quân/tối đa, ngày có nợ, hàng đang về, tần suất đặt; định nghĩa fill rate khi demand tổng bằng 0 phải rõ (NA hoặc quy ước đã công bố), không âm thầm chia 0.</li>
+<li>Running-set size, loại nhầm hành động tối ưu trên bài toán nhỏ biết oracle, arm còn lại, số ngày chờ theo nguyên nhân, số episode hoàn tất/còn dở, số lần bảo vệ tập rỗng.</li>
+<li>Với Mimic teaching: IP gap, full-state gap, thời gian ghép, requested/executed order, cap-binding, vi phạm khả thi của lệnh thực và chi phí thực/ảo riêng. Cap-binding đã công bố là diagnostic; lệnh thực vượt cap mới là invariant failure. Với delta=IP_thực−IP_ảo≥0, kiểm tra công thức delta_next=max(delta−q_ảo,0) trong contract L=1; nhánh delta&lt;0 phải giữ gap/cap-binding thay vì cam kết ghép ngay.</li>
+<li>Wall time, CPU time nếu đo được, peak memory, số entry Q/trace, thời gian render phản hồi, kích thước CSV/JSON/video và phiên bản phần mềm.</li>
+</ul>
+<p>“Frozen policy” cần một contract riêng: khóa Q, tập ứng viên, tham số chuẩn hóa và quy tắc chọn/điều phối trước test; cấm cập nhật bằng test. Nếu lấy argmax-Q khác với policy đang chạy max(Running Set), ghi đúng biến thể deployment. Không tự dùng tên policy sau học cho một thuật toán vẫn đang loại ứng viên hoặc học trên test.</p>
+<h2 id="6-thiet-ke-ngau-nhien-va-suy-luan">6. Thiết kế ngẫu nhiên và suy luận</h2>
+<h3 id="seed-va-split-moi-e-xuat">Seed và split mới đề xuất</h3>
+<ul>
+<li>Hiệu chuẩn nguồn lực: seed 9000–9004.</li>
+<li>Validation/chọn cấu hình mới: seed 10000–10009.</li>
+<li>Test đã khóa: seed 20000–20029.</li>
+<li>Tập xác nhận mở rộng dự phòng: seed 30000–30099, chưa dùng để điều chỉnh thiết kế.</li>
+</ul>
+<p>Đây là các dải seed <strong>mới được đề xuất</strong>, không phải các seed đã chạy trong benchmark cũ. Runner phải có namespace experiment/condition/split để tránh vô tình chia sẻ cùng stream giữa các mục đích. Trong một phép so sánh ghép cặp, các policy dùng cùng đường cầu; RNG của learner nếu có được tách khỏi RNG nhu cầu. Lưu hash đường cầu hoặc đặc tả sinh lại, không nhất thiết công bố dữ liệu bên thứ ba.</p>
+<p>Đơn vị lặp chính cho synthetic là đường chạy theo seed độc lập. Nếu profile là panel cố định, lấy trung bình trên profile trong mỗi seed hoặc mô hình hóa block đúng như thiết kế; không tăng n bằng số ngày. Với nhiều store/SKU thực nghiệm, xác định cluster và phụ thuộc chéo trước khi bootstrap; không dùng bootstrap i.i.d. từng hàng doanh số.</p>
+<p>Chọn một outcome primary và một family các phép so sánh trước test. Đề xuất báo cáo paired absolute mean difference cùng CI 95%; nếu giữ quy tắc relative effect/±5% của benchmark cũ, áp dụng đúng định nghĩa, multiplicity và thang chi phí, nêu đây là tiêu chí nghiên cứu cụ thể. Khi cả hai cost mean bằng 0 hoặc mẫu số gần 0, relative effect không ổn định/không xác định: báo cáo absolute difference, không gán 0% để tuyên bố tương đương.</p>
+<p>Khóa chiều hiệu ứng là cost(learner)−cost(baseline), nên số âm thuận lợi cho learner; bảng dùng quy ước khác phải ghi ngay cạnh cột. CI mô tả ngẫu nhiên theo thiết kế đã chọn, không tự bao gồm sai mô hình hoặc bất định đơn giá kinh doanh.</p>
+<p>Khóa quy tắc Holm hoặc Bonferroni cho family primary; ghi phương pháp đã chọn trong config, không chọn lại vì phương pháp cho nhiều “win” hơn. Các bảng secondary/exploratory phải có nhãn. Với tail risk/CVaR, cần đủ mẫu đuôi và phương pháp CI phù hợp; số mẫu lớn trong mỗi policy không thay thế được các lần học độc lập nếu câu hỏi nói về learner.</p>
+<h2 id="7-p3-stress-ngoai-gia-inh">7. P3: stress ngoài giả định</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Vi phạm được tạo có chủ đích</th>
+<th>Cách đọc kết quả</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OOD-DRIFT</td>
+<td>Đổi mức hoặc profile cầu tại điểm thời gian đã khóa</td>
+<td>Đo chi phí chuyển tiếp và hồi phục; không áp bảo đảm fixed cyclic distribution</td>
+</tr>
+<tr>
+<td>OOD-H</td>
+<td>Cấu hình learner biết sai chu kỳ, thay đổi pha hoặc chu kỳ thật</td>
+<td>Đánh giá sai mô hình; không gọi là cùng thiết lập H biết trước</td>
+</tr>
+<tr>
+<td>OOD-CORR</td>
+<td>Tự tương quan theo thời gian hoặc đồng biến giữa SKU</td>
+<td>Kiểm tra độ nhạy với phụ thuộc; giữ moment và công bố cách sinh để tách nguyên nhân</td>
+</tr>
+<tr>
+<td>OOD-BURST</td>
+<td>Rare burst/heavy tail trong một model hỗ trợ; kiểm tra bound hợp lệ</td>
+<td>Lost-sales có thể nhận D&gt;cap; FQL cần support/cost bound mới hoặc phải từ chối, không clip</td>
+</tr>
+<tr>
+<td>OOD-OPS</td>
+<td>Ngày đóng cửa, gián đoạn giao hàng, đổi lead time, MOQ/cap chung</td>
+<td>Đây là biến thể model; chưa được chấm như triển khai nguyên gốc nếu thiếu action/state/oracle phù hợp</td>
+</tr>
+<tr>
+<td>OOD-COST</td>
+<td>Đổi tỷ số chi phí ngoài panel hoặc giá vốn/phí cố định đáng kể</td>
+<td>Policy cần học/đánh giá lại; không chỉ đổi tiền trên policy cũ rồi gọi là tối ưu mới</td>
+</tr>
+</tbody>
+</table>
+<p>Mỗi nhóm có một baseline cố định và một điều kiện đối chứng không vi phạm, cùng stream ngẫu nhiên gốc khi cách coupling cho phép. Không gộp kết quả OOD vào tỷ lệ thắng primary. Nếu một biến thể chưa có physics hoặc benchmark đúng, kết quả đầu tiên là “chưa hỗ trợ”, không phải một điểm performance.</p>
+<h2 id="8-p4-website-replay-xuat-du-lieu-va-video">8. P4: website, replay, xuất dữ liệu và video</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Luồng</th>
+<th>Tiêu chí chấp nhận đề xuất</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UI-START</td>
+<td>Người mới mở một model và chọn ví dụ</td>
+<td>Chỉ một hành động chính rõ; model/giả định và trạng thái sẵn sàng hiển thị; không cần đọc mã</td>
+</tr>
+<tr>
+<td>UI-STATE</td>
+<td>Chuyển model/tab, reset, autoplay/pause, bấm nhanh</td>
+<td>Không nhân đôi ngày/cập nhật; trạng thái các lượt độc lập; reset có phạm vi rõ</td>
+</tr>
+<tr>
+<td>UI-INPUT</td>
+<td>Giá trị âm, số lẻ khi cần nguyên, NaN, quá cap, rỗng</td>
+<td>Từ chối trước khi thay trạng thái; thông báo nêu điều kiện hợp lệ</td>
+</tr>
+<tr>
+<td>UI-READ</td>
+<td>Mở giải thích Q, scrub timeline, đổi chế độ xem</td>
+<td>Thao tác chỉ đọc không học lại hoặc sinh cầu mới</td>
+</tr>
+<tr>
+<td>UI-EXPORT</td>
+<td>CSV Unicode, comma/quote, hàng thiếu demand, tải lại</td>
+<td>Header/đơn vị/cấu hình rõ; dữ liệu cửa hàng lost-sales không xuất D/lost cost bị che; researcher chỉ thấy ngày đã xảy ra</td>
+</tr>
+<tr>
+<td>UI-ACCESS</td>
+<td>Bàn phím, màn hình nhỏ, zoom, reduced motion</td>
+<td>Điều khiển dùng được; chữ không bị che; không dựa vào màu đơn độc; animation có cách dừng</td>
+</tr>
+<tr>
+<td>UI-RESOURCE</td>
+<td>Mô hình Q lớn nhất được UI cho phép; nhiều reset liên tục</td>
+<td>Giới hạn cấu hình trước cấp phát; không treo vô hạn; thông báo tải rõ; bộ nhớ trace được kiểm soát</td>
+</tr>
+<tr>
+<td>VIDEO-01</td>
+<td>Bốn diagram động</td>
+<td>Node/luồng đúng model, số ngày/episode và sự kiện khớp trace hoặc mô tả nguồn; không phụ đề/voice; không dùng cảnh quảng cáo thay cơ chế</td>
+</tr>
+<tr>
+<td>VIDEO-02</td>
+<td>Hàng về và thông tin phản hồi</td>
+<td>Pipeline không tới sớm; nợ không biến mất; learner không nhận hidden demand; virtual/physical tách rõ ở Mimic</td>
+</tr>
+</tbody>
+</table>
+<p>Đề xuất mục tiêu trải nghiệm để đo sau hiệu chuẩn: phản hồi sau một bước có cache p95 dưới 1 giây trên máy tham chiếu; khởi tạo lạnh được đo riêng vì có thể tải runtime. Các mục tiêu là tiêu chí thiết kế, chưa phải cam kết tốc độ. Ghi thiết bị, trình duyệt, CPU/RAM, mạng và trạng thái cache. Không so một cold load với một warm step để báo cáo “tăng tốc”.</p>
+<p>Test nguồn lực bắt đầu một process/model, giới hạn mềm 2 GiB cho runner nghiên cứu và mức cấu hình UI nhỏ được hỗ trợ. Sau hiệu chuẩn có thể hạ/tăng giới hạn theo thiết bị mục tiêu; mọi lần chạm giới hạn được ghi như failure/resource result. Không mở rộng bảng Q theo J hoặc số SKU một cách không có ước lượng trước, vì reachable state/action có thể tăng rất nhanh.</p>
+<h2 id="9-dung-failure-va-ieu-kien-san-sang-bao-cao">9. Dừng, failure và điều kiện sẵn sàng báo cáo</h2>
+<p>Dừng ô thử nghiệm ngay khi có sai accounting, action không khả thi, future leakage, cập nhật hai lần, NaN không được phép hoặc state ngoài contract. Lưu cấu hình, seed, bước đầu tiên lỗi, traceback và trace tối thiểu; không tự bỏ seed lỗi rồi tính lại mean trên phần còn lại.</p>
+<p>Nếu timeout/OOM, đánh dấu cell là resource failure, giữ số lần thử và môi trường; không đổi grid âm thầm để lấy một con số. Nếu chỉ tiêu performance xấu nhưng invariants vẫn đúng, lưu nguyên kết quả; đó có thể là phát hiện cần hiểu thêm.</p>
+<p>Được gọi một đợt “đã kiểm tra” khi có config/hash, lệnh đã chạy, phiên bản, số lần lặp thành công/thất bại, bảng metric, đối chiếu và báo cáo giới hạn. Không dùng trạng thái “passed” cho các cell chưa chạy hoặc nhánh Mimic published đang bị chặn bởi source gate. Một bộ test đạt cho teaching adaptation không chứng nhận bản công bố.</p>
+<h2 id="10-artifact-contract-cho-runner-tuong-lai">10. Artifact contract cho runner tương lai</h2>
+<pre><code class="language-text">run_directory/
+  design.json                 # config đã khóa, nhãn hypothesis/family
+  environment.json            # Python/OS/CPU/package/git hashes
+  input_manifest.json         # nguồn và SHA-256; không sao chép raw vào Git
+  jobs.jsonl                  # pending/running/succeeded/failed/blocked
+  metrics.csv                 # một hàng cho model/case/seed/regime/checkpoint
+  failures.jsonl              # invariant/resource failures, không bỏ mẫu im lặng
+  traces/                     # trace tối thiểu cho case lỗi và demo đại diện
+  analysis/                   # paired effects, CI, multiplicity, plots
+  report.md                   # đã chạy, chưa chạy, lý do và giới hạn
+</code></pre>
+<p>Một hàng metric tối thiểu cần <code>experiment_id, model_variant, physics, case_id, split, seed, checkpoint, evaluation_regime, unit, cost_components, service_metrics, learning_diagnostics, wall_time, peak_memory, status</code>. Mean gộp phải giữ trọng số và số mẫu. Nhu cầu thật ở evaluator được đánh dấu để không đi vào export cửa hàng.</p>
+<p>Python 3.10+ là nền chạy dự kiến. Dùng dependency đúng mô-đun; R không thay thế Python. Giữ bản gốc <code>inputs/</code> chỉ đọc, ghi output vào run-directory riêng. Bản kế hoạch này chưa bổ sung runner CLI hay thực thi ma trận dài; parent task có thể thêm các kiểm tra nhỏ cho những thay đổi mã thực tế, nhưng phải ghi phạm vi ấy riêng.</p>
+<h2 id="11-au-la-bang-chung-a-co-au-la-cong-viec-moi">11. Đâu là bằng chứng đã có, đâu là công việc mới</h2>
+<p>Bằng chứng cloud đã lưu trước kế hoạch: tái phân tích sáu bảng benchmark, smoke 700 kỳ của ba bộ học benchmark, chuẩn bị dữ liệu theo checksum; CFO tái tạo bảng và mô phỏng lại pilot; kiểm tra 204 điểm biểu đồ trong slide. Nguồn: <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/beer_rossmann/cloud_validation.json">benchmark validation</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/results/cfo/cloud_validation.json">CFO validation</a>, <a target="_blank" rel="noreferrer noopener" href="https://github.com/lequanghuyvnkor/gong-simchi_le_experiment/blob/main/presentation/cloud_validation.json">slide validation</a>.</p>
+<p>Các bằng chứng đó không đồng nghĩa đã chạy mọi test ID hoặc ma trận trong tài liệu này. Việc đầu tiên khi thực thi kế hoạch là tạo run manifest mới và cập nhật trạng thái từng test. Báo cáo kết quả phải giữ nhãn model gốc/thích nghi/thực hành, điều kiện hợp lệ/OOD và giả định tài chính.</p></body></html>
