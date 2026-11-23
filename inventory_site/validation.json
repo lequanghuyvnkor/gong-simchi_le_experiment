@@ -152,6 +152,13 @@
     "visual_review": "All 38 rendered pages reviewed in contact sheet; full-resolution slides 20 and 37 inspected.",
     "dom_component_integration_checks": 9,
     "browser_visual_qa": "Private browser access remains pending; slide raster layout was inspected directly.",
-    "clean_clone_check": "pending this change"
+    "clean_clone_check": {
+      "status": "passed",
+      "implementation_commit": "96136ab338653b886c97d1a6aa5ddb6d7295cea0",
+      "dom_integration_checks": 9,
+      "slide_and_asset_hashes": true,
+      "rerender_from_saved_pdf_byte_identical": true,
+      "worktree_clean_after_checks": true
+    }
   }
 }

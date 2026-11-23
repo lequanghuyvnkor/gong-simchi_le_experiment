@@ -3,23 +3,23 @@
   "title": "Gong–Simchi · Inventory Research Hub",
   "url": "https://gong-simchi-inventory-lab.snu-chatgpt-5678.chatgpt.site",
   "project_id": "appgprj_6b033ef3dab081c28a21ab18bac941c1",
-  "version_number": 3,
-  "version_id": "appgprj_6b033ef3dab081c28a21ab18bac941c1~appgver_faa99710c18081c29a88d0dd7457f75e",
-  "site_source_commit": "61a5a34478ba1b62996ddc1488f285a95ca4eb79",
-  "deployment_id": "appgdep_6b03f464ec2c81c28944be18995b38b6",
+  "version_number": 4,
+  "version_id": "appgprj_6b033ef3dab081c28a21ab18bac941c1~appgver_0ea690f295a881c2a9d843a439b870b8",
+  "site_source_commit": "059abf83709924aefbd9cf1279e4cacba3d586c1",
+  "deployment_id": "appgdep_6b03f99353c881c2a8dd3b5c0b816826",
   "status": "succeeded",
   "audience": {
     "access_mode": "custom",
     "owner_only": true,
     "external_visitors": 0
   },
-  "implementation_github_commit": "70b0420ee7ffce9a4a8ce62be2e01899ff723f17",
+  "implementation_github_commit": "96136ab338653b886c97d1a6aa5ddb6d7295cea0",
   "checks": {
     "clean_clone": "passed",
     "python_tests": 109,
     "core_tests": 69,
     "stress_api_tests": 40,
-    "dom_component_integration_checks": 8,
+    "dom_component_integration_checks": 9,
     "native_models": 4,
     "wasm_models": 4,
     "wasm_stress_runs": 4,
@@ -30,7 +30,10 @@
     "regenerated_assets_identical": true,
     "documentation_source_values": 62,
     "derived_quantities": 4,
-    "document_links": 60
+    "document_links": 60,
+    "slides_rendered": 38,
+    "slide_images_and_thumbnails_verified": 76,
+    "slides_rerender_from_pdf_byte_identical": true
   },
   "features": [
     "overview and product videos",
@@ -39,7 +42,8 @@
     "independent multi-seed stress sessions, checks, paired CI and JSON/CSV",
     "in-page presentation reports, 60/40 minute outlines and Q&A",
     "slide v4/script and Streamlit source download",
-    "evidence source links and research direction D"
+    "evidence source links and research direction D",
+    "38-slide in-browser viewer with thumbnails, keyboard, zoom and presentation mode"
   ],
   "limits": [
     "Managed preview relay is unavailable; private production browser visual/layout/CDN QA needs authenticated access. DOM and WASM checks do not certify visual QA.",
@@ -48,17 +52,23 @@
   ],
   "backend_archive": {
     "archive_format": "tar",
-    "content_hash": "sha256:393259b844696fca67af8513cb9e9963905f8afaef5f9ceb16d4fed456fc3527",
-    "size_bytes": 5478400,
-    "file_count": 43
+    "content_hash": "sha256:03f0bdfc622987d82b4a2037d844595128456c5d7abbf953eb9d9e806e6c0136",
+    "size_bytes": 8488960,
+    "file_count": 122
   },
   "previous_release": {
-    "version_number": 2,
-    "site_source_commit": "416d27cd416475b739c5b7db6bb08c10bb7ef78a"
+    "version_number": 3,
+    "site_source_commit": "61a5a34478ba1b62996ddc1488f285a95ca4eb79"
   },
   "local_archive": {
-    "sha256": "8640dbfb76828fee122c06573e80a7863598ee0b9747e630d102b3205f7e5d17",
-    "bytes": 5488640,
+    "sha256": "497fd2d29f15f02c49aa6870195f9a23586199f27d5f4a855986cd50b1c7dc9d",
+    "bytes": 8499200,
     "note": "Input Git tar and backend container hashes are recorded separately."
+  },
+  "slides": {
+    "route": "/?view=slides",
+    "source": "presentation/Gong_Simchi_2024_Academic_60min_v4_repo.pptx",
+    "raster_layout_review": "38-page contact sheet and full-resolution sample review; no blank pages or text outside PDF page bounds.",
+    "browser_ui_qa": "DOM component checks passed; private authenticated browser visual QA remains pending."
   }
 }
