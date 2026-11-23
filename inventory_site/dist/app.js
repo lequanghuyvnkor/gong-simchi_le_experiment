@@ -205,11 +205,4 @@ $('export').onclick=async function(){
   if(busy)return;busy=true;updateButtons();var filename='inventory-'+kind+'-seed'+state.seed+'.csv';
   try{var result=await request({op:'export'});downloadFile(filename,result.csv,'text/csv;charset=utf-8');}catch(e){setError(e.message);}finally{busy=false;updateButtons();}
 };
-var filmDescriptions={
-  hql:'Nhu cầu bị kiểm duyệt, phản hồi một phía, cập nhật ngược và ranh giới episode.',
-  meta:'Ba bản sao dịch pha, chuyển nhánh và kho thực giữ tồn trong ngày chờ.',
-  fql:'Hai sản phẩm, đơn giao trễ, hàng về trả nợ và cập nhật Q cuối episode.',
-  mimic:'Hai hệ thống cùng tiến: FQL ảo reset theo khối dài, kho thực ghép vị thế tồn với hạn mức lệnh.'
-};
-$('film-grid').innerHTML=Object.keys(labels).map(function(k){return '<article class="film"><video controls playsinline preload="metadata" poster="./media/'+k+'.png" aria-label="Sơ đồ động '+esc(labels[k])+'"><source src="./media/'+k+'.mp4" type="video/mp4">Trình duyệt chưa phát được video.</video><div class="film-body"><h3>'+esc(labels[k])+'</h3><p>'+esc(filmDescriptions[k])+'</p><div class="video-actions"><button class="secondary" data-demo="'+k+'">Thử mô hình này</button><a href="./media/'+k+'.mp4" download>Tải MP4</a></div></div></article>';}).join('');
 renderEmpty();updateButtons();

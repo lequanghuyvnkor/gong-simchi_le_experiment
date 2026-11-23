@@ -1,22 +1,22 @@
 'use strict';
-var currentView='home',presentationContent=null,talkMinutes=60;
-var pageTitles={home:'Từ mô phỏng đến bằng chứng',lab:'Một ngày trong hệ thống tồn kho',stress:'Thiết kế và quan sát stress test',films:'Quy trình bốn mô hình qua diagram động',slides:'Slide v4 · trình chiếu trực tiếp',present:'Chuẩn bị bài trình bày thực nghiệm',learn:'Đọc đúng nguồn và phạm vi kết quả'};
+var currentView='present',presentationContent=null,talkMinutes=60;
+var pageTitles={present:'Thuyết trình',lab:'Mô phỏng tồn kho',stress:'Stress test tương tác'};
 function downloadFile(filename,content,type){var url=URL.createObjectURL(new Blob([content],{type:type}));var link=document.createElement('a');link.href=url;link.download=filename;document.body.appendChild(link);link.click();link.remove();setTimeout(function(){URL.revokeObjectURL(url);},1000);}
 function navigate(view,writeHash){
-  if(!pageTitles[view])view='home';if(currentView==='slides'&&view!=='slides')closeDeckPresentation();stopAuto();stopStress();currentView=view;
+  var requestedView=view;if(view==='slides')view='present';if(!pageTitles[view])view='present';if(currentView==='present'&&view!=='present')closeDeckPresentation();stopAuto();stopStress();currentView=view;
   Object.keys(pageTitles).forEach(function(k){$(k+'-view').hidden=k!==view;});
   document.querySelectorAll('.nav').forEach(function(b){b.classList.toggle('active',b.dataset.view===view);b.setAttribute('aria-current',b.dataset.view===view?'page':'false');});
-  $('page-title').textContent=pageTitles[view];document.title=pageTitles[view]+' · Inventory Research Hub';
-  $('research-notes').hidden=view!=='learn';
+  $('page-title').textContent=pageTitles[view];document.title=pageTitles[view]+' · Gong & Simchi-Levi';
   if(writeHash!==false&&location.hash!=='#'+view)history.replaceState(null,'','#'+view);
   document.querySelectorAll('video').forEach(function(v){if(!v.closest('#'+view+'-view')&&v.pause)v.pause();});
   if((view==='lab'||view==='stress')&&!worker)boot();
-  if(view==='slides')loadSlides();
-  if(view==='present'||view==='learn')loadPresentation();updateButtons();
+  if(view==='present'){loadPresentation();loadSlides();}
+  if(requestedView==='slides')requestAnimationFrame(function(){$('slides-view').scrollIntoView({behavior:'smooth',block:'start'});});
+  updateButtons();
 }
 function showModelVideo(model){$('video-dialog-title').textContent=labels[model]+' · sơ đồ quy trình';$('model-film').poster='./media/'+model+'.png';$('model-film-source').src='./media/'+model+'.mp4';$('model-film').load();$('video-dialog').showModal();}
 document.querySelectorAll('.nav').forEach(function(button){button.onclick=function(){navigate(button.dataset.view);};});
-document.addEventListener('click',function(e){var go=e.target.closest('[data-go]'),demo=e.target.closest('[data-demo]');if(go)navigate(go.dataset.go);if(demo){navigate('lab');selectModel(demo.dataset.demo);}});
+document.addEventListener('click',function(e){var go=e.target.closest('[data-go]');if(go)navigate(go.dataset.go);});
 $('model-video').onclick=function(){showModelVideo(kind);};
 $('video-close').onclick=function(){$('video-dialog').close();};
 $('video-dialog').addEventListener('close',function(){$('model-film').pause();});
@@ -32,5 +32,4 @@ async function loadPresentation(){
   }catch(e){$('talk-timeline').textContent='Chưa tải được lộ trình. Bạn vẫn có thể đọc báo cáo và tải PDF/DOCX bên dưới.';}
 }
 document.querySelectorAll('[data-duration]').forEach(function(b){b.onclick=function(){talkMinutes=Number(b.dataset.duration);renderOutline();};});
-document.querySelectorAll('[data-document]').forEach(function(b){b.onclick=function(){document.querySelectorAll('[data-document]').forEach(function(x){x.classList.toggle('active',x===b);});$('report-reader').src='./resources/'+b.dataset.document+'.html';$('report-reader').title=b.dataset.document==='presenter_playbook'?'Báo cáo hướng dẫn trình bày':'Kế hoạch stress test';};});
-navigate(location.hash.slice(1)||new URLSearchParams(location.search).get('view')||'home',false);
+navigate(location.hash.slice(1)||new URLSearchParams(location.search).get('view')||'present',false);

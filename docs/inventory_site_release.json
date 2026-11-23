@@ -3,17 +3,16 @@
   "title": "Gong–Simchi · Inventory Research Hub",
   "url": "https://gong-simchi-inventory-lab.snu-chatgpt-5678.chatgpt.site",
   "project_id": "appgprj_6b033ef3dab081c28a21ab18bac941c1",
-  "version_number": 4,
-  "version_id": "appgprj_6b033ef3dab081c28a21ab18bac941c1~appgver_0ea690f295a881c2a9d843a439b870b8",
-  "site_source_commit": "059abf83709924aefbd9cf1279e4cacba3d586c1",
-  "deployment_id": "appgdep_6b03f99353c881c2a8dd3b5c0b816826",
+  "version_number": 5,
+  "version_id": "appgprj_6b033ef3dab081c28a21ab18bac941c1~appgver_7c2c46990f8881c2b02f4571e081d0c0",
+  "site_source_commit": "775ec3ea94702e822beba617d5d004e28b548008",
+  "deployment_id": "appgdep_6b040022c9c881c290d8d5c67152319a",
   "status": "succeeded",
   "audience": {
     "access_mode": "custom",
     "owner_only": true,
     "external_visitors": 0
   },
-  "implementation_github_commit": "96136ab338653b886c97d1a6aa5ddb6d7295cea0",
   "checks": {
     "clean_clone": "passed",
     "python_tests": 109,
@@ -33,42 +32,45 @@
     "document_links": 60,
     "slides_rendered": 38,
     "slide_images_and_thumbnails_verified": 76,
-    "slides_rerender_from_pdf_byte_identical": true
+    "slides_rerender_from_pdf_byte_identical": true,
+    "html_structure_check": "passed; three navigation items, balanced tags, unique IDs",
+    "navigation_destinations": 3
   },
   "features": [
-    "overview and product videos",
+    "three focused destinations: presentation, simulation, and stress testing",
+    "38-slide v4 viewer embedded in default presentation page",
+    "model-specific silent system diagrams inside simulation",
     "four-model simulation and Q replay",
-    "editable stress design diagrams with actual simulation",
-    "independent multi-seed stress sessions, checks, paired CI and JSON/CSV",
-    "in-page presentation reports, 60/40 minute outlines and Q&A",
-    "slide v4/script and Streamlit source download",
-    "evidence source links and research direction D",
-    "38-slide in-browser viewer with thumbnails, keyboard, zoom and presentation mode"
+    "editable stress diagrams, actual simulation, replay, checks, paired CI, JSON/CSV",
+    "60/40-minute presentation guidance, checklist, Q&A, full report and source references",
+    "full 32-case stress research plan beside stress tool; matrix not executed"
   ],
   "limits": [
-    "Managed preview relay is unavailable; private production browser visual/layout/CDN QA needs authenticated access. DOM and WASM checks do not certify visual QA.",
+    "Managed preview relay remains unavailable. Browser visual/layout/CDN QA was not run; DOM component, HTML structure, native model, and WASM checks do not certify rendered visual behavior.",
     "Mimic remains a declared bounded teaching adaptation; no published replication or theorem guarantee claimed.",
     "The 32-test research matrix remains a separate prospective design; interactive software smoke results are recorded separately."
   ],
   "backend_archive": {
     "archive_format": "tar",
-    "content_hash": "sha256:03f0bdfc622987d82b4a2037d844595128456c5d7abbf953eb9d9e806e6c0136",
-    "size_bytes": 8488960,
-    "file_count": 122
+    "content_hash": "sha256:843edb7bf251ef76f62d0f763b22d522df5eb2a8daf8f90b911cafdb2602091a",
+    "file_count": 122,
+    "size_bytes": 8478720
   },
   "previous_release": {
-    "version_number": 3,
-    "site_source_commit": "61a5a34478ba1b62996ddc1488f285a95ca4eb79"
+    "version_number": 4,
+    "site_source_commit": "059abf83709924aefbd9cf1279e4cacba3d586c1",
+    "implementation_github_commit": "96136ab338653b886c97d1a6aa5ddb6d7295cea0"
   },
   "local_archive": {
-    "sha256": "497fd2d29f15f02c49aa6870195f9a23586199f27d5f4a855986cd50b1c7dc9d",
-    "bytes": 8499200,
-    "note": "Input Git tar and backend container hashes are recorded separately."
+    "sha256": "0487a521353ab2d242c1001741262522127071bde5e2f816b19837b7b4036d8a",
+    "bytes": 8478720,
+    "note": "Archive was packaged from the pushed Site source commit; backend and local archive hashes are recorded separately."
   },
   "slides": {
     "route": "/?view=slides",
     "source": "presentation/Gong_Simchi_2024_Academic_60min_v4_repo.pptx",
     "raster_layout_review": "38-page contact sheet and full-resolution sample review; no blank pages or text outside PDF page bounds.",
-    "browser_ui_qa": "DOM component checks passed; private authenticated browser visual QA remains pending."
+    "browser_ui_qa": "DOM component checks passed; browser visual QA remains unverified.",
+    "placement": "embedded in the default presentation page; the legacy query route scrolls to the deck"
   }
 }

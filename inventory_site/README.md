@@ -9,7 +9,7 @@ Site riêng tư: <https://gong-simchi-inventory-lab.snu-chatgpt-5678.chatgpt.sit
 2. Chạy một ngày hoặc tự chạy; xem luồng hàng, phản hồi, chi phí và số dư. Thuật toán và người dùng cùng nhận một đường nhu cầu; lệnh chốt trước khi nhu cầu được tiết lộ.
 3. Mở cấu hình để đổi seed, số chu kỳ và cận minh họa/công thức. Áp dụng sẽ bắt đầu lại riêng mô hình đang chọn.
 4. Dùng thanh xem lại, xem một cập nhật Q đã lưu hoặc tải CSV. Chuyển mô hình giữ lượt trong tab; tải lại trang mất phiên.
-5. Tab **Sơ đồ chuyển động** có bốn MP4 24 giây, 1280×720, không âm thanh/phụ đề/quay màn hình. Các nhãn và số thuộc trace thật, không phải benchmark. Tab hướng dẫn có báo cáo trình bày và kế hoạch stress test.
+5. Trong **Mô phỏng**, mở video diagram ngay trên mô hình đang chọn. Bốn MP4 dài 24 giây, 1280×720, không âm thanh/phụ đề/quay màn hình; trace minh họa không phải benchmark.
 
 HQL/Meta-HQL chỉ học từ doanh số riêng. Chế độ xem nhu cầu thật là góc nhìn người chấm sau ngày, không cấp thêm thông tin cho learner. Nếu tắt, CSV cũng chỉ xuất trường được phép quan sát. Với FQL/Mimic, nhu cầu được quan sát đầy đủ theo mô hình. Không so chi phí giữa bốn mô hình để xếp hạng chung. VND của CFO là giả định mẫu; website hiển thị đơn vị mô hình.
 
@@ -56,32 +56,15 @@ node inventory_site/tools/check_pyodide.mjs /tmp/gong-pyodide/node_modules/pyodi
 
 Đường dẫn `/tmp` dành cho Linux; trên Windows chọn thư mục tạm tương ứng. Script chạy hết bốn lượt qua Python 3.12.7/NumPy 2.0.2 trong WASM. NumPy wheel được tải từ CDN chính thức và kiểm tra theo lock Pyodide; nếu Node không tải được qua proxy, có thể lưu đúng wheel trong thư mục package sau khi xác minh SHA-256 của `pyodide-lock.json`. Kiểm tra WASM không xác nhận layout, thao tác UI hoặc việc CDN được cho phép trong trình duyệt người dùng.
 
-## Bản cổng tổng hợp
+## Site gọn quanh ba công việc
 
-### Trình chiếu slide trực tiếp
+Thanh điều hướng chỉ có **Thuyết trình**, **Mô phỏng** và **Stress test**. Trang tổng quan, trang video riêng và trang nguồn riêng đã được gộp bỏ. Các tài liệu nguồn/giới hạn vẫn có trong mục thu gọn ở cuối trang thuyết trình; kế hoạch nghiên cứu stress nằm trong trang stress.
 
-Menu **Trình chiếu slide**, hoặc nút **Trình chiếu slide ngay** trong Góc thuyết trình, mở đủ 38 trang của v4 ngay trên Site. Có danh sách/hình thu nhỏ, nút Trước/Tiếp, phím trái/phải và Home/End, phóng to, toàn màn hình (hoặc chế độ trong tab nếu browser không cho fullscreen), Esc để thoát. Đường dẫn `?view=slides` mở trực tiếp trình xem; không cần tải Python hoặc PPTX để xem.
+- **Thuyết trình** là trang mở mặc định. Xem 38 slide v4 trong trình duyệt, dùng chọn trang/hình thu nhỏ, phím trái/phải và Home/End, phóng to hoặc toàn màn hình. Bên dưới có lộ trình 60/40 phút, checklist, 10 câu hỏi phản biện, báo cáo chi tiết và script tiếng Việt. `?view=slides` vẫn mở/đưa thẳng đến khung slide.
+- **Mô phỏng** cho chạy bốn mô hình; video diagram nằm trong nút “Xem video quy trình” của mô hình đang chọn thay cho một trang video độc lập. Gói ZIP Streamlit được tải ngay tại phần mô phỏng và chỉ có HQL/Meta-HQL/FQL; Mimic trên Site tiếp tục được ghi là bản học có điều chỉnh.
+- **Stress test** có diagram thay đổi được, bảy kịch bản, chạy từng ngày/toàn bộ, replay, kiểm tra bất biến và xuất JSON/CSV. Mục “Kế hoạch stress test nghiên cứu · 32 trường hợp, chưa chạy” chứa các bản HTML/PDF; smoke test phần mềm không được trình bày như ma trận nghiên cứu đã thực hiện.
 
-Ảnh slide lossless WebP được xuất từ **PPTX bản phân phối trong repo**, qua PDF LibreOffice; bản gốc trong inputs không bị sửa. Text thay thế được lấy từ hộp văn bản PPTX. Manifest `dist/resources/slides_manifest.json` ghi đủ 38 trang, phiên bản phần mềm và checksum nguồn/PDF/từng ảnh. Nút mở PDF và tải PPTX vẫn có sẵn. Chuyển sang ảnh không giữ animation hoặc đối tượng PPTX có thể sửa; tệp PPTX tải xuống giữ nguyên bản phân phối.
-
-Để dựng lại, Python 3.10+ và dependencies của `inventory_site/requirements.txt`; cài LibreOffice riêng nếu xuất lại PPTX:
-
-```bash
-python inventory_site/tools/build_slides.py
-# Hoặc chỉ render lại PDF đã phân phối, không cần LibreOffice:
-python inventory_site/tools/build_slides.py --pdf inventory_site/dist/resources/slides_v4.pdf
-python inventory_site/tools/check_site.py
-```
-
-Font/phiên bản LibreOffice có thể thay đổi kết xuất; PDF/ảnh đang phân phối đã được kiểm tra số trang và bố cục. Thay nội dung deck phải dựng lại rồi kiểm tra manifest; không sửa ảnh rời để làm sai khác với PPTX.
-
-Menu **Tổng quan** nối các phần thành một luồng: hiểu sản phẩm qua video, tự thử mô phỏng, thiết kế kiểm tra rồi trình bày bằng chứng. Trang tổng quan, video và báo cáo không chờ Python khởi động. Chỉ khi mở mô phỏng/stress mới tải bộ tính toán. Trên màn hình hẹp, sơ đồ phòng mô phỏng chuyển thành các khối dọc có nhãn đọc được.
-
-- **Phòng mô phỏng:** giữ bốn lượt độc lập, có video riêng của mô hình đang xem, Q replay và CSV. Lỗi worker giải phóng request đang chờ; khởi động phiên mới xóa trạng thái cũ với thông báo rõ.
-- **Thiết kế stress:** nhấp các khối diagram để đổi mô hình, nhu cầu, seed/ngân sách hoặc baseline. Có bảy kịch bản: native, zero, steady, peak, alternating, burst và drift. Ba kịch bản cuối được đánh dấu ngoài giả định lặp H=3. Có thể sửa/nhập/tải JSON cấu hình.
-- **Chạy stress:** từng ngày hoặc tự chạy có tạm dừng; tối đa 5 seed × 20 chu kỳ × 3 ngày. Diagram trace nhận số liệu thật; xem lại không học thêm. Kết quả/CSV/JSON ghi cấu hình, Python/NumPy và SHA-256 mã. Chỉnh thiết kế sau khi chạy không ghi đè kết quả cũ cho tới khi bấm Áp dụng hợp lệ.
-- **Góc thuyết trình:** outline 60/40 phút, 10 Q&A có nguồn, checklist, báo cáo và kế hoạch đọc trực tiếp bằng HTML. Tải PDF/DOCX, slide v4 bản phân phối và script tiếng Việt. Sản phẩm Streamlit có gói ZIP để chạy cục bộ; giao diện Streamlit vẫn có ba lựa chọn, website có thêm bản học Mimic.
-- **Nguồn & phạm vi:** thông điệp dẫn về kết quả trong repo và ba câu hỏi nghiên cứu D. `content/presentation.json` là asset nội dung có tham chiếu nguồn, được kiểm tra khi dựng.
+Trang thuyết trình và deck không khởi động Python. Bộ tính toán chỉ tải khi mở mô phỏng hoặc stress test. Trên màn hình hẹp, điều hướng vẫn hiện đủ ba mục; diagram mô phỏng chuyển thành các khối dọc có nhãn đọc được.
 
 Stress dùng riêng đối tượng Lab, không thay đổi các lượt chơi. Môi trường thay bộ sinh nhu cầu trong phạm vi một bước, chốt quyết định trước khi đưa mẫu cầu vào và luôn khôi phục bộ sinh. Worker tuần tự hóa các RPC. Learner HQL vẫn chỉ nhận doanh số riêng; cột nhu cầu thật dành cho người kiểm tra. FQL/Mimic giữ support hữu hạn; tăng cường độ làm xác suất tiệm tới 1, không cắt ngọn mẫu cầu. Tham số kho/phí/confidence chỉ hiện và có hiệu lực với HQL/Meta-HQL; nhập giá trị khác mặc định cho các trường đó ở FQL/Mimic bị từ chối.
 

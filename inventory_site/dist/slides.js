@@ -58,7 +58,8 @@ $('deck-retry').onclick=loadSlides;
 $('deck-image').onload=function(){$('deck-loading').hidden=true;};
 $('deck-image').onerror=function(){$('deck-loading').hidden=false;$('deck-loading').textContent='Chưa tải được ảnh slide. Hãy chọn lại slide hoặc mở PDF.';};
 document.addEventListener('keydown',function(event){
-  if(typeof currentView==='undefined'||currentView!=='slides'||!slideDeck||event.ctrlKey||event.metaKey||event.altKey)return;
+  var deck=$('deck-shell'),withinDeck=$('slides-view').contains(event.target),presenting=deck.classList.contains('presentation-mode');
+  if(typeof currentView==='undefined'||currentView!=='present'||!slideDeck||(!withinDeck&&!presenting)||event.ctrlKey||event.metaKey||event.altKey)return;
   if(event.key==='Escape'){closeDeckPresentation();return;}
   if(event.target.closest&&event.target.closest('input,select,textarea,[contenteditable="true"]'))return;
   if(['ArrowRight','PageDown'].includes(event.key)){event.preventDefault();showSlide(slideIndex+1);}

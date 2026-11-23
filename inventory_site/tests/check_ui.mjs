@@ -38,7 +38,7 @@ const value=(id,v)=>{el(id).value=String(v);el(id).dispatchEvent(new w.Event('in
 const checks=[];
 try{
   for(const name of ['app.js','stress.js','slides.js','hub.js'])new vm.Script(await fs.readFile(path.join(site,'dist',name),'utf8'),{filename:name}).runInContext(dom.getInternalVMContext());
-  assert.equal(workers.length,0);assert.equal(el('home-view').hidden,false);checks.push('home is usable without loading Python');
+  assert.equal(workers.length,0);assert.equal(el('present-view').hidden,false);assert.equal(w.currentView,'present');assert.equal(d.querySelectorAll('.nav').length,3);assert.equal(d.querySelectorAll('#home-view,#films-view,#learn-view').length,0);checks.push('three focused destinations; presentation opens without loading Python');
   w.navigate('lab');await wait(()=>!el('step').disabled,'lab boot');
   for(let day=1;day<=3;day++){await click('step');await wait(()=>el('day-badge').textContent.startsWith('Ngày '+day+' /')&&!el('step').disabled,'HQL day '+day);}
   await click('q-show');await wait(()=>el('q-detail').textContent.includes('Q cũ'),'Q trace');
@@ -60,8 +60,8 @@ try{
   const count=downloads.length;await click('stress-json');await wait(()=>downloads.length>count&&!w.stressBusy,'stress JSON export');assert.match(downloads.at(-1).name,/stress-mimic/);w.navigate('lab');assert.equal(w.state.day,3);checks.push('Mimic virtual diagram, result export and isolation from manual lab');
   w.navigate('present');await wait(()=>el('present-qa').children.length===10,'presentation content');assert.equal(el('present-checks').querySelectorAll('input').length,8);assert.ok(el('present-checks').textContent.includes('Gắn nhãn'));
   assert.equal(el('research-direction').children.length,3);assert.equal(el('evidence-messages').children.length,6);
-  d.querySelector('[data-duration="40"]').click();assert.match(el('talk-timeline').textContent,/38:00/);d.querySelector('[data-document="stress_test_plan"]').click();assert.match(el('report-reader').src,/stress_test_plan.html/);checks.push('presentation outline, checklist, Q&A, report reader and download links');
-  w.navigate('slides');await wait(()=>w.slideDeck!==null,'slide deck');assert.equal(w.slideDeck.count,38);assert.equal(el('deck-thumbnails').children.length,38);assert.equal(el('deck-counter').textContent,'1 / 38');assert.equal(el('deck-prev').disabled,true);
+  d.querySelector('[data-duration="40"]').click();assert.match(el('talk-timeline').textContent,/38:00/);assert.match(el('report-reader').src,/presenter_playbook.html/);assert.equal(el('slides-view').closest('#present-view')!==null,true);assert.equal(d.querySelectorAll('#stress-plan a').length,2);checks.push('presentation outline, checklist, Q&A, embedded slide viewer and report; stress plan kept with stress test');
+  w.navigate('slides');assert.equal(w.currentView,'present');await wait(()=>w.slideDeck!==null,'slide deck');assert.equal(w.slideDeck.count,38);assert.equal(el('deck-thumbnails').children.length,38);assert.equal(el('deck-counter').textContent,'1 / 38');assert.equal(el('deck-prev').disabled,true);
   await click('deck-next');assert.equal(el('deck-counter').textContent,'2 / 38');
   el('deck-stage').dispatchEvent(new w.KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));assert.equal(w.slideIndex,2);
   el('deck-stage').dispatchEvent(new w.KeyboardEvent('keydown',{key:'End',bubbles:true}));assert.equal(w.slideIndex,37);assert.equal(el('deck-next').disabled,true);

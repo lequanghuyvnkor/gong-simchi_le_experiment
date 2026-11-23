@@ -2,7 +2,7 @@
 
 Repo này tập hợp ứng dụng học mô hình tồn kho, website bốn mô hình, notebook thí nghiệm và hồ sơ thực nghiệm. Tài liệu, giao diện và hướng dẫn hiện viết bằng tiếng Việt.
 
-**Mở [Inventory Research Hub trên cloud](https://gong-simchi-inventory-lab.snu-chatgpt-5678.chatgpt.site)** — Site riêng tư tổng hợp sản phẩm mô phỏng, stress test qua diagram có cấu hình thay đổi được và báo cáo hướng dẫn thuyết trình. Có bốn video hệ thống, bốn mô hình tương tác, stress chạy từng ngày/tự chạy, JSON/CSV, báo cáo đọc ngay trên trang, slide v4/script và gói mã Streamlit. [Cách dùng, dựng lại và giới hạn](inventory_site/README.md).
+**Mở [Inventory Research Hub trên cloud](https://gong-simchi-inventory-lab.snu-chatgpt-5678.chatgpt.site)** — Site riêng tư có đúng ba mục: **Thuyết trình** (38 slide v4, báo cáo và script), **Mô phỏng** (bốn mô hình và video diagram theo mô hình), **Stress test** (diagram chỉnh được, replay và kế hoạch nghiên cứu). [Cách dùng, dựng lại và giới hạn](inventory_site/README.md).
 
 [Hồ sơ xuất bản và kiểm tra](docs/inventory_site_release.json) ghi source commit, Site version và phạm vi kiểm tra. Bản cổng được kiểm tra bằng 109 test Python (69 lõi + 40 stress API), kiểm tra DOM với Python thật, WebAssembly và [smoke 28 cấu hình / 504 bước](results/interactive_stress/README.md). Layout và thao tác UI trong trình duyệt sau đăng nhập vẫn cần nghiệm thu; kiểm tra DOM/WASM không thay thế bước đó.
 

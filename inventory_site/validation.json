@@ -74,19 +74,18 @@
   },
   "portal": {
     "features": [
-      "overview",
-      "four-model live simulation",
-      "seven editable stress scenarios",
-      "independent stress sessions with replay/CI/CSV/JSON",
-      "four silent diagram videos",
-      "60/40 minute presentation guide",
-      "in-page HTML report readers",
-      "slide v4/script and Streamlit source download",
-      "evidence references and research direction D"
+      "three focused destinations: presentation, simulation, and stress testing",
+      "38-slide v4 viewer embedded in the default presentation page",
+      "four silent system diagrams shown for the selected simulation model",
+      "four-model live simulation with Q replay and CSV",
+      "editable stress diagrams, seven scenarios, paired replay, checks, and JSON/CSV",
+      "60/40 minute presentation guide, checklist, Q&A, and full report",
+      "research evidence and direction D in a collapsed presenter reference section",
+      "stress research plan available alongside stress tests; 32-case matrix not executed"
     ],
     "dom_component_integration": {
       "status": "passed",
-      "checks": 8,
+      "checks": 9,
       "backend": "real native Python through a test bridge",
       "browser_visual_claim": false
     },
@@ -125,6 +124,21 @@
       "models": 4,
       "steps": 1200,
       "source": "results/interactive_stress/budget_bounds.json"
+    },
+    "navigation_cleanup": {
+      "status": "passed",
+      "top_level_destinations_before": 7,
+      "top_level_destinations_after": 3,
+      "removed_as_separate_destinations": [
+        "overview",
+        "model video catalog",
+        "sources and scope"
+      ],
+      "preserved_within_focus_areas": [
+        "slide viewer and research evidence in presentation",
+        "model-specific diagram videos in simulation",
+        "stress research plan in stress test"
+      ]
     }
   },
   "slides_viewer": {
@@ -159,6 +173,7 @@
       "slide_and_asset_hashes": true,
       "rerender_from_saved_pdf_byte_identical": true,
       "worktree_clean_after_checks": true
-    }
+    },
+    "placement": "embedded in the default presenter page; legacy ?view=slides route scrolls to the deck"
   }
 }
