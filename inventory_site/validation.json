@@ -109,6 +109,22 @@
       "markdown": "3.11.3",
       "jsdom": "26.1.0"
     },
-    "clean_clone_check": "pending current portal integration"
+    "clean_clone_check": {
+      "status": "passed",
+      "implementation_commit": "70b0420ee7ffce9a4a8ce62be2e01899ff723f17",
+      "source": "/tmp/gong-hub-clean",
+      "pytest_passed": 109,
+      "dom_integration_checks": 8,
+      "native_assets_and_video_traces": true,
+      "regenerated_assets_identical": true,
+      "webassembly_models_and_stress": true,
+      "worktree_clean_after_checks": true
+    },
+    "budget_bounds": {
+      "status": "passed",
+      "models": 4,
+      "steps": 1200,
+      "source": "results/interactive_stress/budget_bounds.json"
+    }
   }
 }
