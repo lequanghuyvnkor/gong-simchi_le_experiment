@@ -23,8 +23,24 @@ def main():
     assert len(ids)==len(set(ids)),"Duplicate static element IDs"
     for link in re.findall(r'(?:src|href)="(\./[^"#]+)', html):
         assert (DIST / link).exists(), link
-    for name in ("app.js", "engine.worker.js", "hub.js", "stress.js"):
+    for name in ("app.js", "engine.worker.js", "hub.js", "stress.js", "slides.js"):
         subprocess.run(["node", "--check", str(DIST / name)], check=True)
+    slides=json.loads((DIST/"resources/slides_manifest.json").read_text())
+    assert hashlib.sha256((ROOT/slides["source"]["path"]).read_bytes()).hexdigest()==slides["source"]["sha256"]
+    assert hashlib.sha256((DIST/slides["pdf"]["path"]).read_bytes()).hexdigest()==slides["pdf"]["sha256"]
+    from zipfile import ZipFile
+    with ZipFile(ROOT/slides["source"]["path"]) as archive:
+        actual_count=sum(bool(re.fullmatch(r'ppt/slides/slide\d+\.xml',n)) for n in archive.namelist())
+    assert slides["count"]==len(slides["slides"])==actual_count
+    from PIL import Image
+    for index,slide in enumerate(slides["slides"],1):
+        assert slide["number"]==index and slide["title"] and slide["text"]
+        for field in ("image","thumbnail"):
+            asset=DIST/slide[field]
+            assert hashlib.sha256(asset.read_bytes()).hexdigest()==slide[field+"_sha256"]
+            with Image.open(asset) as im:
+                assert abs(im.width/im.height-16/9)<.01
+                if field=="image":assert (im.width,im.height)==(slide["width"],slide["height"])
     # The portal reader is an exact render of authored documents, with inert HTML.
     for name in ("presenter_playbook.html","stress_test_plan.html"):
         doc=(DIST/"resources"/name).read_text()

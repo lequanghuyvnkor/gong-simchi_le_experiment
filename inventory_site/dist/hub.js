@@ -1,9 +1,9 @@
 'use strict';
 var currentView='home',presentationContent=null,talkMinutes=60;
-var pageTitles={home:'Từ mô phỏng đến bằng chứng',lab:'Một ngày trong hệ thống tồn kho',stress:'Thiết kế và quan sát stress test',films:'Quy trình bốn mô hình qua diagram động',present:'Chuẩn bị bài trình bày thực nghiệm',learn:'Đọc đúng nguồn và phạm vi kết quả'};
+var pageTitles={home:'Từ mô phỏng đến bằng chứng',lab:'Một ngày trong hệ thống tồn kho',stress:'Thiết kế và quan sát stress test',films:'Quy trình bốn mô hình qua diagram động',slides:'Slide v4 · trình chiếu trực tiếp',present:'Chuẩn bị bài trình bày thực nghiệm',learn:'Đọc đúng nguồn và phạm vi kết quả'};
 function downloadFile(filename,content,type){var url=URL.createObjectURL(new Blob([content],{type:type}));var link=document.createElement('a');link.href=url;link.download=filename;document.body.appendChild(link);link.click();link.remove();setTimeout(function(){URL.revokeObjectURL(url);},1000);}
 function navigate(view,writeHash){
-  if(!pageTitles[view])view='home';stopAuto();stopStress();currentView=view;
+  if(!pageTitles[view])view='home';if(currentView==='slides'&&view!=='slides')closeDeckPresentation();stopAuto();stopStress();currentView=view;
   Object.keys(pageTitles).forEach(function(k){$(k+'-view').hidden=k!==view;});
   document.querySelectorAll('.nav').forEach(function(b){b.classList.toggle('active',b.dataset.view===view);b.setAttribute('aria-current',b.dataset.view===view?'page':'false');});
   $('page-title').textContent=pageTitles[view];document.title=pageTitles[view]+' · Inventory Research Hub';
@@ -11,6 +11,7 @@ function navigate(view,writeHash){
   if(writeHash!==false&&location.hash!=='#'+view)history.replaceState(null,'','#'+view);
   document.querySelectorAll('video').forEach(function(v){if(!v.closest('#'+view+'-view')&&v.pause)v.pause();});
   if((view==='lab'||view==='stress')&&!worker)boot();
+  if(view==='slides')loadSlides();
   if(view==='present'||view==='learn')loadPresentation();updateButtons();
 }
 function showModelVideo(model){$('video-dialog-title').textContent=labels[model]+' · sơ đồ quy trình';$('model-film').poster='./media/'+model+'.png';$('model-film-source').src='./media/'+model+'.mp4';$('model-film').load();$('video-dialog').showModal();}
@@ -32,4 +33,4 @@ async function loadPresentation(){
 }
 document.querySelectorAll('[data-duration]').forEach(function(b){b.onclick=function(){talkMinutes=Number(b.dataset.duration);renderOutline();};});
 document.querySelectorAll('[data-document]').forEach(function(b){b.onclick=function(){document.querySelectorAll('[data-document]').forEach(function(x){x.classList.toggle('active',x===b);});$('report-reader').src='./resources/'+b.dataset.document+'.html';$('report-reader').title=b.dataset.document==='presenter_playbook'?'Báo cáo hướng dẫn trình bày':'Kế hoạch stress test';};});
-navigate(location.hash.slice(1)||'home',false);
+navigate(location.hash.slice(1)||new URLSearchParams(location.search).get('view')||'home',false);

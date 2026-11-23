@@ -37,7 +37,7 @@ const click=async id=>{el(id).click();await new Promise(r=>setTimeout(r,0));};
 const value=(id,v)=>{el(id).value=String(v);el(id).dispatchEvent(new w.Event('input',{bubbles:true}));};
 const checks=[];
 try{
-  for(const name of ['app.js','stress.js','hub.js'])new vm.Script(await fs.readFile(path.join(site,'dist',name),'utf8'),{filename:name}).runInContext(dom.getInternalVMContext());
+  for(const name of ['app.js','stress.js','slides.js','hub.js'])new vm.Script(await fs.readFile(path.join(site,'dist',name),'utf8'),{filename:name}).runInContext(dom.getInternalVMContext());
   assert.equal(workers.length,0);assert.equal(el('home-view').hidden,false);checks.push('home is usable without loading Python');
   w.navigate('lab');await wait(()=>!el('step').disabled,'lab boot');
   for(let day=1;day<=3;day++){await click('step');await wait(()=>el('day-badge').textContent.startsWith('Ngày '+day+' /')&&!el('step').disabled,'HQL day '+day);}
@@ -61,6 +61,16 @@ try{
   w.navigate('present');await wait(()=>el('present-qa').children.length===10,'presentation content');assert.equal(el('present-checks').querySelectorAll('input').length,8);assert.ok(el('present-checks').textContent.includes('Gắn nhãn'));
   assert.equal(el('research-direction').children.length,3);assert.equal(el('evidence-messages').children.length,6);
   d.querySelector('[data-duration="40"]').click();assert.match(el('talk-timeline').textContent,/38:00/);d.querySelector('[data-document="stress_test_plan"]').click();assert.match(el('report-reader').src,/stress_test_plan.html/);checks.push('presentation outline, checklist, Q&A, report reader and download links');
+  w.navigate('slides');await wait(()=>w.slideDeck!==null,'slide deck');assert.equal(w.slideDeck.count,38);assert.equal(el('deck-thumbnails').children.length,38);assert.equal(el('deck-counter').textContent,'1 / 38');assert.equal(el('deck-prev').disabled,true);
+  await click('deck-next');assert.equal(el('deck-counter').textContent,'2 / 38');
+  el('deck-stage').dispatchEvent(new w.KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));assert.equal(w.slideIndex,2);
+  el('deck-stage').dispatchEvent(new w.KeyboardEvent('keydown',{key:'End',bubbles:true}));assert.equal(w.slideIndex,37);assert.equal(el('deck-next').disabled,true);
+  el('deck-select').value=19;el('deck-select').dispatchEvent(new w.Event('change'));assert.match(el('deck-title').textContent,/Online Learning/);assert.match(el('deck-image').src,/slide_20.webp/);
+  el('deck-thumbnails').querySelector('[data-slide-index="0"]').click();assert.equal(w.slideIndex,0);
+  await click('deck-zoom');assert.equal(el('deck-stage').classList.contains('zoomed'),true);
+  await click('deck-fullscreen');assert.equal(el('deck-shell').classList.contains('presentation-mode'),true);
+  el('deck-stage').dispatchEvent(new w.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));assert.equal(el('deck-shell').classList.contains('presentation-mode'),false);
+  assert.equal(w.state.day,3);checks.push('38-slide viewer, selection/thumbnails, keyboard navigation, zoom and presentation-mode escape');
   w.navigate('lab');el('step').click();workers.at(-1).fail();await wait(()=>!w.busy&&!w.ready,'worker failure');assert.equal(el('retry').hidden,false);assert.equal(el('step').disabled,true);assert.equal(w.waiting.size,0);
   await click('retry');await wait(()=>w.ready&&w.state&&w.state.day===0&&!w.busy,'worker retry');assert.equal(w.stressState,null);assert.equal(el('human-cost').textContent,'0,00');checks.push('worker crash releases pending requests; clean restart resets all sessions');
   assert.deepEqual(errors,[]);

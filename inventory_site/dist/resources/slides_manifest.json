@@ -1,0 +1,441 @@
+{
+  "schema_version": 1,
+  "title": "Gong & Simchi-Levi · Academic presentation v4",
+  "source": {
+    "path": "presentation/Gong_Simchi_2024_Academic_60min_v4_repo.pptx",
+    "sha256": "6772cf5d760d23a19af21310188b06cb68aedf467d5a20192a828e2cb152b155",
+    "scope": "distributable repo deck; original third-party screenshots already replaced"
+  },
+  "pdf": {
+    "path": "./resources/slides_v4.pdf",
+    "sha256": "d77f9ccc7d86850e81f48fba28f86d5ffee2187836bbffdd00c27f484b3da3f9"
+  },
+  "count": 38,
+  "software": {
+    "python": "3.12.14",
+    "python_pptx": "1.0.2",
+    "pymupdf": "1.26.6",
+    "pillow": "13.0.0",
+    "pdf_export": "LibreOfficeDev 26.8.0.0.alpha0 2c87e51eeaa2b413ff4ae097b2705eea1995d8e5"
+  },
+  "slides": [
+    {
+      "number": 1,
+      "title": "Bandits atop Reinforcement Learning",
+      "text": "SCIENTIFIC PAPER PRESENTATION · SESSION 2\n\nBandits atop Reinforcement Learning\n\nTackling Online Inventory Models\nwith Cyclic Demands\n\nXiao-Yue Gong and David Simchi-Levi\nManagement Science 70(9), 6139–6157 (2024)\n\nImplementation, replication and extended computational experiments\nLe Quang Huy · SCAIM paper presentation · 4 December 2026",
+      "image": "./media/slides/slide_01.webp",
+      "thumbnail": "./media/slides/thumb_01.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "359e59aa7d9320bd00be60e8b31977233814ff62728c9bb8c2a9d304cbbdcdc4",
+      "thumbnail_sha256": "d40ee0b0824b05c4f179d099246f7da217d6f4cd0187b4e8c49c9f6a7dba1cd5"
+    },
+    {
+      "number": 2,
+      "title": "Research Questions and Evidence Structure",
+      "text": "STUDY DESIGN\n\nResearch Questions and Evidence Structure\n\nRQ1 — Reproduction: can the supplied notebooks reproduce their stored outputs on the documented inputs?\n\nRQ2 — Fit: are benchmarks, information sets and implementations matched to the question being tested?\n\nRQ3 — Sensitivity: how do confidence-bound coefficients affect cost, elimination and stability? This follow-up is proposed work.\n\nGong & Simchi-Levi (2024), Management Science 70(9), 6139–6157. doi:10.1287/mnsc.2023.4947\n\n02",
+      "image": "./media/slides/slide_02.webp",
+      "thumbnail": "./media/slides/thumb_02.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "72c2ac7534b4bf6bbfb5a2239deced4380fcdeda48fb9f765cd52068a29f871b",
+      "thumbnail_sha256": "0bb6e40ffe95082057ab3afd56e59ed5aef9cc476b1919d9b5e9f3e86efa451e"
+    },
+    {
+      "number": 3,
+      "title": "Lost-Sales Inventory Model",
+      "text": "MODEL AND ALGORITHMS\n\nLost-Sales Inventory Model\n\nq_t = max(B_t - x_t, 0)\ny_t = x_t + q_t\n\nSource: Gong & Simchi-Levi (2024), p. 6142\n\ns_t = min(y_t, D_t)\nx_(t+1) = y_t - s_t\nc_t = o_t x_(t+1) + p_t (D_t - s_t)\n\nSource: Gong & Simchi-Levi (2024), p. 6142\n\nScope: one product, periodic review, lost sales and zero replenishment lead time. Unsold inventory carries into the next period. Demand distributions repeat by phase and are unknown to the learner.\n\nThe decision precedes current demand. A target below existing inventory produces no new order; it cannot remove physical stock. Holding and lost-sales penalties are evaluated on each policy’s own trajectory.\n\nGong & Simchi-Levi (2024), Management Science 70(9), 6139–6157. doi:10.1287/mnsc.2023.4947\n\n03",
+      "image": "./media/slides/slide_03.webp",
+      "thumbnail": "./media/slides/thumb_03.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "adf0ebd01d903c704c38c16be5607790a6e4402033fe0ae75cb592c4bf338ef3",
+      "thumbnail_sha256": "212ca11958da918c3aa8e6a50dd2abf28551236356cba1d47d876798e88970da"
+    },
+    {
+      "number": 4,
+      "title": "Censored Demand and Observable Pseudo-Cost",
+      "text": "MODEL AND ALGORITHMS\n\nCensored Demand and Observable Pseudo-Cost\n\nObservable pseudo-cost: c~_t = o_t I_t - p_t s_t\n\nSource: Gong & Simchi-Levi (2024), p. 6143\n\nTrue cost = pseudo-cost + p_t D_t.\nThe same demand path preserves pairwise cost differences.\n\nSource: Gong & Simchi-Levi (2024), p. 6143\n\nEvaluator information and learner information differ. The simulator retains true demand for scoring, while the learner receives sales and remaining inventory.\n\nLower inventory counterfactuals can be identified from a stockout observation; higher-stock outcomes remain censored. The pseudo-cost transformation preserves policy cost differences in expectation under the baseline objective.\n\nGong & Simchi-Levi (2024), Management Science 70(9), 6139–6157. doi:10.1287/mnsc.2023.4947\n\n04",
+      "image": "./media/slides/slide_04.webp",
+      "thumbnail": "./media/slides/thumb_04.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "28ab517ef77eadcf9c472d47b354662969a2a773553c26d1d18c6fdcd67d4268",
+      "thumbnail_sha256": "d74697d993c1c2de3f6cb1f19af41ab1ce1bd1ccec53850a73d693ee364d6da8"
+    },
+    {
+      "number": 5,
+      "title": "HQL and Meta-HQL: Algorithmic Structure",
+      "text": "MODEL AND ALGORITHMS\n\nHQL and Meta-HQL: Algorithmic Structure\n\nHQL: Bellman-style update and action elimination\n\nMeta-HQL: shifted copies and block scheduling\n\nHQL: choose the largest eligible target;\nupdate backward using observable lower-stock feedback;\ncontinue at the stopping state; prune by a confidence gap.\n\nMeta-HQL: shifted HQL copies\n\nRun surviving copies in growing blocks.\nBefore switching, wait for the required phase and stock condition.\nKeep physical inventory during handoff.\nCompare copy values and eliminate by a confidence rule.\n\nSource: Gong & Simchi-Levi (2024), p. 6146\n\nalpha_k = (H + 1) / (H + k)\nPruning depends on Q gaps and the selected confidence bound.\n\nSource: Gong & Simchi-Levi (2024), p. 6146\n\nSource: Gong & Simchi-Levi (2024), p. 6150\n\nBase layer: maintain phase-specific Q estimates and running action sets. Simulate eligible lower-stock counterfactuals and update through a stopping-time continuation value.\n\nGong & Simchi-Levi (2024), Management Science 70(9), 6139–6157. doi:10.1287/mnsc.2023.4947\n\n05",
+      "image": "./media/slides/slide_05.webp",
+      "thumbnail": "./media/slides/thumb_05.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "c9ac04f74eeb6f4eb02625a805a537d9a47f90323459e4cf135458fe916b0431",
+      "thumbnail_sha256": "4438c0c5929347c1329c69f6ae4eb73db107629284ac79815c03827906ec7daa"
+    },
+    {
+      "number": 6,
+      "title": "Regret Definition and Theoretical Guarantee",
+      "text": "MODEL AND ALGORITHMS\n\nRegret Definition and Theoretical Guarantee\n\nRegret compares expected accumulated cost with a distribution-aware benchmark under the same model. See the paper for the complete definition.\n\nThe clairvoyant oracle knows the demand distributions before learning, but not future demand realizations. The published guarantee applies to nondiscarding lost sales with zero lead time.\n\nSource: Gong & Simchi-Levi (2024), p. 6143\n\nFinite-horizon curves assess empirical behavior. Practical thresholds and additional economic objectives do not automatically retain the theorem’s guarantee.\n\nPublished guarantees depend on the original assumptions and confidence rules. Practical thresholds and economic extensions require separate analysis.\n\nSource: Gong & Simchi-Levi (2024), p. 6150\n\nMain comparison: learn unknown cyclic distributions without knowing future realizations.\n\nGong & Simchi-Levi (2024), Management Science 70(9), 6139–6157. doi:10.1287/mnsc.2023.4947\n\n06",
+      "image": "./media/slides/slide_06.webp",
+      "thumbnail": "./media/slides/thumb_06.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "1fcf82c3b219451e6889c136ed24cb1bb2382d30ffa638904ab414d27653a80d",
+      "thumbnail_sha256": "37f8f095b153152ebb6efc8c1deb592958ea136a40cdca00d317572d9b138719"
+    },
+    {
+      "number": 7,
+      "title": "Official Experimental Settings: Paper vs. Code",
+      "text": "REPLICATION SETUP\n\nOfficial Experimental Settings: Paper vs. Code\n\nPaper/code crosswalk\n\nSynthetic action grid differs between the prose and supplied notebook.\nUse the recorded notebook checksums and reconcile each convention before interpreting a paper figure.\n\nSource: Gong & Simchi-Levi (2024), p. 6151\n\nSynthetic discrepancy: Section 6.1 states base-stock levels in [0,10], whereas the supplied notebook uses np.arange(0,15,0.1), ending at 14.9. This difference must remain explicit in a paper–code crosswalk.\n\nRossmann implementation: Store 2, reverse the input row order, remove four initial rows, then floor(Sales/20). Revenue remains a demand proxy, not observed unit demand for one SKU.\n\nSource: official replication package and project audit (18 Nov 2026). Costs use model units.\n\n07",
+      "image": "./media/slides/slide_07.webp",
+      "thumbnail": "./media/slides/thumb_07.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "7be59034a3741409bda5df9967d57f34da321a2afba9219bcbb6259227d24330",
+      "thumbnail_sha256": "323b07752813c2698a762e31d938e3703a4273bee8c4d13a1e407cd8d86f6738"
+    },
+    {
+      "number": 8,
+      "title": "Benchmark Definitions and Information Sets",
+      "text": "REPLICATION SETUP\n\nBenchmark Definitions and Information Sets\n\nA matched benchmark shares dynamics, feasible actions, initial stock, horizon and terminal treatment. A policy called near-OPT is not automatically a certified bound.\n\nSource: Gong & Simchi-Levi (2024), p. 6151\n\nInformation sets are different: the theoretical oracle knows distributions, while the synthetic “Lower Bound on OPT” in Section 6.1 uses all realized demands in hindsight.\n\nA known-distribution project DP reference requires matched dynamics, horizon, initial state and terminal value. The provided Rossmann Near OPT vector can be scored without reproducing its search procedure.\n\nGong & Simchi-Levi (2024), Management Science 70(9), 6139–6157. doi:10.1287/mnsc.2023.4947 Project benchmark definitions (2026).\n\n08",
+      "image": "./media/slides/slide_08.webp",
+      "thumbnail": "./media/slides/thumb_08.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "46ce5d421fce1afd090eaa7f55d51ee69665a6d514448523c288bf23db16eeae",
+      "thumbnail_sha256": "8dc23babf2f1e96acd52161aa213ce4e4dc0f7fb522b712b55029261b1f7cb40"
+    },
+    {
+      "number": 9,
+      "title": "Replication Protocol and Output Agreement",
+      "text": "OFFICIAL REPLICATION\n\nReplication Protocol and Output Agreement\n\nAudit execution used original cell sources in a fresh namespace. Original notebooks and data were preserved, with input hashes recorded. Synthetic randomness was seeded to 0 for the audit.\n\nSupported result: both Rossmann totals match stored outputs. Full paper-figure reconciliation and independent implementation agreement remain separate validation tasks.\n\nSource: official replication package and project audit (18 Nov 2026). Costs use model units.\n\n09",
+      "image": "./media/slides/slide_09.webp",
+      "thumbnail": "./media/slides/thumb_09.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "eacc60ec551eb7d08128ed9ec4febfbc9e9f04de6c30b3086c5ba513c40be0fd",
+      "thumbnail_sha256": "5421906084f9562948ac3c3c6d2cedf6799d53b58aaa35eaed93defb1d2c99c3"
+    },
+    {
+      "number": 10,
+      "title": "Rossmann Replication: Average Inventory Cost",
+      "text": "OFFICIAL REPLICATION\n\nRossmann Replication: Average Inventory Cost\n\nAverage daily cost, model units. Lower is better.\n\nMeta-HQL reduces cost by 30.8% relative to the supplied i.i.d. reference on this fixed historical sequence. The provided Near OPT policy still has substantially lower cost.\n\nInterpretation is restricted to Store 2 and 938 days. Values are model costs. Changing a random seed does not create an independent historical demand series.\n\nSource: official replication package and project audit (18 Nov 2026). Costs use model units.\n\n10",
+      "image": "./media/slides/slide_10.webp",
+      "thumbnail": "./media/slides/thumb_10.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "4a0158c5d632a082b4891075c81b77cc075fdae998b673965fa760ef146cf27b",
+      "thumbnail_sha256": "724ea60f6b55cfab32cea25d50bd69b6f8cad125cb9f9934431a685b1843869d"
+    },
+    {
+      "number": 11,
+      "title": "Expert Advice and Initialization",
+      "text": "OFFICIAL REPLICATION\n\nExpert Advice and Initialization\n\nAverage daily cost over the same 938 days.\n\nFull-horizon mean cost falls from 63.7537 to 60.2026, a 5.6% reduction. The comparison holds the series and core implementation fixed while changing initialization information.\n\nExpert bounds must be available before evaluation. This aggregate comparison does not separately estimate the timing of savings during the initial exploration period.\n\nSource: official replication package and project audit (18 Nov 2026). Costs use model units.\n\n11",
+      "image": "./media/slides/slide_11.webp",
+      "thumbnail": "./media/slides/thumb_11.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "03c37669e3b5d4a029c91d1278c393c45432459c70e09ab8322dd714239fdbc3",
+      "thumbnail_sha256": "b10dafb5cf9b39a34b79cb19565a25ac64c8f642fec4d712977e6a949ee888e2"
+    },
+    {
+      "number": 12,
+      "title": "Synthetic Benchmark: Computational Audit",
+      "text": "OFFICIAL REPLICATION\n\nSynthetic Benchmark: Computational Audit\n\nSame generated demand path, synthetic seed 0.\n\nAudit concern: the sample-value container is overwritten. Validate the numerical benchmark independently; this does not refute the theorem.\n\nSource: Gong & Simchi-Levi (2024), p. 6151\n\nCode concern: the synthetic DP routine overwrites its sample-value container before the final mean. The numerical reference therefore needs reconstruction and validation.\n\nSame-path diagnostic: the notebook DP policy costs 0.64468, while feasible cyclic targets [9,4,1,0,6] cost 0.48668. This check questions the implemented benchmark, not the paper’s regret theorem.\n\nSource: official replication package and project audit (18 Nov 2026). Costs use model units.\n\n12",
+      "image": "./media/slides/slide_12.webp",
+      "thumbnail": "./media/slides/thumb_12.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "68b51b66429073f587624e4399ab25d508b493a5e58f25a1d4c60e5c0df075d3",
+      "thumbnail_sha256": "d51de3c484b5761e98f6960e9e7d1f5b27288b0d6a1e42553605c720ee9cfe34"
+    },
+    {
+      "number": 13,
+      "title": "Independent Implementation and Experimental Protocol",
+      "text": "INDEPENDENT EXPERIMENTS\n\nIndependent Implementation and Experimental Protocol\n\nFinite grid; practical confidence scales.\nThis notebook is separate from the official-code audit.\n\nSource: Gong & Simchi-Levi (2024), p. 6146\n\nCandidate sets are tracked by phase and shifted copy.\n\nSource: Gong & Simchi-Levi (2024), p. 6146\n\nTN1–TN3 use Meta-HQL practical: a finite-grid implementation with declared threshold and trimming conventions. These results are distinct from rerunning the author notebooks.\n\nCommon random demand paths support paired policy comparisons. Learner updates receive permitted feedback only. Quick-mode outputs are exploratory; larger runs are required to assess stability.\n\nSource: project five-experiment notebook, quick mode (6 independent training runs). Model units.\n\n13",
+      "image": "./media/slides/slide_13.webp",
+      "thumbnail": "./media/slides/thumb_13.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "906451be95694872053e187a3a36401e67eca66f89e0fb16c4cd760142f1d43e",
+      "thumbnail_sha256": "2f2b90460001314166ce5dd5f90052c38bc1bcfbb02917c75bdb266ba3a3d375"
+    },
+    {
+      "number": 14,
+      "title": "Learning Curves and Oracle Gap",
+      "text": "INDEPENDENT EXPERIMENTS\n\nLearning Curves and Oracle Gap\n\nCumulative average daily cost. Means over six training paths.\n\nCompleted cycles\n\nThe observed learner-oracle gap includes exploration cost and the finite training horizon.\n\nCumulative average cost retains all initial exploration. At 500 cycles, practical learner cost is 6.524, compared with 7.399 for the constant policy and 3.696 for the matched DP reference.\n\nSource: Gong & Simchi-Levi (2024), p. 6143\n\nSource: project five-experiment notebook, quick mode (6 independent training runs). Model units. TN1, a = 1, v = 0.35, p = 4.\n\n14",
+      "image": "./media/slides/slide_14.webp",
+      "thumbnail": "./media/slides/thumb_14.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "d00f2c03ad05979b2dd498182a98e25d997d134e44f09f746c1163bd57060118",
+      "thumbnail_sha256": "8bc4cf22b0dfe448faa3c4390c9d29864329e102bb4703ae2359a61fe2d61726"
+    },
+    {
+      "number": 15,
+      "title": "Sensitivity to the Strength of Cyclicity",
+      "text": "INDEPENDENT EXPERIMENTS\n\nSensitivity to the Strength of Cyclicity\n\nAverage daily cost over 500 cycles, same comparison protocol.\n\nNo cycle: practical learner 7.059, constant 3.996. Moderate cycle: learner 6.598, constant 4.974. Strong cycle: learner 6.524, constant 7.399.\n\nThe strong-cycle paired improvement is 0.875 cost/day, approximately 11.8%, with a six-path approximate 95% interval [0.607,1.142]. Modeling value must compensate for finite-horizon exploration.\n\nSource: project five-experiment notebook, quick mode (6 independent training runs). Model units. TN1, a ∈ {0, 0.5, 1}.\n\n15",
+      "image": "./media/slides/slide_15.webp",
+      "thumbnail": "./media/slides/thumb_15.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "33db6f4bd8a36acf06665ca0ba66c83f5f06064ad59474c3c05c8b22d32f0d80",
+      "thumbnail_sha256": "d89e6cfba9a4f1a57f9c54ab2302e245bc8920912b2765cff28a290a226cf77f"
+    },
+    {
+      "number": 16,
+      "title": "Running Sets and Surviving Shifted Copies",
+      "text": "INDEPENDENT EXPERIMENTS\n\nRunning Sets and Surviving Shifted Copies\n\nCounts from a prespecified representative run.\n\nCycle, representative seed 0\n\nCandidate counts refer to the current phase and copy. Changing the active set can create upward movements in a combined trace even when each individual set is pruned.\n\nAn individual running set is pruned; the active copy may change.\n\nSource: Gong & Simchi-Levi (2024), p. 6146\n\nSource: project five-experiment notebook, quick mode (6 independent training runs). Model units. TN2, seed 0. Handoff days may report zero current candidates.\n\n16",
+      "image": "./media/slides/slide_16.webp",
+      "thumbnail": "./media/slides/thumb_16.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "3390cf5798ea0f855b0ce9b8731314bef6114d090843109182cda3ddb22a2f03",
+      "thumbnail_sha256": "6cf3d49ed7fa02fb0f03696d3cb226416478ed282e857f8a7d30d2c625255ff9"
+    },
+    {
+      "number": 17,
+      "title": "Arm Switching and Inventory Handoff",
+      "text": "INDEPENDENT EXPERIMENTS\n\nArm Switching and Inventory Handoff\n\nInventory units around the first inventory-wait flag.\n\nDay, seed 0 handoff window\n\nAn active no-order decision differs from handoff waiting. Waiting-day cost is an operational statistic and is not switching regret without an appropriate counterfactual reference.\n\nHandoff waiting preserves physical stock; it is separate from an active decision to order nothing.\n\nSource: Gong & Simchi-Levi (2024), p. 6150\n\nSource: project five-experiment notebook, quick mode (6 independent training runs). Model units. TN2. Phase and inventory flags can overlap.\n\n17",
+      "image": "./media/slides/slide_17.webp",
+      "thumbnail": "./media/slides/thumb_17.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "91f3fa0f998604159a83129c94c4ddace1cf154ca9a2e05a1a5c77bf353f2bab",
+      "thumbnail_sha256": "ca086f5d74f88da29c995fb98e2e408f04440d3d4c42159652fb0703d315556a"
+    },
+    {
+      "number": 18,
+      "title": "Demand Volatility and the Learning Gap",
+      "text": "INDEPENDENT EXPERIMENTS\n\nDemand Volatility and the Learning Gap\n\nAverage daily cost, fixed phase means and shortage penalty p = 4.\n\nDemand spread parameter v\n\nAt fixed phase means and shortage penalty 4, learner cost rises with demand spread. The learner–oracle gap falls across the same settings because the oracle also faces a more costly environment.\n\nWaiting fractions remain about 1.51%, 1.48% and 1.51%. These results do not establish that volatility monotonically enlarges a no-action region or prolongs handoff delay.\n\nSource: project five-experiment notebook, quick mode (6 independent training runs). Model units. TN3. Six independent training paths per setting.\n\n18",
+      "image": "./media/slides/slide_18.webp",
+      "thumbnail": "./media/slides/thumb_18.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "93017e862ab49080b231e64e89fb8a1c477a0810aaaec1c574b99113d881e119",
+      "thumbnail_sha256": "7e442bc1eef3c9fabbc6a164d347fb3bc4bcb7bf9806e185b4f67e433f41ebc2"
+    },
+    {
+      "number": 19,
+      "title": "Adapted DQN Comparison: Experimental Design",
+      "text": "ADAPTED COMPARISON\n\nAdapted DQN Comparison: Experimental Design\n\nThe comparison concerns Meta-HQL-P and SRDQN-A, both adapted to a common single-product lost-sales environment with zero lead time and inventory carryover.\n\nEach method receives the same observation budget, grid, costs and paired demand paths. Twenty validation configurations per method precede frozen-policy testing.\n\nSource: archived project comparison study (2026). Meta-HQL-P and SRDQN-A are adapted implementations.\n\n19",
+      "image": "./media/slides/slide_19.webp",
+      "thumbnail": "./media/slides/thumb_19.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "70061eb9e4109068a9ec6f04d5acee8c015df7a15283e12c18ead229dbdfffb5",
+      "thumbnail_sha256": "90ec0e2f36e96c264d6144c724dd185aed58fe64112d4d1b116056f5b6c48648"
+    },
+    {
+      "number": 20,
+      "title": "Online Learning Cost vs. Frozen-Policy Cost",
+      "text": "ADAPTED COMPARISON\n\nOnline Learning Cost vs. Frozen-Policy Cost\n\nMean cost per period across 18 conditions, normalized model units.\n\nWithin this study, all 18 conditions favor SRDQN-A on training-period cost and favor Meta-HQL-P on frozen-policy cost under the declared decision rule.\n\nThe 70,000-interaction check favors Meta-HQL-P clearly in four of six selected conditions; two remain unclear. A ranking requires the implementation, horizon and evaluation regime to be specified.\n\nSource: archived project comparison study (2026). Meta-HQL-P and SRDQN-A are adapted implementations.\n\n20",
+      "image": "./media/slides/slide_20.webp",
+      "thumbnail": "./media/slides/thumb_20.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "65cd23556341086aaf5820dd75951796b0040bbc7d67a175e9cfb334d4ecad1e",
+      "thumbnail_sha256": "c666c5473eac9d421874549672c71b7761cf1c10f8fd056300a6a7361918697a"
+    },
+    {
+      "number": 21,
+      "title": "Comparison with a Weekday Base-Stock Rule",
+      "text": "ADAPTED COMPARISON\n\nComparison with a Weekday Base-Stock Rule\n\nAverage frozen-policy cost, same 18-condition panel.\n\nFrozen mean cost is 0.815723 for the weekday rule and 0.806871 for Meta-HQL-P, an aggregate point-estimate improvement of about 1.1%.\n\nInvestment value should be incremental to the available operational baseline. Cost and service must be assessed jointly; an aggregate mean does not establish equivalence in every condition.\n\nSource: archived project comparison study (2026). Meta-HQL-P and SRDQN-A are adapted implementations.\n\n21",
+      "image": "./media/slides/slide_21.webp",
+      "thumbnail": "./media/slides/thumb_21.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "adeb857ffc45ac0c150ada62b8838bf64b05dcbd7e9b300cbecb6cfccb62fe15",
+      "thumbnail_sha256": "d9d451e41789ceae2ace15f76ac730589c78906e169075bff85a5d5a77ea4f3d"
+    },
+    {
+      "number": 22,
+      "title": "CFO Illustration: Incremental Value and System Cost",
+      "text": "ECONOMIC INTERPRETATION\n\nCFO Illustration: Incremental Value and System Cost\n\nHypothetical incremental amounts for 100 identical independent SKUs.\n\nHypothetical p=10 sample: demand scale 100 units/SKU/day; holding cost 100 VND/unit/day; lost contribution 1,000 VND/unit. Saved-policy annual benefit is about 60,894 VND/SKU versus the weekday rule.\n\nAt 100 identical independent SKUs, annual saving is 6.09 million VND. Assumed setup is 50 million and annual running cost 24 million. First-year incremental net is −67.91 million VND.\n\nSource: project CFO illustration (2026). Hypothetical assumptions, not observed store financials.\n\n22",
+      "image": "./media/slides/slide_22.webp",
+      "thumbnail": "./media/slides/thumb_22.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "f8de2890b274f1d2719011c038f6c97bc21c30e1caecf0757cce39525ec40e30",
+      "thumbnail_sha256": "fd82cc8ccd11664aeeb46f3fb67c482d652ea95e28265ef724c95c3e952adbfb"
+    },
+    {
+      "number": 23,
+      "title": "Risk-Sensitive Extension: Objective and Evaluation",
+      "text": "RISK EXTENSION\n\nRisk-Sensitive Extension: Objective and Evaluation\n\nBaseline paper: expected true-cost objective.\n\nSource: Gong & Simchi-Levi (2024), p. 6143\n\nBaseline paper reference above. A random offset that preserves expected cost differences need not preserve entropic risk or CVaR.\n\nObjective: entropic risk of total true cost, with positive risk parameter. A local approximation adds a variance penalty to mean cost under appropriate existence conditions.\n\nMethod: exact DP on the finite known-distribution model. CVaR95 evaluates the policies but is not the optimized objective. Theta has inverse-cost units and must change with a rescaling of currency.\n\nProject TN4. Entropic control formulation; CVaR context: Chow et al. (2015).\n\n23",
+      "image": "./media/slides/slide_23.webp",
+      "thumbnail": "./media/slides/thumb_23.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "a605430a7498e4b473392073d5a3681142f4211dd6722197dc0e76b8792ad7e3",
+      "thumbnail_sha256": "2223e300926fad0acb33fdacf084565fa9457ffdb839d33d10c4eedc733ce397"
+    },
+    {
+      "number": 24,
+      "title": "Risk-Sensitive Results: Cost, CVaR and Service",
+      "text": "RISK EXTENSION\n\nRisk-Sensitive Results: Cost, CVaR and Service\n\nTotal true cost over 28 days. Same policy-evaluation protocol.\n\nEntropic risk parameter θ\n\nAt theta 0.08, empirical mean total cost increases by 3.45% and CVaR95 falls by 7.56%. Fill rate falls from 98.30% to 96.68%, while mean inventory also declines.\n\nRisk concerns total cost, including excess-stock cost. Lower tail cost therefore need not imply greater safety stock or better service. Small mean differences at low theta can reflect Monte Carlo noise.\n\nSource: project TN4, quick mode. Known-distribution DP, 5,000 evaluation paths.\n\n24",
+      "image": "./media/slides/slide_24.webp",
+      "thumbnail": "./media/slides/thumb_24.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "c6f57d64454043d86113389d6a3d80e7f71c2893db9baa096baee95cf9c4a629",
+      "thumbnail_sha256": "d2cb4eb211a26d678626c300a019e05cb8fe37d9f273a30d228834d1db826e3e"
+    },
+    {
+      "number": 25,
+      "title": "Capital Cost and Fixed Ordering Cost",
+      "text": "CAPITAL EXTENSION\n\nCapital Cost and Fixed Ordering Cost\n\nProject extension: add capital and fixed-order costs to the baseline.\n\nSource: Gong & Simchi-Levi (2024), p. 6142\n\nOriginal baseline cost above. The extension adds a capital charge and a fixed positive-order cost to the known-distribution DP model.\n\nCapital proxy: end-of-day inventory bears the purchase value multiplied by the one-day continuously compounded capital factor. Annual rates and the daily time interval must use consistent units.\n\nA positive-order fixed charge encourages batching. Capital cost discourages inventory exposure. The extension has no cash account, borrowing limit or full corporate cash-flow model.\n\nSource: project TN5. Proxy capital charge on end-of-day inventory, not a complete cash-flow model.\n\n25",
+      "image": "./media/slides/slide_25.webp",
+      "thumbnail": "./media/slides/thumb_25.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "a44b025f388c27ca346ff36d4f51440c217e496f5cece326f27267cacc39ffc8",
+      "thumbnail_sha256": "d3b688dde4337d7f7013e7496d26cdca638ecbbf24ba78c74f388841aebdc6f4"
+    },
+    {
+      "number": 26,
+      "title": "Capital-Cost Sensitivity: Policy Outcomes",
+      "text": "CAPITAL EXTENSION\n\nCapital-Cost Sensitivity: Policy Outcomes\n\nMean ending inventory, known-distribution DP.\n\nAnnual continuous capital rate\n\nAt 20% annual continuous capital rate, mean inventory falls from 3.33 to 0.89 when K=0 and from 3.62 to 1.30 when K=8.\n\nWith K=8, ordering frequency rises from 79.53% at zero capital cost to 90.06% at 20%. Integer actions and finite demand support produce stepwise policy changes.\n\nSource: project TN5, quick mode. Five thousand 28-day evaluation paths.\n\n26",
+      "image": "./media/slides/slide_26.webp",
+      "thumbnail": "./media/slides/thumb_26.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "e37b46cc738610da769a99952c494f1516ab909df59e7f5eacc2ada2493f800e",
+      "thumbnail_sha256": "825ea7032f3ff014131df8a51cd8cdc3e75b824bf2969a04dc31d853c71cf9c1"
+    },
+    {
+      "number": 27,
+      "title": "Order-versus-Wait Decision Boundary",
+      "text": "CAPITAL EXTENSION\n\nOrder-versus-Wait Decision Boundary\n\nΔ = best positive-order cost minus no-order cost. Positive favors waiting.\n\nCurrent inventory, selected phase 5\n\nThe extension compares minimum expected cost conditional on a positive order with cost conditional on no order. A positive difference favors waiting.\n\nFor phase 5 in week 2, K=8, the switch occurs between stocks 13 and 14 at zero capital cost and between 12 and 13 at 30%. This state/time boundary is distinct from a random hitting time.\n\nSource: project TN5. Phase 5 in week 2 of a 28-day horizon, K = 8.\n\n27",
+      "image": "./media/slides/slide_27.webp",
+      "thumbnail": "./media/slides/thumb_27.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "4a64d18a2fe4c3bf0ad28614c21eaa69c65a13898a07b4fddeaedb0f1b8ea792",
+      "thumbnail_sha256": "67a05c13b3e993f64c0537cb31d71c5bdd75316a1dee9a9ae6d3c95b3b994c91"
+    },
+    {
+      "number": 28,
+      "title": "Limitations and Scope of the Evidence",
+      "text": "DISCUSSION\n\nLimitations and Scope of the Evidence\n\nOfficial-code rerun, practical synthetic study, adapted-method comparison and hypothetical financial calculation support different claims. Their units, information sets and horizons should remain visible.\n\nReal-world evaluation requires SKU-level sales and stockout records, observed lead times, costs and service constraints. Trends, promotions and regime changes can violate the fixed cyclic-distribution approximation.\n\nSources: official-code audit, five-experiment notebook, archived comparison and CFO illustration (2026).\n\n28",
+      "image": "./media/slides/slide_28.webp",
+      "thumbnail": "./media/slides/thumb_28.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "ae6d4f715099f29022f9c729bd69e44353ccaa899a847091eef93ec7346e95fa",
+      "thumbnail_sha256": "de61fcf51f067cc3983c6746fefe51994858bbd09909debb1378c7552cf5cc02"
+    },
+    {
+      "number": 29,
+      "title": "Research Extensions and Next Experiments",
+      "text": "DISCUSSION\n\nResearch Extensions and Next Experiments\n\n1. Validate the synthetic benchmark, reconcile the paper figures, and quantify one implementation change at a time.\n\n2. Develop a risk-sensitive learner for the chosen true-cost objective under censored demand. A random policy-independent pseudo-cost offset need not preserve nonlinear risk.\n\n3. Add operational feasibility through lead times, shared capital and service constraints, with a corresponding benchmark and comparison protocol.\n\nResearch agenda derived from the project audit and extensions. Gong & Simchi-Levi (2024); Chow et al. (2015).\n\n29",
+      "image": "./media/slides/slide_29.webp",
+      "thumbnail": "./media/slides/thumb_29.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "ab5e0c8c6d428dfbe49745bba9bdcfd626493732a9a33d82b6eeb4e4082b722c",
+      "thumbnail_sha256": "c729b37615e8ee848b3cc237765d3e9c2e4c8454852d5959c1daf3d801880bdc"
+    },
+    {
+      "number": 30,
+      "title": "References",
+      "text": "REFERENCES\n\nReferences\n\nGong, X.-Y., & Simchi-Levi, D. (2024).\n\nBandits atop Reinforcement Learning: Tackling Online Inventory Models with Cyclic Demands. Management Science, 70(9), 6139–6157.\n\nhttps://doi.org/10.1287/mnsc.2023.4947\n\nOroojlooyjadid, A., Nazari, M., Snyder, L. V., & Takáč, M. (2022).\n\nA Deep Q-Network for the Beer Game: Deep Reinforcement Learning for Inventory Optimization. M&SOM, 24(1), 285–304.\n\nhttps://doi.org/10.1287/msom.2020.0939\n\nChow, Y., Tamar, A., Mannor, S., & Pavone, M. (2015).\n\nRisk-Sensitive and Robust Decision-Making: a CVaR Optimization Approach. NeurIPS 28.\n\nhttps://arxiv.org/abs/1506.02188\n\nOnline-first dates: Gong & Simchi-Levi, 2023; Oroojlooyjadid et al., 2021. Issue years shown above.\n\n30",
+      "image": "./media/slides/slide_30.webp",
+      "thumbnail": "./media/slides/thumb_30.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "18a2207af63a176e24b6b06528ee2bb3844a395ddd1c957000c7b1a094eb711e",
+      "thumbnail_sha256": "72b2526f918dd139b8c3e0defa7f346cf8ca4306e56c704f960d6ea3f788f1c8"
+    },
+    {
+      "number": 31,
+      "title": "Conclusions and Discussion",
+      "text": "CONCLUSIONS\n\nConclusions and Discussion\n\nReproduction: the supplied Rossmann notebook reruns to the stored totals; synthetic benchmark validation remains open.\n\nFinite horizon: cyclicity, practical confidence thresholds and exploration cost affect the observed gain. Online and frozen-policy objectives can favor different methods.\n\nDeployment: strong weekday baselines and incremental system costs matter. Risk and capital objectives can change inventory and service tradeoffs.\n\nDiscussion: which modeling assumption or implementation choice should be tested next?\n\nLe Quang Huy · 4 December 2026 · https://doi.org/10.1287/mnsc.2023.4947\n\nLe Quang Huy · SCAIM paper presentation · 4 December 2026\n\n31",
+      "image": "./media/slides/slide_31.webp",
+      "thumbnail": "./media/slides/thumb_31.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "7d921fe2ea839edd092f91135896bd27de8ca7aaad63ca80227e776c1f71a381",
+      "thumbnail_sha256": "33ede693e2cf0f205a1c5bfcc6f903843078a343e94dbd1709c8dd906ad734e4"
+    },
+    {
+      "number": 32,
+      "title": "Appendix A: Implementation and Data Provenance",
+      "text": "TECHNICAL APPENDIX\n\nAppendix A: Implementation and Data Provenance\n\nAuthor package: official synthetic and Rossmann notebooks. Practical notebook: separate integer-valued seven-day generator. Adapted comparison: normalized single-node environment.\n\nRisk and capital results: known-distribution finite-horizon DP. They assess economic policy sensitivity and are not learned policies with the same information as Meta-HQL.\n\nProject source inventory (2026).\n\n32",
+      "image": "./media/slides/slide_32.webp",
+      "thumbnail": "./media/slides/thumb_32.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "d049edcf4087fabe88a44feabaa1bedd7f003ae76fc66ef1ec59e41ebb41d5f6",
+      "thumbnail_sha256": "82e4d7b873d62445fbe879f109f9e024338c26e379f4c7bab76ba23d1749cfcc"
+    },
+    {
+      "number": 33,
+      "title": "Appendix B: Algorithm Summaries",
+      "text": "TECHNICAL APPENDIX\n\nAppendix B: Algorithm Summaries\n\nHQL - project summary\n\nInitialize value estimates and eligible targets.\nChoose the largest eligible target.\nObserve own censored sales.\nReconstruct supported lower-stock outcomes.\nUpdate backward with stopping-time continuation.\nPrune using the specified confidence rule.\n\nConsult Algorithm 1 for the complete original statement.\n\nMeta-HQL - project summary\n\nMaintain shifted HQL copies.\nSchedule growing blocks.\nAlign phase and starting stock before entry.\nPreserve physical inventory.\nUpdate only completed active episodes.\nCompare surviving copies with a confidence bound.\n\nConsult Algorithm 2 for the complete original statement.\n\nSource: Gong & Simchi-Levi (2024), p. 6150\n\nProject-authored summaries replace original screenshots. Read the cited Algorithms 1-2 for full notation, confidence rules and assumptions.\n\nSource: Gong & Simchi-Levi (2024), p. 6146\n\nGong & Simchi-Levi (2024), Management Science 70(9), 6139–6157. doi:10.1287/mnsc.2023.4947 Implementation details: Algorithms 1–2 and supplied code.\n\n33",
+      "image": "./media/slides/slide_33.webp",
+      "thumbnail": "./media/slides/thumb_33.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "2e96258e041880d3937637a6f72f0ffa97eaa5ba515f3c2b562ccbc719a2ff48",
+      "thumbnail_sha256": "47fc90c75aeb3b976ca15e7301a408efc944060dde3badec625971d88ea6411b"
+    },
+    {
+      "number": 34,
+      "title": "Appendix C: Hyperparameters and Model Changes",
+      "text": "TECHNICAL APPENDIX\n\nAppendix C: Hyperparameters and Model Changes\n\nThe quick notebook and archived comparison use different threshold parameterizations and units. Numeric coefficients cannot be compared directly across them.\n\nThe archived DQN grid varies learning rate, discount, width, target interval and exploration decay. The Meta grid varies action and bandit scales. Both receive equal environment interactions.\n\nSource: project five-experiment notebook, quick mode (6 independent training runs). Model units. Archived preregistered_design.json.\n\n34",
+      "image": "./media/slides/slide_34.webp",
+      "thumbnail": "./media/slides/thumb_34.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "817d3dec52506bb328a6dea81bfeb1e1f5163218ab52cbea484dcd82ccec4be0",
+      "thumbnail_sha256": "87c083e17146a3320f6c7aa5769b7dab6a849a5738ba30e8fe856981893ae3b9"
+    },
+    {
+      "number": 35,
+      "title": "Appendix D: Episode-Start Control",
+      "text": "TECHNICAL APPENDIX\n\nAppendix D: Episode-Start Control\n\nSame Store 2 data. One in-memory call argument changed.\n\nThe controlled change replaces the block-start argument with the actual episode start in one HQL update call. Original source files remain unchanged.\n\nAverage cost changes from 63.753731 to 63.766525. The small observed effect in this series should accompany the code-level concern and should not be generalized without further tests.\n\nSource: official replication package and project audit (18 Nov 2026). Costs use model units.\n\n35",
+      "image": "./media/slides/slide_35.webp",
+      "thumbnail": "./media/slides/thumb_35.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "e40cdd2680037f3082e3e78cc8958d83b1441ed6499973b5eb7b26158a8afadc",
+      "thumbnail_sha256": "02f05dc6219a159c133683390984742fd86f19c053fcbd0118ac0537f2fe77f2"
+    },
+    {
+      "number": 36,
+      "title": "Appendix E: Proposed Confidence-Bound Study",
+      "text": "TECHNICAL APPENDIX\n\nAppendix E: Proposed Confidence-Bound Study\n\nProposed follow-up, not a reported result. First align the author and independent formulas in reward units and episode counts.\n\nSweep one threshold multiplier at a time using common demand paths. Select on validation seeds and report locked test performance, candidate sets, retained copies and early elimination risk.\n\nProposed follow-up design based on official-code audit and project practical experiments.\n\n36",
+      "image": "./media/slides/slide_36.webp",
+      "thumbnail": "./media/slides/thumb_36.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "b57d313ee831add313ac5f4fbca08860c9af783dba52c6aea0837d88d67d5042",
+      "thumbnail_sha256": "106ab278623b504e96093269c7fa0f120db3d95aa37eb335d4c6b838353e5780"
+    },
+    {
+      "number": 37,
+      "title": "Appendix F: Published Regret Bounds",
+      "text": "TECHNICAL APPENDIX\n\nAppendix F: Published Regret Bounds\n\nPublished regret rates depend on the model and its assumptions.\n\nConsult Table 1 in Gong & Simchi-Levi (2024), p. 6142, for the complete model-specific statements.\n\nThe computational audit does not verify or refute the regret theorems.\nPractical confidence coefficients and the project extensions need their own analysis.\n\nSource: Gong & Simchi-Levi (2024), p. 6142\n\nThe original Table 1 reports model-specific rates. Underlined rates match a lower bound in the paper. Other factors and model assumptions remain part of the complete statements.\n\nChanged practical thresholds, nonlinear risk objectives, fixed charges in the lost-sales extension and positive lost-sales lead times require their own analysis.\n\nGong & Simchi-Levi (2024), Management Science 70(9), 6139–6157. doi:10.1287/mnsc.2023.4947 Full model-specific statements are in the cited paper.\n\n37",
+      "image": "./media/slides/slide_37.webp",
+      "thumbnail": "./media/slides/thumb_37.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "b50f15ac6086c138ca1ec3e1de68728126792817766d19fe527edd16636997c4",
+      "thumbnail_sha256": "46de869b7c0b84f4633f3eb3b6ead7f785e0d24f7ba155edf24ee08445767ce0"
+    },
+    {
+      "number": 38,
+      "title": "Appendix G: Reproduction Record",
+      "text": "TECHNICAL APPENDIX\n\nAppendix G: Reproduction Record\n\nOfficial-code rerun and controls\n\naudit_results.json, results/replication_audit/. Original notebook and data hashes retained.\n\nSynthetic seed 0; Rossmann Store 2, 938 days.\n\nPractical and DP experiments\n\ngong_simchi_5_experiments.ipynb; results/five_experiments/.\n\nCSV outputs, configuration, and independent seeds retained.\n\nAdapted comparison and CFO example\n\nresults/beer_rossmann/ and results/cfo/.\n\ncondition_study and cfo_analysis contain design, paired results, and assumptions.\n\nRepository distribution: original paper screenshots replaced by project-authored summaries. Numerical sources: presentation/evidence_map.md.\n\nLocal project evidence (2026). Full resolved paths and source hashes appear in the build provenance.\n\n38",
+      "image": "./media/slides/slide_38.webp",
+      "thumbnail": "./media/slides/thumb_38.webp",
+      "width": 1600,
+      "height": 900,
+      "image_sha256": "40ead22cb825271cc0a0962b29312ef7e1d74b64cb2b02b252bc2f47e6aa1543",
+      "thumbnail_sha256": "19f89d4b60274b9062660097b056162ed5fcc969078c70b362b36ab4cc3fcbb4"
+    }
+  ]
+}

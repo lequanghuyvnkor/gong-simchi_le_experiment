@@ -126,5 +126,32 @@
       "steps": 1200,
       "source": "results/interactive_stress/budget_bounds.json"
     }
+  },
+  "slides_viewer": {
+    "status": "implemented_and_checked",
+    "count": 38,
+    "source_sha256": "6772cf5d760d23a19af21310188b06cb68aedf467d5a20192a828e2cb152b155",
+    "pdf_sha256": "d77f9ccc7d86850e81f48fba28f86d5ffee2187836bbffdd00c27f484b3da3f9",
+    "image_resolution": [
+      1600,
+      900
+    ],
+    "format": "lossless WebP",
+    "thumbnails": 38,
+    "controls": [
+      "previous/next",
+      "slide selector",
+      "thumbnails",
+      "keyboard arrows/Home/End",
+      "zoom",
+      "fullscreen with in-tab fallback and Escape"
+    ],
+    "pdf_pages": 38,
+    "blank_pdf_pages": 0,
+    "pdf_text_outside_pages": 0,
+    "visual_review": "All 38 rendered pages reviewed in contact sheet; full-resolution slides 20 and 37 inspected.",
+    "dom_component_integration_checks": 9,
+    "browser_visual_qa": "Private browser access remains pending; slide raster layout was inspected directly.",
+    "clean_clone_check": "pending this change"
   }
 }

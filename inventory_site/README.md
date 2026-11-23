@@ -58,6 +58,23 @@ node inventory_site/tools/check_pyodide.mjs /tmp/gong-pyodide/node_modules/pyodi
 
 ## Bản cổng tổng hợp
 
+### Trình chiếu slide trực tiếp
+
+Menu **Trình chiếu slide**, hoặc nút **Trình chiếu slide ngay** trong Góc thuyết trình, mở đủ 38 trang của v4 ngay trên Site. Có danh sách/hình thu nhỏ, nút Trước/Tiếp, phím trái/phải và Home/End, phóng to, toàn màn hình (hoặc chế độ trong tab nếu browser không cho fullscreen), Esc để thoát. Đường dẫn `?view=slides` mở trực tiếp trình xem; không cần tải Python hoặc PPTX để xem.
+
+Ảnh slide lossless WebP được xuất từ **PPTX bản phân phối trong repo**, qua PDF LibreOffice; bản gốc trong inputs không bị sửa. Text thay thế được lấy từ hộp văn bản PPTX. Manifest `dist/resources/slides_manifest.json` ghi đủ 38 trang, phiên bản phần mềm và checksum nguồn/PDF/từng ảnh. Nút mở PDF và tải PPTX vẫn có sẵn. Chuyển sang ảnh không giữ animation hoặc đối tượng PPTX có thể sửa; tệp PPTX tải xuống giữ nguyên bản phân phối.
+
+Để dựng lại, Python 3.10+ và dependencies của `inventory_site/requirements.txt`; cài LibreOffice riêng nếu xuất lại PPTX:
+
+```bash
+python inventory_site/tools/build_slides.py
+# Hoặc chỉ render lại PDF đã phân phối, không cần LibreOffice:
+python inventory_site/tools/build_slides.py --pdf inventory_site/dist/resources/slides_v4.pdf
+python inventory_site/tools/check_site.py
+```
+
+Font/phiên bản LibreOffice có thể thay đổi kết xuất; PDF/ảnh đang phân phối đã được kiểm tra số trang và bố cục. Thay nội dung deck phải dựng lại rồi kiểm tra manifest; không sửa ảnh rời để làm sai khác với PPTX.
+
 Menu **Tổng quan** nối các phần thành một luồng: hiểu sản phẩm qua video, tự thử mô phỏng, thiết kế kiểm tra rồi trình bày bằng chứng. Trang tổng quan, video và báo cáo không chờ Python khởi động. Chỉ khi mở mô phỏng/stress mới tải bộ tính toán. Trên màn hình hẹp, sơ đồ phòng mô phỏng chuyển thành các khối dọc có nhãn đọc được.
 
 - **Phòng mô phỏng:** giữ bốn lượt độc lập, có video riêng của mô hình đang xem, Q replay và CSV. Lỗi worker giải phóng request đang chờ; khởi động phiên mới xóa trạng thái cũ với thông báo rõ.
